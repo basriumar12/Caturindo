@@ -86,6 +86,7 @@ public class RoomBookedFragment extends Fragment implements AdapterRoom.OnListen
         }
     }
 
+
     @Override
     public void onErrorGetData(@Nullable String msg) {
         Toast.makeText(getActivity(), msg, Toast.LENGTH_SHORT).show();
