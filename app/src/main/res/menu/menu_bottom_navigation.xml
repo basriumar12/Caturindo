@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/nav_task"
+        android:icon="@drawable/ic_task"
+        android:title="My Task"
+        app:showAsAction="always|withText" />
+
+    <item
+        android:id="@+id/nav_meeting"
+        android:icon="@drawable/ic_meeting"
+        android:title="Meeting"
+        app:showAsAction="always|withText"/>
+
+    <item
+        android:id="@+id/nav_room"
+        android:icon="@drawable/ic_room"
+        android:title="Room"
+        app:showAsAction="always|withText" />
+
+    <item
+        android:id="@+id/nav_transport"
+        android:icon="@drawable/ic_transport"
+        android:title="Transport"
+        app:showAsAction="always|withText" />
+
+</menu>

@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">Caturindo</string>
+    <string name="label_data_kosong">Data Kosong</string>
+    <string-array name="string_array_months">
+        <item>January</item>
+        <item>February</item>
+        <item>March</item>
+        <item>April</item>
+        <item>May</item>
+        <item>June</item>
+        <item>July</item>
+        <item>August</item>
+        <item>September</item>
+        <item>October</item>
+        <item>November</item>
+        <item>Desember</item>
+    </string-array>
+</resources>

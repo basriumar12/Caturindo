@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/grey_soft">
+    <com.nex3z.flowlayout.FlowLayout
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_marginHorizontal="16dp"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        app:flChildSpacing="8dp"
+        app:flChildSpacingForLastRow="auto"
+        app:flRowSpacing="16dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingVertical="4dp"
+            android:paddingHorizontal="8dp"
+            android:background="@drawable/rounded_gradient_grey"
+            android:text="January"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingVertical="4dp"
+            android:paddingHorizontal="8dp"
+            android:background="@drawable/rounded_gradient_grey"
+            android:text="February"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingVertical="4dp"
+            android:paddingHorizontal="8dp"
+            android:background="@drawable/rounded_gradient_grey"
+            android:text="March"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingVertical="4dp"
+            android:paddingHorizontal="8dp"
+            android:background="@drawable/rounded_gradient_grey"
+            android:text="April"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingVertical="4dp"
+            android:paddingHorizontal="8dp"
+            android:background="@drawable/rounded_gradient_grey"
+            android:text="May"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingVertical="4dp"
+            android:paddingHorizontal="8dp"
+            android:background="@drawable/rounded_gradient_grey"
+            android:text="June"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingVertical="4dp"
+            android:paddingHorizontal="8dp"
+            android:background="@drawable/rounded_gradient_grey"
+            android:text="July"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingVertical="4dp"
+            android:paddingHorizontal="8dp"
+            android:background="@drawable/rounded_gradient_grey"
+            android:text="August"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingVertical="4dp"
+            android:paddingHorizontal="8dp"
+            android:background="@drawable/rounded_gradient_grey"
+            android:text="September"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingVertical="4dp"
+            android:paddingHorizontal="8dp"
+            android:background="@drawable/rounded_gradient_grey"
+            android:text="October"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingVertical="4dp"
+            android:paddingHorizontal="8dp"
+            android:background="@drawable/rounded_gradient_grey"
+            android:text="November"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingVertical="4dp"
+            android:paddingHorizontal="8dp"
+            android:background="@drawable/rounded_gradient_grey"
+            android:text="December"/>
+
+
+
+
+        <!--...-->
+
+    </com.nex3z.flowlayout.FlowLayout>
+</RelativeLayout>

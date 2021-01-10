@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "34156123360",
+    "firebase_url": "https://caturindo-debc1.firebaseio.com",
+    "project_id": "caturindo-debc1",
+    "storage_bucket": "caturindo-debc1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:34156123360:android:55463028f3181b6192ac85",
+        "android_client_info": {
+          "package_name": "com.caturindo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "34156123360-rcdr7ohbvv1eeku6g9r1tai9h3ji6d4o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB8WZlhoCYyd9dUUCMVFMpsdhYbU3Qo-jI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "34156123360-rcdr7ohbvv1eeku6g9r1tai9h3ji6d4o.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

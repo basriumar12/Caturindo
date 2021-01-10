@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.Toolbar
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="56dp"
+    android:background="@drawable/gradient_toolbar"
+    app:contentInsetRight="0dp"
+    app:contentInsetEnd="0dp"
+    app:contentInsetLeft="0dp"
+    app:contentInsetStart="0dp">
+    <RelativeLayout
+        android:layout_gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+       <ImageView
+           android:id="@+id/img_toolbar_start_button"
+           android:layout_width="30dp"
+           android:layout_height="30dp"
+           android:layout_marginStart="16dp"
+           android:layout_marginLeft="16dp"
+           android:layout_centerVertical="true"
+           app:tint="@color/grey_dark"
+           app:srcCompat="@drawable/ic_baseline_view_module_24"/>
+        <TextView
+            android:id="@+id/tv_toolbar_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="My Task"
+            android:textColor="@color/grey_dark"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_centerInParent="true"/>
+        <ImageView
+            android:id="@+id/img_first_option"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_toStartOf="@id/img_second_option"
+            android:layout_toLeftOf="@id/img_second_option"
+            android:visibility="gone"
+            app:srcCompat="@drawable/ic_icon_task_history"/>
+        <ImageView
+            android:id="@+id/img_second_option"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:visibility="gone"
+            app:srcCompat="@drawable/ic_icon_filter"
+            />
+
+    </RelativeLayout>
+</androidx.appcompat.widget.Toolbar>

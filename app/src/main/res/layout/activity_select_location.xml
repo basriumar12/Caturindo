@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.SelectLocationActivity">
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/custom_toolbar" />
+    <RadioGroup
+        android:id="@+id/radio_wrapper"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_below="@id/toolbar"
+        android:orientation="horizontal">
+        <RadioButton android:id="@+id/radio_inside"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Office"
+            android:textStyle="bold"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:onClick="onRadioButtonClicked"/>
+        <RadioButton android:id="@+id/radio_outside"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Outside the Office"
+            android:textStyle="bold"
+            android:onClick="onRadioButtonClicked"/>
+    </RadioGroup>
+    <View
+        android:id="@+id/separator"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginHorizontal="16dp"
+        android:layout_below="@id/radio_wrapper"
+        android:background="@color/grey_medium"/>
+    <Button
+        android:id="@+id/btn_book"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Booking Room"
+        android:visibility="invisible"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_below="@id/separator"
+        android:background="@drawable/rounded_gradient_grey"/>
+</RelativeLayout>
