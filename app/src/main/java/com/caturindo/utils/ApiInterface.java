@@ -1,16 +1,17 @@
 package com.caturindo.utils;
 
-import com.caturindo.activities.meeting.booking_room_transport.model.BookingDto;
-import com.caturindo.activities.meeting.booking_room_transport.model.BookingRequest;
-import com.caturindo.activities.meeting.create.model.MeetingDto;
-import com.caturindo.activities.meeting.create.model.MeetingRequest;
 import com.caturindo.models.BaseResponse;
+import com.caturindo.models.BookingDto;
+import com.caturindo.models.BookingRequest;
 import com.caturindo.models.CancelMeetingRequest;
+import com.caturindo.models.MeetingDto;
+import com.caturindo.models.MeetingRequest;
 import com.caturindo.models.MeetingSubDto;
-import com.caturindo.models.RoomDto;
+import com.caturindo.models.MeetingSubRequest;
 import com.caturindo.models.RegisterDto;
+import com.caturindo.models.RoomDto;
 import com.caturindo.models.TaskDto;
-import com.caturindo.models.TrasnportDto;
+import com.caturindo.models.TransportDto;
 import com.caturindo.models.UpdateSubMeetingRequest;
 import com.caturindo.models.UserDto;
 
@@ -82,7 +83,7 @@ public interface ApiInterface {
     );
 
     @GET("transport")
-    Call<BaseResponse<List<TrasnportDto>>> getTransport(
+    Call<BaseResponse<List<TransportDto>>> getTransport(
             @Query("time_start") String start,
             @Query("time_end") String end,
             @Query("date") String date
@@ -130,8 +131,11 @@ public interface ApiInterface {
     @POST("meeting/create")
     Call<BaseResponse<MeetingDto>> postMeeting(@Body MeetingRequest meetingRequest);
 
+    @POST("meeting/create_sub_meeting")
+    Call<BaseResponse<MeetingSubDto>> postMeetingSub(@Body MeetingSubRequest meetingRequest);
+
     @POST("booking/create")
-    Call<BaseResponse<BookingDto>> postBooiking(@Body BookingRequest bookingRequest);
+    Call<BaseResponse<BookingDto>> postBooking(@Body BookingRequest bookingRequest);
 
 
 }
