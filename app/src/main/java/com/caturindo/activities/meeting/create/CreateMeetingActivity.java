@@ -1,4 +1,4 @@
-package com.caturindo.activities;
+package com.caturindo.activities.meeting.create;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.caturindo.R;
+import com.caturindo.activities.SelectLocationActivity;
 
 public class CreateMeetingActivity extends AppCompatActivity {
 
@@ -52,7 +53,7 @@ public class CreateMeetingActivity extends AppCompatActivity {
         tvLocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivityForResult(new Intent(CreateMeetingActivity.this,SelectLocationActivity.class),24);
+                startActivityForResult(new Intent(CreateMeetingActivity.this, SelectLocationActivity.class),24);
             }
         });
     }
@@ -66,5 +67,7 @@ public class CreateMeetingActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+    
 
 }

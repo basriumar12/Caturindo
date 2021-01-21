@@ -19,3 +19,5 @@ data class RoomDto(
 	@field:SerializedName("code_room")
 	val codeRoom: String? = null
 )
+
+

@@ -15,7 +15,7 @@ import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
 import com.caturindo.R;
-import com.caturindo.activities.CreateMeetingActivity;
+import com.caturindo.activities.meeting.create.CreateMeetingActivity;
 import com.caturindo.adapters.MeetingViewPagerAdapter;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;

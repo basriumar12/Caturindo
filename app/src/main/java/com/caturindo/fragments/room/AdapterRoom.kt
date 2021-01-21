@@ -34,8 +34,9 @@ class AdapterRoom(val context: Context, val data: MutableList<RoomDto>,
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
         data?.get(position).let { data ->
+            holder.bindView(data,itemListiner)
             holder.itemView.tvRoomItemNameRoom.text = data.nameRoom
-            if (data.statusBooking.equals("1") ) {
+            if (data.statusBooking.equals("0") ) {
                 holder.itemView.tvRoomItemNameAvailable.setText("Available")
                 holder.itemView.ivRoomItemImageAvailable.setImageResource(R.drawable.ic_icon_unchecked)
             } else {

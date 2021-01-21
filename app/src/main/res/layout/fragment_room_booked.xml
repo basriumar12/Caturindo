@@ -22,20 +22,20 @@
         android:layout_width="wrap_content"
         android:layout_centerInParent="true"
         android:layout_height="wrap_content">
-    <ImageView
-        android:layout_centerInParent="true"
-        app:srcCompat="@drawable/ic_baseline_hourglass_empty_24"
-        android:layout_width="150dp"
-        android:layout_height="150dp"/>
 
+        <ImageView
+            android:layout_centerInParent="true"
+            app:srcCompat="@drawable/ic_icon_task_history"
+            android:layout_width="100dp"
+            android:layout_height="100dp" />
         <TextView
-            android:textStyle="bold"
             android:textSize="16sp"
             android:textColor="@color/grey_gradient_hard"
             android:gravity="center"
             android:text="@string/label_data_kosong"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
+
     </androidx.appcompat.widget.LinearLayoutCompat>
 
     <ProgressBar

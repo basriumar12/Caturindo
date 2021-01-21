@@ -1,4 +1,4 @@
-package com.caturindo.activities;
+package com.caturindo.activities.meeting;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;

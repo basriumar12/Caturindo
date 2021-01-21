@@ -36,10 +36,10 @@ class RoomPresenter(private val view: RoomContract.View) : RoomContract.Presente
                         var data = response.body()!!.data
                         view.onSuccessGet(data as MutableList<RoomDto>)
                     } else {
-                        view.onErrorGetData("Gagal dapatkan data")
+                        view.onErrorGetData("Gagal, ${response.message()}")
                     }
                 } else {
-                    view.onErrorGetData("Gagal dapatkan data, ${response.body()?.message}")
+                    view.onErrorGetData("Gagal, ${response.message()}")
                 }
             }
         })

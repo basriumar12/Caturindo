@@ -14,6 +14,7 @@ import android.util.Log;
 
 import com.caturindo.R;
 import com.caturindo.activities.login.LoginActivity;
+import com.caturindo.activities.meeting.MeetingActivity;
 import com.caturindo.adapters.HomeItemAdapter;
 import com.caturindo.models.HomeItemModel;
 import com.caturindo.preference.Prefuser;

@@ -9,6 +9,7 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -37,7 +38,7 @@ public class RoomBookedFragment extends Fragment implements AdapterRoom.OnListen
     private RecyclerView rvRoom;
     private ProgressBar progress_circular;
     private ArrayList<RoomItemModel> itemlist;
-    LinearLayout linearLayout;
+    private LinearLayoutCompat linearLayout;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -76,7 +77,8 @@ public class RoomBookedFragment extends Fragment implements AdapterRoom.OnListen
 
     @Override
     public void onSuccessGet(List<RoomDto> data) {
-        rvRoom.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+        rvRoom.setLayoutManager(new GridLayoutManager(getActivity(),2));
         AdapterRoom adapterRoom = new AdapterRoom(getActivity(),data,this);
         rvRoom.setAdapter(adapterRoom);
         rvRoom.setHasFixedSize(true);
