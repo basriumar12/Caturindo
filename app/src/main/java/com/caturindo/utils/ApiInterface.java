@@ -11,6 +11,7 @@ import com.caturindo.models.MeetingSubRequest;
 import com.caturindo.models.RegisterDto;
 import com.caturindo.models.RoomDto;
 import com.caturindo.models.TaskDto;
+import com.caturindo.models.TaskRequest;
 import com.caturindo.models.TransportDto;
 import com.caturindo.models.UpdateSubMeetingRequest;
 import com.caturindo.models.UserDto;
@@ -46,6 +47,9 @@ public interface ApiInterface {
 
     @GET("task")
     Call<BaseResponse<List<TaskDto>>> getTaskById(@Query("id_task") String idTask);
+
+  @GET("task/add_task")
+    Call<BaseResponse<List<TaskDto>>> postTask(@Body TaskRequest taskRequest);
 
 
     @GET("meeting")
