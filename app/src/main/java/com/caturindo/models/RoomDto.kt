@@ -7,7 +7,7 @@ data class RoomDto(
 	@field:SerializedName("image")
 	val image: List<String?>? = null,
 
-	@field:SerializedName("name_room")
+	@field:SerializedName("nama_ruangan")
 	val nameRoom: String? = null,
 
 	@field:SerializedName("status_booking")

@@ -12,7 +12,7 @@ interface RegisterContract {
     }
 
     interface Presenter {
-        fun getRegister(email : String, pass : String, username : String, phone : String)
+        fun getRegister(email : String, pass : String, username : String, phone : String, role : String)
 
     }
 }

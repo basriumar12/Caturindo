@@ -1,5 +1,6 @@
 package com.caturindo.utils;
 
+import com.caturindo.activities.reset_pass.model.ResetPassRequest;
 import com.caturindo.models.BaseResponse;
 import com.caturindo.models.BookingDto;
 import com.caturindo.models.BookingRequest;
@@ -86,6 +87,11 @@ public interface ApiInterface {
 
     );
 
+    @GET("rooms")
+    Call<BaseResponse<List<RoomDto>>> getRoomAll(
+
+    );
+
     @GET("transport")
     Call<BaseResponse<List<TransportDto>>> getTransport(
             @Query("time_start") String start,
@@ -140,6 +146,11 @@ public interface ApiInterface {
 
     @POST("booking/create")
     Call<BaseResponse<BookingDto>> postBooking(@Body BookingRequest bookingRequest);
+
+
+
+    @POST("users/reset_password")
+    Call<BaseResponse<List<String>>> postResetPass(@Body ResetPassRequest resetPassRequest);
 
 
 }

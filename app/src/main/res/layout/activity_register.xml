@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -18,10 +23,9 @@
         app:layout_constraintEnd_toEndOf="parent"/>
 
     <LinearLayout
+        android:layout_marginTop="@dimen/size_50dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
         android:orientation="vertical"
         android:paddingLeft="20dp"
         android:paddingRight="20dp">
@@ -129,6 +133,62 @@
                 android:textColor="@color/grey_hard"
                 android:textColorHint="@color/grey_hard"/>
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="10dp"
+                android:background="@color/grey_hard"/>
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:orientation="vertical"
+                android:visibility="visible"
+                android:id="@+id/parent_status"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+
+                <TextView
+
+                    android:textColor="@color/black"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/size_16dp"
+                    android:layout_marginTop="@dimen/size_16dp"
+                    android:layout_marginEnd="@dimen/size_16dp"
+                    android:text="@string/describe_your_self"
+                    />
+
+                <RadioGroup
+                    android:backgroundTint="@color/black"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="@dimen/size_16dp"
+                    android:layout_marginStart="@dimen/size_16dp"
+                    android:id="@+id/rbgrup"
+                    android:onClick="radiocheked"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <RadioButton
+                        android:backgroundTint="@color/black"
+                        android:shadowColor="@color/black"
+                        android:textColor="@color/black"
+                        android:id="@+id/manager"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Manager"/>
+                    <RadioButton
+                        android:backgroundTint="@color/black"
+                        android:shadowColor="@color/black"
+                        android:textColor="@color/black"
+                        android:checked="true"
+                        android:layout_marginStart="@dimen/size_16dp"
+                        android:id="@+id/staf"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Staf"/>
+
+                </RadioGroup>
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
         </LinearLayout>
 
         <RelativeLayout
@@ -137,6 +197,7 @@
             android:layout_margin="20dp">
 
             <Button
+                android:gravity="center"
                 android:id="@+id/btnRegister"
                 android:layout_width="120dp"
                 android:layout_height="48dp"
@@ -158,7 +219,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Already have an account?"
+            android:text="@string/sudah_punya_akun"
             android:textColor="@android:color/white"
             android:textAlignment="center"
             android:layout_marginTop="20dp"/>
@@ -172,6 +233,7 @@
             android:layout_marginRight="20dp">
 
             <Button
+                android:gravity="center"
                 android:id="@+id/btnRegisterLogin"
                 android:layout_width="120dp"
                 android:layout_height="48dp"
@@ -188,3 +250,4 @@
     </LinearLayout>
 
 </RelativeLayout>
+</androidx.core.widget.NestedScrollView>

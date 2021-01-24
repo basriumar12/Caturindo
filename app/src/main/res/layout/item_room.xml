@@ -25,11 +25,13 @@
             android:background="@color/colorPrimaryLightMore">
 
             <ImageView
+                android:src="@drawable/no_imge"
                 android:id="@+id/ivRoomItemImage"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/size_150dp"
                 android:layout_centerInParent="true"
-                app:srcCompat="@drawable/ic_launcher_foreground" />
+
+                />
 
         </RelativeLayout>
 

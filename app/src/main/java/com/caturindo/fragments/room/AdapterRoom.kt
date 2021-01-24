@@ -35,18 +35,27 @@ class AdapterRoom(val context: Context, val data: MutableList<RoomDto>,
 
         data?.get(position).let { data ->
             holder.bindView(data,itemListiner)
-            holder.itemView.tvRoomItemNameRoom.text = data.nameRoom
+            holder.itemView.tvRoomItemNameRoom.text = data.nameRoom +" "+data.codeRoom
             if (data.statusBooking.equals("0") ) {
-                holder.itemView.tvRoomItemNameAvailable.setText("Available")
-                holder.itemView.ivRoomItemImageAvailable.setImageResource(R.drawable.ic_icon_unchecked)
-            } else {
                 holder.itemView.tvRoomItemNameAvailable.setText("Booked")
                 holder.itemView.ivRoomItemImageAvailable.setImageResource(R.drawable.ic_icon_checked)
+            } else {
+                holder.itemView.tvRoomItemNameAvailable.setText("Available")
+                holder.itemView.ivRoomItemImageAvailable.setImageResource(R.drawable.ic_icon_unchecked)
+
             }
             holder.itemView.tvRoomItemNameCapacity.setText(data.maxPeople.toString())
-            Glide.with(holder.itemView.context)
-                    .load(data.image?.get(0).toString()
-                    )
+            if (data.image.isNullOrEmpty()) {
+                Glide.with(holder.itemView.context)
+                        .load("https://static.thenounproject.com/png/1554489-200.png")
+                        .error(R.drawable.no_imge)
+                        .into(holder.itemView.ivRoomItemImage)
+            } else{
+                Glide.with(holder.itemView.context)
+                        .load(data.image?.get(0).toString())
+                        .error(R.drawable.no_imge)
+                        .into(holder.itemView.ivRoomItemImage)
+            }
 
         }
     }

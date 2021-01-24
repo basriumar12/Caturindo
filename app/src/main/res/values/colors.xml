@@ -20,5 +20,7 @@
     <color name="green_soft">#46bf98</color>
     <color name="green_weak">#EAFFE0</color>
     <color name="green_hard">#21845e</color>
+    <color name="white">#ffffff</color>
+    <color name="black">#0C0C0C</color>
 
 </resources>

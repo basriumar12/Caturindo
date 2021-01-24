@@ -21,13 +21,10 @@ import com.caturindo.R;
 import com.caturindo.activities.FilterActivity;
 import com.caturindo.activities.NotificationActivity;
 import com.caturindo.activities.TaskDetailActivity;
-import com.caturindo.adapters.TaskItemAdapter;
 import com.caturindo.models.TaskDto;
-import com.caturindo.models.TaskModel;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class TaskFragment extends Fragment implements AdapterTask.OnListener, TaskContract.View {
@@ -82,6 +79,8 @@ public class TaskFragment extends Fragment implements AdapterTask.OnListener, Ta
        });
     }
 
+
+
     private void setupOptionsMenu(){
         mNotificationOption = rootView.findViewById(R.id.img_first_option);
         mFilterOption = rootView.findViewById(R.id.img_second_option);
@@ -127,7 +126,7 @@ public class TaskFragment extends Fragment implements AdapterTask.OnListener, Ta
 
     @Override
     public void onSuccessGet(List<TaskDto> data) {
-        AdapterTask adapter = new AdapterTask(getActivity(),data,this);
+        AdapterTask adapter = new AdapterTask(rootView.getContext(),data,this);
         rvTask = rootView.findViewById(R.id.rv_task);
         rvTask.setAdapter(adapter);
         LinearLayoutManager manager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
@@ -136,6 +135,6 @@ public class TaskFragment extends Fragment implements AdapterTask.OnListener, Ta
 
     @Override
     public void onErrorGetData(@org.jetbrains.annotations.Nullable String msg) {
-        Toast.makeText(getActivity(), msg, Toast.LENGTH_SHORT).show();
+        Toast.makeText(rootView.getContext(), msg, Toast.LENGTH_SHORT).show();
     }
 }

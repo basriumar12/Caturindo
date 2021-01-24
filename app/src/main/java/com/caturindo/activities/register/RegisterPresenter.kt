@@ -15,7 +15,7 @@ class RegisterPresenter(private val view: RegisterContract.View) : RegisterContr
 
     private var data: RegisterDto = RegisterDto()
     var context: Context? = null
-    override fun getRegister(email : String, pass : String, username : String, phone : String) {
+    override fun getRegister(email : String, pass : String, username : String, phone : String, role : String) {
         view.showProgress()
         val api = ServiceGenerator.createService(
                 ApiInterface::class.java,
@@ -23,7 +23,7 @@ class RegisterPresenter(private val view: RegisterContract.View) : RegisterContr
                 Constant.PASS
         )
 
-        api.postRegister(email,pass,username,phone,1).enqueue(object : Callback<BaseResponse<RegisterDto>>{
+        api.postRegister(email,pass,username,phone,role.toInt()).enqueue(object : Callback<BaseResponse<RegisterDto>>{
             override fun onFailure(call: Call<BaseResponse<RegisterDto>>, t: Throwable) {
                 view.hideProgress()
                 view.onErrorGetData("Gagal Request")

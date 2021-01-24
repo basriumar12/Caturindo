@@ -1,8 +1,6 @@
 package com.caturindo.fragments.room
 
-import com.caturindo.models.RegisterDto
 import com.caturindo.models.RoomDto
-import com.caturindo.models.TaskDto
 
 
 interface RoomContract {
@@ -14,7 +12,8 @@ interface RoomContract {
     }
 
     interface Presenter {
-        fun getRoom(status : String)
+        fun getRoom(starTime : String, endTime : String, date : String)
+        fun getAllRoom()
 
     }
 }

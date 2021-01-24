@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:background="@color/white"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="@dimen/size_16dp">
+
+
+    <TextView
+        android:layout_gravity="center"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Pilih Jam dan Tanggal "
+        android:textSize="@dimen/size_18sp" />
+
+    <View
+        android:layout_marginTop="@dimen/size_10dp"
+        android:background="@color/black"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"/>
+
+    <TextView
+        android:layout_marginTop="@dimen/size_20dp"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:id="@+id/tv_time_start"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/pilih_jam_mulai"
+        android:textSize="@dimen/size_16sp" />
+    <TextView
+        android:layout_marginTop="@dimen/size_10dp"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:id="@+id/tv_time_end"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/pilih_jam_berakhir"
+        android:textSize="@dimen/size_16sp" />
+
+    <TextView
+        android:layout_marginTop="@dimen/size_10dp"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:id="@+id/tv_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/pilih_tanggal"
+        android:textSize="@dimen/size_16sp"/>
+
+
+
+
+    <Button
+        android:layout_gravity="right"
+        android:layout_marginTop="@dimen/size_20dp"
+        android:id="@+id/btn_ok"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="OK" />
+
+</androidx.appcompat.widget.LinearLayoutCompat>

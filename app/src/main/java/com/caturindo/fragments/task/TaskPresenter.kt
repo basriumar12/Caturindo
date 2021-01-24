@@ -1,10 +1,8 @@
 package com.caturindo.fragments.task
 
 import android.content.Context
-import android.util.Log
 import com.caturindo.constant.Constant
 import com.caturindo.models.BaseResponse
-import com.caturindo.models.RegisterDto
 import com.caturindo.models.TaskDto
 import com.caturindo.utils.ApiInterface
 import com.caturindo.utils.ServiceGenerator
@@ -32,7 +30,7 @@ class TaskPresenter(private val view: TaskContract.View) : TaskContract.Presente
                 view.hideProgress()
                 if (response.isSuccessful) {
                     if (response.body()?.data != null) {
-                        var data = response.body()!!.data
+                        var data = response.body()?.data
                         view.onSuccessGet(data as MutableList<TaskDto>)
                     } else {
                         view.onErrorGetData("Gagal dapatkan data")
