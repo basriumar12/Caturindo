@@ -12,22 +12,22 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ProgressBar
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.LinearLayoutCompat
-import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.caturindo.BaseFragment
 import com.caturindo.R
 import com.caturindo.activities.RoomDetailActivity
 import com.caturindo.adapters.RoomItemAdapter
 import com.caturindo.models.RoomDto
 import com.caturindo.models.RoomItemModel
+import kotlinx.android.synthetic.main.fragment_room_available.*
 import java.text.SimpleDateFormat
 import java.util.*
 
 
-class RoomAvailableFragment : Fragment(), AdapterRoom.OnListener, RoomContract.View {
+class RoomAvailableFragment : BaseFragment(), AdapterRoom.OnListener, RoomContract.View {
     private var presenter: RoomPresenter? = null
     private var rootView: View? = null
     private val adapter: RoomItemAdapter? = null
@@ -35,8 +35,9 @@ class RoomAvailableFragment : Fragment(), AdapterRoom.OnListener, RoomContract.V
     private var progress_circular: ProgressBar? = null
     private val itemlist: ArrayList<RoomItemModel>? = null
     private var linearLayout: LinearLayoutCompat? = null
+    private var keterangan = ""
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        rootView = inflater.inflate(R.layout.fragment_room_booked, null)
+        rootView = inflater.inflate(R.layout.fragment_room_available, null)
         rvRoom = rootView?.findViewById(R.id.rvRoomBooked)
         linearLayout = rootView?.findViewById(R.id.paren_data_empty)
         progress_circular = rootView?.findViewById(R.id.progress_circular)
@@ -47,7 +48,9 @@ class RoomAvailableFragment : Fragment(), AdapterRoom.OnListener, RoomContract.V
         super.onActivityCreated(savedInstanceState)
         filterData()
         presenter = RoomPresenter(this)
-        // presenter?.getRoom("13:00", "12:00", "2021-01-19") //2021-01-19
+        tv_date_booking_change.setOnClickListener {
+            filterData()
+        }
     }
 
     private fun filterData() {
@@ -72,8 +75,22 @@ class RoomAvailableFragment : Fragment(), AdapterRoom.OnListener, RoomContract.V
             val minute = mcurrentTime[Calendar.MINUTE]
             val mTimePicker: TimePickerDialog
             mTimePicker = TimePickerDialog(activity, OnTimeSetListener { timePicker, selectedHour, selectedMinute ->
-                timeStart.setText("$selectedHour:$selectedMinute")
-                valueTimeStart = "$selectedHour:$selectedMinute"
+
+                var minute = ""
+                var hours = ""
+                if (selectedMinute < 10){
+                    minute = "0$selectedMinute"
+                }else{
+                    minute="$selectedMinute"
+                }
+
+                if (selectedHour < 10){
+                    hours = "0$selectedHour"
+                }else{
+                    hours = "$selectedHour"
+                }
+                timeStart.setText("$hours:$minute")
+                valueTimeStart = "$hours:$minute"
             }, hour, minute, true) //Yes 24 hour time
 
             mTimePicker.setTitle("Select Time")
@@ -87,8 +104,21 @@ class RoomAvailableFragment : Fragment(), AdapterRoom.OnListener, RoomContract.V
             val minute = mcurrentTime[Calendar.MINUTE]
             val mTimePicker: TimePickerDialog
             mTimePicker = TimePickerDialog(activity, OnTimeSetListener { timePicker, selectedHour, selectedMinute ->
-                timeEnd.setText("$selectedHour:$selectedMinute")
-               valueTimeEnd = "$selectedHour:$selectedMinute"
+                var minute = ""
+                var hours = ""
+                if (selectedMinute < 10){
+                    minute = "0$selectedMinute"
+                }else{
+                    minute="$selectedMinute"
+                }
+
+                if (selectedHour < 10){
+                    hours = "0$selectedHour"
+                }else{
+                    hours = "$selectedHour"
+                }
+                timeEnd.setText("$hours:$minute ")
+                valueTimeEnd = "$hours:$minute"
             }, hour, minute, true) //Yes 24 hour time
 
             mTimePicker.setTitle("Select Time")
@@ -117,18 +147,20 @@ class RoomAvailableFragment : Fragment(), AdapterRoom.OnListener, RoomContract.V
         btnOK.setOnClickListener {
             if (valueTimeStart.isNullOrEmpty()) {
                 timeStart.text = "Jam mulai belum dipilih"
-            }
-            if (valueTimeEnd.isNullOrEmpty()) {
+                showErrorMessage("Jam mulai belum dipilih")
+            } else if (valueTimeEnd.isNullOrEmpty()) {
                 timeEnd.text = "Jam berakhir belum dipilih"
+                showErrorMessage("Jam berakhir belum dipilih")
+            } else if (valueDate.isNullOrEmpty()) {
+                date.text = "Tanggal belum di pilih"
+                showErrorMessage("Tanggal belum di pilih")
             }
 
-            if (valueDate.isNullOrEmpty()) {
-                date.text = "Tanggal belum di pilih"
-            }
-           else {
+            else {
 
                 presenter?.getRoom(timeStart.text.toString(), timeEnd.text.toString(), date.text.toString())
-                 customDialog?.dismiss()
+                customDialog?.dismiss()
+                keterangan = "Tanggal Booking $valueDate\nJam Mulai $valueTimeStart - Jam Berakhir $valueTimeEnd "
             }
 
 
@@ -155,12 +187,13 @@ class RoomAvailableFragment : Fragment(), AdapterRoom.OnListener, RoomContract.V
         rvRoom?.adapter = adapterRoom
         rvRoom?.setHasFixedSize(true)
         adapterRoom?.notifyDataSetChanged()
+        tv_date_booking.text = "$keterangan ${data.size} ruangan tersedia."
         if (data.size == 0 || data == null) {
             linearLayout?.visibility = View.VISIBLE
         }
     }
 
     override fun onErrorGetData(msg: String?) {
-        Toast.makeText(activity, msg, Toast.LENGTH_SHORT).show()
+        showErrorMessage(msg)
     }
 }
