@@ -11,6 +11,7 @@ import androidx.appcompat.widget.LinearLayoutCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.caturindo.BaseFragment
 import com.caturindo.R
 import com.caturindo.activities.RoomDetailActivity
 import com.caturindo.adapters.RoomItemAdapter
@@ -18,7 +19,7 @@ import com.caturindo.models.RoomDto
 import com.caturindo.models.RoomItemModel
 import java.util.*
 
-class RoomBookedFragment : Fragment(), AdapterRoom.OnListener, RoomContract.View {
+class RoomBookedFragment : BaseFragment(), AdapterRoom.OnListener, RoomContract.View {
     private var presenter: RoomPresenter? = null
     private var rootView: View? = null
     private val adapter: RoomItemAdapter? = null
@@ -64,6 +65,6 @@ class RoomBookedFragment : Fragment(), AdapterRoom.OnListener, RoomContract.View
     }
 
     override fun onErrorGetData(msg: String?) {
-        Toast.makeText(activity, msg, Toast.LENGTH_SHORT).show()
+        showLongErrorMessage(msg)
     }
 }

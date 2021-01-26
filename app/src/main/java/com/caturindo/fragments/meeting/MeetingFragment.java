@@ -14,9 +14,11 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
+import com.bumptech.glide.Glide;
 import com.caturindo.R;
 import com.caturindo.activities.meeting.create.CreateMeetingActivity;
 import com.caturindo.adapters.MeetingViewPagerAdapter;
+import com.caturindo.preference.Prefuser;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 
@@ -54,6 +56,10 @@ public class MeetingFragment extends Fragment {
                 //Toast.makeText(getContext(), "Create Meeting", Toast.LENGTH_SHORT).show();
             }
         });
+
+        if (new Prefuser().getUser().getRole().equals("3")){
+            fabCreateMeeting.setVisibility(View.GONE);
+        }
         return rootView;
     }
 

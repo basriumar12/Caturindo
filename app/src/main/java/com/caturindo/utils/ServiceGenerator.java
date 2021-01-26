@@ -20,6 +20,7 @@ public class ServiceGenerator {
 
   //public static final String API_BASE_URL = "http://caturindo.kampunginggrisbandung.net/api/";
   public static final String API_BASE_URL = "https://kampunginggrisbandung.net/caturindo/api/";
+  public static final String API_BASE_URL_UPLOAD = "https://kampunginggrisbandung.net/caturindo/api/meeting/upload_file";
 
 
     private static BooleanSerializerDeserializer booleanSerializerDeserializer = new BooleanSerializerDeserializer();

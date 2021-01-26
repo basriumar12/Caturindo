@@ -1,5 +1,6 @@
 package com.caturindo.utils;
 
+import com.caturindo.activities.meeting.create.model.UploadDto;
 import com.caturindo.activities.reset_pass.model.ResetPassRequest;
 import com.caturindo.models.BaseResponse;
 import com.caturindo.models.BookingDto;
@@ -17,15 +18,19 @@ import com.caturindo.models.TransportDto;
 import com.caturindo.models.UpdateSubMeetingRequest;
 import com.caturindo.models.UserDto;
 
+import java.io.File;
 import java.util.List;
 
+import okhttp3.MultipartBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
+import retrofit2.http.Part;
 import retrofit2.http.Query;
 
 public interface ApiInterface {
@@ -119,6 +124,12 @@ public interface ApiInterface {
 
     );
 
+    @GET("users/search")
+    Call<BaseResponse<List<UserDto>>> getAllDataUser(
+
+
+    );
+
     @POST("meeting/cancel_meeting")
     Call<BaseResponse> cancelMeeting(
             @Body CancelMeetingRequest cancelMeetingRequest
@@ -151,6 +162,10 @@ public interface ApiInterface {
 
     @POST("users/reset_password")
     Call<BaseResponse<List<String>>> postResetPass(@Body ResetPassRequest resetPassRequest);
+
+    @Multipart
+    @POST("meeting/upload_file")
+    Call<BaseResponse<UploadDto>> uploadFIle(@Part MultipartBody.Part file);
 
 
 }

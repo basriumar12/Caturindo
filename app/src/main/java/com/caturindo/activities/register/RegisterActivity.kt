@@ -2,16 +2,15 @@ package com.caturindo.activities.register
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ProgressBar
-import android.widget.RadioGroup
+import android.widget.*
 import com.caturindo.BaseActivity
 import com.caturindo.R
 import com.caturindo.activities.login.LoginActivity
 import com.caturindo.models.RegisterDto
 import com.caturindo.utils.ApiInterface
+import com.caturindo.utils.isValidEmailAddress
 import kotlinx.android.synthetic.main.activity_register.*
 
 class RegisterActivity : BaseActivity(), RegisterContract.View {
@@ -25,6 +24,7 @@ class RegisterActivity : BaseActivity(), RegisterContract.View {
     private var btnRegisterLogin: Button? = null
     private var progressBar: ProgressBar? = null
     private val mApiInterface: ApiInterface? = null
+    private var rbGroup : RadioGroup? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
@@ -36,28 +36,37 @@ class RegisterActivity : BaseActivity(), RegisterContract.View {
         progressBar = findViewById(R.id.progressBar)
         btnRegister = findViewById(R.id.btnRegister)
         btnRegisterLogin = findViewById(R.id.btnRegisterLogin)
+        rbGroup = findViewById(R.id.rbgrup)
+        val email = etRegisterEmail?.text.toString()
         btnRegister?.setOnClickListener(View.OnClickListener {
+
+
             if (etRegisterEmail?.getText().toString().equals("") || etRegisterPhone?.getText().toString().equals("") ||
                     etRegisterPassword?.getText().toString().equals("")) {
                showLongErrorMessage("Form registrasi tidak boleh kosong!")
-            } else {
+            }
+
+            else if (isValidEmailAddress(etRegisterEmail?.text.toString())==false){
+                Log.e("TAG","role ${etRegisterEmail?.text.toString()}")
+                showErrorMessage("Salah format email")
+                etRegisterEmail?.setError("Salah format email")
+            }
+            else {
 
 
-                var role = "1"
-                rbgrup.setOnCheckedChangeListener(object : RadioGroup.OnCheckedChangeListener {
-                    override fun onCheckedChanged(group: RadioGroup?, checkedId: Int) {
-
-                        when (checkedId) {
-                            R.id.manager -> {
-                                role = "0"
-                            }
-                            R.id.staf -> {
-                                role ="1"
-
-                            }
-                        }
+                val select = rbgrup.checkedRadioButtonId
+                var role = ""
+                if (select!=-1){
+                    val radio:RadioButton = findViewById(select)
+                    if (radio.text.equals("Manager")){
+                        role = "2"
+                    }else{
+                        role ="3"
                     }
-                })
+                }else{
+                    showErrorMessage("Belum memilih jabatan")
+                }
+
                 presenter?.getRegister(
                         etRegisterEmail?.getText().toString(),
                         etRegisterPassword?.getText().toString(),
@@ -73,6 +82,7 @@ class RegisterActivity : BaseActivity(), RegisterContract.View {
             self.finish()
         })
     }
+
 
     override fun showProgress() {
         progressBar?.visibility = View.VISIBLE

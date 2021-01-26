@@ -1,4 +1,4 @@
-package com.caturindo.activities;
+package com.caturindo.activities.team;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.caturindo.R;
+import com.caturindo.activities.team.add.AddTeamActivity;
 import com.caturindo.adapters.TeamItemAdapter;
 import com.caturindo.models.UserModel;
 
@@ -52,7 +53,7 @@ public class TeamActivity extends AppCompatActivity {
         menuMore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(TeamActivity.this,AddTeamActivity.class));
+                startActivity(new Intent(TeamActivity.this, AddTeamActivity.class));
             }
         });
     }

@@ -5,7 +5,9 @@ import androidx.fragment.app.Fragment;
 
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.caturindo.R;
 import com.caturindo.fragments.meeting.MeetingFragment;
 import com.caturindo.fragments.room.RoomFragment;
@@ -23,8 +25,10 @@ public class MeetingActivity extends AppCompatActivity implements BottomNavigati
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_meeting);
 
+
         bottomNavigationView = findViewById(R.id.bottomNavigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
+
 
         loadFragment(new TaskFragment());
     }

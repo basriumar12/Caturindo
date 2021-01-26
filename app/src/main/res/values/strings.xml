@@ -9,6 +9,7 @@
     <string name="tidak_memmpunyai_akun">Tidak memmpunyai akun?</string>
     <string name="sudah_punya_akun">Sudah punya akun?</string>
     <string name="ganti"> <u>Ganti</u></string>
+    <string name="label_upload_file">Upload File</string>
     <string-array name="string_array_months">
         <item>January</item>
         <item>February</item>

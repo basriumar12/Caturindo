@@ -23,6 +23,7 @@ class RegisterPresenter(private val view: RegisterContract.View) : RegisterContr
                 Constant.PASS
         )
 
+
         api.postRegister(email,pass,username,phone,role.toInt()).enqueue(object : Callback<BaseResponse<RegisterDto>>{
             override fun onFailure(call: Call<BaseResponse<RegisterDto>>, t: Throwable) {
                 view.hideProgress()

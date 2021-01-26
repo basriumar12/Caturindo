@@ -33,15 +33,21 @@ class LoginPresenter(private val view: LoginContract.View) : LoginContract.Prese
             override fun onResponse(call: Call<BaseResponse<RegisterDto>>, response: Response<BaseResponse<RegisterDto>>) {
                 view.hideProgress()
                 if (response.isSuccessful) {
-                    if (response.body()?.data != null) {
 
-                        response.body()!!.data.let {
-                            data = it
+                    if (response.body()?.status?.equals(true)!!) {
+
+                        response.body()?.data.let {
+                            if (it != null) {
+                                data = it
+                                view.onSuccessGet(data)
+                            }else{
+                                view.onErrorGetData("Gagal Login, ${response.body()?.message}")
+                            }
                         }
 
-                        view.onSuccessGet(data)
+
                     } else {
-                        view.onErrorGetData("Gagal Login")
+                        view.onErrorGetData("Gagal Login, ${response.body()?.message}")
                     }
                 } else {
                     view.onErrorGetData("Gagal Login, ${response.body()?.message}")

@@ -1,5 +1,6 @@
 package com.caturindo.activities;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -11,19 +12,24 @@ import android.content.SharedPreferences;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 
 import com.caturindo.R;
 import com.caturindo.activities.login.LoginActivity;
 import com.caturindo.activities.meeting.MeetingActivity;
+import com.caturindo.activities.team.TeamActivity;
 import com.caturindo.adapters.HomeItemAdapter;
 import com.caturindo.models.HomeItemModel;
 import com.caturindo.preference.Prefuser;
 import com.caturindo.utils.AppConstant;
 import com.google.gson.Gson;
+import com.orhanobut.hawk.Hawk;
 
 import java.util.ArrayList;
 
-public class HomeActivity extends AppCompatActivity implements HomeItemAdapter.ItemListener{
+public class HomeActivity extends AppCompatActivity implements HomeItemAdapter.ItemListener {
 
     private HomeActivity self = this;
     private HomeItemAdapter adapter;
@@ -60,14 +66,56 @@ public class HomeActivity extends AppCompatActivity implements HomeItemAdapter.I
         GridLayoutManager manager = new GridLayoutManager(this, 3, RecyclerView.VERTICAL, false);
         recyclerView.setLayoutManager(manager);
 
-        Log.e("TAG","cek user pref"+new Gson().toJson(new Prefuser().getUser()));
+        Log.e("TAG", "cek user pref" + new Gson().toJson(new Prefuser().getUser()));
 
     }
 
     @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        switch (item.getItemId()) {
+            case R.id.menu_logout:
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(self);
+                builder.setTitle("Logout Confirmation");
+                builder.setMessage("Are you sure want to logout?");
+                builder.setPositiveButton("Logout", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        // clear data
+                        Hawk.deleteAll();
+                        new Prefuser().setUser(null);
+                        SharedPreferences sessions = self.getSharedPreferences(AppConstant.SHARED_PREFERENCE_NAME, 0);
+                        SharedPreferences.Editor edit = sessions.edit();
+                        edit.clear();
+                        edit.commit();
+                        Intent intent = new Intent(self, LoginActivity.class);
+                        startActivity(intent);
+                        self.finish();
+                    }
+                });
+                builder.setNegativeButton("Cancel", null);
+                builder.show();
+
+                return true;
+
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.home_menu, menu);
+        return true;
+    }
+
+    @Override
     public void onItemClick(HomeItemModel item) {
-        switch (item.getId()){
-            case 1 :
+        switch (item.getId()) {
+            case 1:
+
                 Intent intent = new Intent(self, MeetingActivity.class);
                 startActivity(intent);
                 break;
@@ -75,7 +123,7 @@ public class HomeActivity extends AppCompatActivity implements HomeItemAdapter.I
                 Intent intentTeam = new Intent(self, TeamActivity.class);
                 startActivity(intentTeam);
                 break;
-            case 3 :
+            case 3:
                 AlertDialog.Builder builder = new AlertDialog.Builder(self);
                 builder.setTitle("Logout Confirmation");
                 builder.setMessage("Are you sure want to logout?");

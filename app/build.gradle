@@ -77,4 +77,15 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
     implementation 'com.valdesekamdem.library:md-toast:0.9.0'
     implementation 'com.github.tommasoberlose:progress-dialog:1.0.0'
+
+    implementation 'com.github.esafirm.android-image-picker:imagepicker:2.4.1'
+    // for experimental rx picker
+    implementation 'com.github.esafirm.android-image-picker:rximagepicker:2.4.1'
+    // If you have a problem with Glide, please use the same Glide version or simply open an issue
+    implementation 'pub.devrel:easypermissions:3.0.0'
+    implementation "com.karumi:dexter:6.2.0"
+    implementation 'id.zelory:compressor:3.0.0'
+    implementation 'com.amitshekhar.android:android-networking:1.0.2'
+    implementation 'com.github.jkwiecien:EasyImage:3.0.4'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.5'
 }
