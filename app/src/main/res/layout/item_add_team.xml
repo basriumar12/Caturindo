@@ -4,6 +4,7 @@
     android:layout_height="wrap_content"
     android:paddingVertical="4dp"
     android:layout_marginTop="8dp"
+    android:id="@+id/parent_view"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <ImageView
         android:id="@+id/img_user_avatar"
@@ -23,6 +24,8 @@
         android:layout_toEndOf="@id/img_user_avatar"
         android:layout_toRightOf="@id/img_user_avatar">
         <TextView
+            android:textStyle="bold"
+            android:textColor="@color/black"
             android:id="@+id/tv_user_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

@@ -35,8 +35,10 @@ class RegisterPresenter(private val view: RegisterContract.View) : RegisterContr
                 view.hideProgress()
                 if (response.isSuccessful) {
                     if (response.body()?.data != null) {
-                        response.body()!!.data.let {
-                            data = it
+                        response.body()?.data.let {
+                            if (it != null) {
+                                data = it
+                            }
                         }
                         view.onSuccessGet(data)
                     } else {

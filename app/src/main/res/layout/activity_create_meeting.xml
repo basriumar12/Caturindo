@@ -34,7 +34,24 @@
                 android:layout_marginTop="16dp"
                 android:orientation="vertical">
 
+                <TextView
+                    android:visibility="gone"
+                    android:id="@+id/et_id_meeting_parent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:background="@drawable/rounded_edit_test"
+                    android:elevation="5dp"
+                    android:hint="Id meeting"
+                    android:paddingHorizontal="8dp"
+                    android:paddingVertical="8dp"
+                    android:textColor="@color/grey_dark"
+                    android:textColorHint="@color/grey_hard"
+                    android:textSize="14sp"
+                    tools:ignore="UnusedAttribute" />
+
                 <EditText
+                    android:layout_marginTop="8dp"
                     android:id="@+id/et_meeting_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -100,7 +117,7 @@
 
                 </RelativeLayout>
 
-                <EditText
+                <TextView
                     android:id="@+id/et_date"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -116,7 +133,7 @@
                     android:textSize="14sp"
                     tools:ignore="UnusedAttribute" />
 
-                <EditText
+                <TextView
                     android:id="@+id/et_time"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -132,7 +149,7 @@
                     android:textSize="14sp"
                     tools:ignore="UnusedAttribute" />
 
-                <EditText
+                <TextView
                     android:id="@+id/et_tag"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -159,7 +176,7 @@
                     android:paddingHorizontal="8dp"
                     android:paddingVertical="8dp"
                     android:text="Location"
-                    android:textColor="@color/grey_hard"
+                    android:textColor="@color/black"
                     android:textSize="14sp"
                     tools:ignore="UnusedAttribute" />
 
@@ -172,6 +189,7 @@
                     android:orientation="horizontal">
 
                     <Button
+                        android:id="@+id/btn_save"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="16dp"
@@ -180,7 +198,9 @@
                         android:text="Save"
                         android:textColor="@color/grey_dark" />
 
+
                     <Button
+                        android:id="@+id/btn_cancel"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@drawable/rounded_button_gradient"

@@ -8,6 +8,7 @@ import com.caturindo.models.RegisterDto
 import com.caturindo.models.UserDto
 import com.caturindo.utils.ApiInterface
 import com.caturindo.utils.ServiceGenerator
+import com.google.gson.Gson
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -32,7 +33,8 @@ class AddTeamPresenter(private val view: AddTeamContract.View) : AddTeamContract
             }
 
             override fun onResponse(call: Call<BaseResponse<List<UserDto>>>, response: Response<BaseResponse<List<UserDto>>>) {
-
+                view.hideProgress()
+                Log.e("TAG","data ${Gson().toJson(response?.body()?.data)}")
                 if (response.isSuccessful) {
                     if (response.body()?.status?.equals(true)!!) {
 

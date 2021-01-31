@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.caturindo.R;
+import com.caturindo.models.UserDto;
 import com.caturindo.models.UserModel;
 
 import java.util.ArrayList;
@@ -16,9 +17,9 @@ import java.util.ArrayList;
 public class AddTeamItemAdapter extends RecyclerView.Adapter<AddTeamItemAdapter.AddTeamViewHolder> {
 
     private Activity activity;
-    private ArrayList<UserModel> teams;
+    private ArrayList<UserDto> teams;
 
-    public AddTeamItemAdapter(Activity activity, ArrayList<UserModel> teams) {
+    public AddTeamItemAdapter(Activity activity, ArrayList<UserDto> teams) {
         this.activity = activity;
         this.teams = teams;
     }
@@ -41,6 +42,8 @@ public class AddTeamItemAdapter extends RecyclerView.Adapter<AddTeamItemAdapter.
     }
 
     public class AddTeamViewHolder  extends RecyclerView.ViewHolder{
+
+
         public AddTeamViewHolder(@NonNull View itemView) {
             super(itemView);
         }

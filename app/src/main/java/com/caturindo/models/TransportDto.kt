@@ -1,11 +1,12 @@
 package com.caturindo.models
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 data class TransportDto(
 
 	@field:SerializedName("image")
-	val image: List<String?>? = null,
+	val image: List<String>? = null,
 
 	@field:SerializedName("id_image")
 	val idImage: String? = null,
@@ -21,4 +22,4 @@ data class TransportDto(
 
 	@field:SerializedName("id")
 	val id: String? = null
-)
+) : Serializable

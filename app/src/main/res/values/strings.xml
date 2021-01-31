@@ -10,6 +10,19 @@
     <string name="sudah_punya_akun">Sudah punya akun?</string>
     <string name="ganti"> <u>Ganti</u></string>
     <string name="label_upload_file">Upload File</string>
+    <string name="list_team">List Team</string>
+    <string name="staf_yang_dipilih">Staf yang dipilih</string>
+    <string name="jam_mulai_jam_berakhir">Jam mulai - Jam Berakhir</string>
+    <string name="catatan">Catatan</string>
+    <string name="nama_driver">Nama Driver</string>
+    <string name="lokasi">Lokasi</string>
+    <string name="judul_task">Judul task</string>
+    <string name="deskripsi">Deskripsi</string>
+    <string name="waktu">Waktu</string>
+    <string name="tanggal">Tanggal</string>
+    <string name="nama">Nama</string>
+    <string name="username">Username</string>
+
     <string-array name="string_array_months">
         <item>January</item>
         <item>February</item>

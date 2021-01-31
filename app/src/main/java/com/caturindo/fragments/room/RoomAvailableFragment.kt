@@ -18,11 +18,12 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.caturindo.BaseFragment
 import com.caturindo.R
-import com.caturindo.activities.RoomDetailActivity
-import com.caturindo.adapters.RoomItemAdapter
+import com.caturindo.activities.room.RoomDetailActivity
 import com.caturindo.models.RoomDto
-import com.caturindo.models.RoomItemModel
+import com.caturindo.preference.ModelDate
+import com.caturindo.preference.Prefuser
 import kotlinx.android.synthetic.main.fragment_room_available.*
+import java.lang.NullPointerException
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -30,12 +31,13 @@ import java.util.*
 class RoomAvailableFragment : BaseFragment(), AdapterRoom.OnListener, RoomContract.View {
     private var presenter: RoomPresenter? = null
     private var rootView: View? = null
-    private val adapter: RoomItemAdapter? = null
     private var rvRoom: RecyclerView? = null
     private var progress_circular: ProgressBar? = null
-    private val itemlist: ArrayList<RoomItemModel>? = null
     private var linearLayout: LinearLayoutCompat? = null
     private var keterangan = ""
+    private var valueTimeStart = ""
+    private var valueTimeEnd = ""
+    private var valueDate = ""
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         rootView = inflater.inflate(R.layout.fragment_room_available, null)
         rvRoom = rootView?.findViewById(R.id.rvRoomBooked)
@@ -61,68 +63,74 @@ class RoomAvailableFragment : BaseFragment(), AdapterRoom.OnListener, RoomContra
         customDialog?.show()
         customDialog?.setCancelable(false)
 
-        var valueTimeStart = ""
-        var valueTimeEnd = ""
-        var valueDate = ""
+
         val btnOK = dialogView.findViewById<Button>(R.id.btn_ok)
         val timeStart = dialogView.findViewById<TextView>(R.id.tv_time_start)
         val timeEnd = dialogView.findViewById<TextView>(R.id.tv_time_end)
         val date = dialogView.findViewById<TextView>(R.id.tv_date)
 
         timeStart.setOnClickListener {
-            val mcurrentTime = Calendar.getInstance()
-            val hour = mcurrentTime[Calendar.HOUR_OF_DAY]
-            val minute = mcurrentTime[Calendar.MINUTE]
-            val mTimePicker: TimePickerDialog
-            mTimePicker = TimePickerDialog(activity, OnTimeSetListener { timePicker, selectedHour, selectedMinute ->
+            try {
+                val mcurrentTime = Calendar.getInstance()
+                val hour = mcurrentTime[Calendar.HOUR_OF_DAY]
+                val minute = mcurrentTime[Calendar.MINUTE]
+                val mTimePicker: TimePickerDialog
+                mTimePicker = TimePickerDialog(rootView?.context, OnTimeSetListener { timePicker, selectedHour, selectedMinute ->
 
-                var minute = ""
-                var hours = ""
-                if (selectedMinute < 10){
-                    minute = "0$selectedMinute"
-                }else{
-                    minute="$selectedMinute"
-                }
+                    var minute = ""
+                    var hours = ""
+                    if (selectedMinute < 10) {
+                        minute = "0$selectedMinute"
+                    } else {
+                        minute = "$selectedMinute"
+                    }
 
-                if (selectedHour < 10){
-                    hours = "0$selectedHour"
-                }else{
-                    hours = "$selectedHour"
-                }
-                timeStart.setText("$hours:$minute")
-                valueTimeStart = "$hours:$minute"
-            }, hour, minute, true) //Yes 24 hour time
+                    if (selectedHour < 10) {
+                        hours = "0$selectedHour"
+                    } else {
+                        hours = "$selectedHour"
+                    }
+                    timeStart.setText("$hours:$minute")
+                    valueTimeStart = "$hours:$minute"
+                }, hour, minute, true) //Yes 24 hour time
 
-            mTimePicker.setTitle("Select Time")
-            mTimePicker.show()
+                mTimePicker.setTitle("Select Time")
+                mTimePicker.show()
+            }catch (e : NullPointerException){
+
+            }
 
         }
 
         timeEnd.setOnClickListener {
-            val mcurrentTime = Calendar.getInstance()
-            val hour = mcurrentTime[Calendar.HOUR_OF_DAY]
-            val minute = mcurrentTime[Calendar.MINUTE]
-            val mTimePicker: TimePickerDialog
-            mTimePicker = TimePickerDialog(activity, OnTimeSetListener { timePicker, selectedHour, selectedMinute ->
-                var minute = ""
-                var hours = ""
-                if (selectedMinute < 10){
-                    minute = "0$selectedMinute"
-                }else{
-                    minute="$selectedMinute"
-                }
+            try {
+                val mcurrentTime = Calendar.getInstance()
+                val hour = mcurrentTime[Calendar.HOUR_OF_DAY]
+                val minute = mcurrentTime[Calendar.MINUTE]
+                val mTimePicker: TimePickerDialog
+                mTimePicker = TimePickerDialog(rootView?.context, OnTimeSetListener { timePicker, selectedHour, selectedMinute ->
+                    var minute = ""
+                    var hours = ""
+                    if (selectedMinute < 10) {
+                        minute = "0$selectedMinute"
+                    } else {
+                        minute = "$selectedMinute"
+                    }
 
-                if (selectedHour < 10){
-                    hours = "0$selectedHour"
-                }else{
-                    hours = "$selectedHour"
-                }
-                timeEnd.setText("$hours:$minute ")
-                valueTimeEnd = "$hours:$minute"
-            }, hour, minute, true) //Yes 24 hour time
+                    if (selectedHour < 10) {
+                        hours = "0$selectedHour"
+                    } else {
+                        hours = "$selectedHour"
+                    }
+                    timeEnd.setText("$hours:$minute ")
+                    valueTimeEnd = "$hours:$minute"
+                }, hour, minute, true) //Yes 24 hour time
 
-            mTimePicker.setTitle("Select Time")
-            mTimePicker.show()
+                mTimePicker.setTitle("Select Time")
+                mTimePicker.show()
+            }catch (e : NullPointerException){
+
+            }
 
         }
 
@@ -170,7 +178,13 @@ class RoomAvailableFragment : BaseFragment(), AdapterRoom.OnListener, RoomContra
 
 
     override fun onClick(data: RoomDto) {
-        startActivity(Intent(activity, RoomDetailActivity::class.java))
+        startActivity(Intent(rootView?.context, RoomDetailActivity::class.java)
+                .putExtra(RoomDto::class.java.simpleName, data))
+
+        Prefuser().setDateBooking(ModelDate(valueTimeStart,valueTimeEnd,valueDate))
+
+
+
     }
 
     override fun showProgress() {
@@ -182,7 +196,7 @@ class RoomAvailableFragment : BaseFragment(), AdapterRoom.OnListener, RoomContra
     }
 
     override fun onSuccessGet(data: MutableList<RoomDto>) {
-        rvRoom?.layoutManager = GridLayoutManager(activity, 2)
+        rvRoom?.layoutManager = GridLayoutManager(rootView?.context, 2)
         val adapterRoom = rootView?.context?.let { AdapterRoom(it, data, this) }
         rvRoom?.adapter = adapterRoom
         rvRoom?.setHasFixedSize(true)
@@ -190,6 +204,8 @@ class RoomAvailableFragment : BaseFragment(), AdapterRoom.OnListener, RoomContra
         tv_date_booking.text = "$keterangan ${data.size} ruangan tersedia."
         if (data.size == 0 || data == null) {
             linearLayout?.visibility = View.VISIBLE
+        }else{
+            linearLayout?.visibility = View.GONE
         }
     }
 

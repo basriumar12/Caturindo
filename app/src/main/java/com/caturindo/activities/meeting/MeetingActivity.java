@@ -13,6 +13,7 @@ import com.caturindo.fragments.meeting.MeetingFragment;
 import com.caturindo.fragments.room.RoomFragment;
 import com.caturindo.fragments.task.TaskFragment;
 import com.caturindo.fragments.transport.TransportFragment;
+import com.caturindo.preference.Prefuser;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MeetingActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
@@ -57,9 +58,13 @@ public class MeetingActivity extends AppCompatActivity implements BottomNavigati
                 fragment = new MeetingFragment();
                 break;
             case R.id.nav_room:
+
+               new Prefuser().setvalidateOnclickRoom("0");
                 fragment = new RoomFragment();
                 break;
             case R.id.nav_transport:
+
+                new Prefuser().setvalidateOnclickRoom("0");
                 fragment = new TransportFragment();
                 break;
         }

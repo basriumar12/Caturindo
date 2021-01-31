@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.cardview.widget.CardView
@@ -131,12 +131,13 @@
                         app:srcCompat="@drawable/ic_pin"/>
 
                     <TextView
+                        android:maxLines="2"
                         android:id="@+id/tv_meeting_loc"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
                         android:layout_marginStart="8dp"
-                        android:layout_marginLeft="8dp"
+                        android:layout_marginEnd="@dimen/size_10dp"
                         android:text="Lt.5 R.123"
                         android:textColor="@android:color/white"
                         android:textSize="12sp" />

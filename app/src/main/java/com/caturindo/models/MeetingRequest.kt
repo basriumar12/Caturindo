@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 data class MeetingRequest(
 
 	@field:SerializedName("id_booking")
-	val idBooking: String? = null,
+	var idBooking: String? = null,
 
 	@field:SerializedName("date")
 	val date: String? = null,

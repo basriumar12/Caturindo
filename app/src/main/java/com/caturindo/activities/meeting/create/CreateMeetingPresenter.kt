@@ -10,11 +10,15 @@ import com.androidnetworking.interfaces.JSONObjectRequestListener
 import com.androidnetworking.interfaces.UploadProgressListener
 import com.caturindo.activities.meeting.create.model.UploadDto
 import com.caturindo.constant.Constant
-import com.caturindo.models.BaseResponse
-import com.caturindo.models.MeetingRequest
+import com.caturindo.models.*
+import com.caturindo.preference.Prefuser
 import com.caturindo.utils.ApiInterface
 import com.caturindo.utils.ServiceGenerator
 import kotlinx.android.synthetic.main.activity_create_meeting.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import okhttp3.Callback
 import okhttp3.MediaType
 import okhttp3.MultipartBody
@@ -29,46 +33,166 @@ class CreateMeetingPresenter(private val view: CreatingMeetingContract.View) : C
 
 
     var context: Context? = null
+    val api = ServiceGenerator.createService(
+            ApiInterface::class.java,
+            Constant.USERNAME,
+            Constant.PASS
+    )
 
     override fun uploadFile(file: MultipartBody.Part) {
 
-        val api = ServiceGenerator.createService(
-                ApiInterface::class.java,
-                Constant.USERNAME,
-                Constant.PASS
-        )
+        GlobalScope.launch {
+            withContext(Dispatchers.Main) {
+                val api = ServiceGenerator.createService(
+                        ApiInterface::class.java,
+                        Constant.USERNAME,
+                        Constant.PASS
+                )
 
-        view.showProgress()
-        api.uploadFIle(file).enqueue(object : retrofit2.Callback<BaseResponse<UploadDto>> {
-            override fun onFailure(call: Call<BaseResponse<UploadDto>>, t: Throwable) {
-            view.hideProgress()
-                view.failUpload("Gagal upload file")
-                Log.e("TAG","gagal upload ${t.message}")
+                view.showProgress()
+                api.uploadFIle(file).enqueue(object : retrofit2.Callback<BaseResponse<UploadDto>> {
+                    override fun onFailure(call: Call<BaseResponse<UploadDto>>, t: Throwable) {
+                        view.hideProgress()
+                        view.failUpload("Gagal upload file")
 
-            }
-
-            override fun onResponse(call: Call<BaseResponse<UploadDto>>, response: Response<BaseResponse<UploadDto>>) {
-                view.hideProgress()
-                if (response.isSuccessful) {
-                    if (response.body()?.status?.equals(true)!!) {
-                        val data = response.body()?.data
-                        data?.let { view.successUpload("Berhasil Upload", it) }
                     }
-                } else {
-                        view.failUpload("Gagal, ${response.body()?.message.toString()}")
-                }
+
+                    override fun onResponse(call: Call<BaseResponse<UploadDto>>, response: Response<BaseResponse<UploadDto>>) {
+                        view.hideProgress()
+                        if (response.isSuccessful) {
+                            if (response.body()?.status?.equals(true)!!) {
+                                val data = response.body()?.data
+                                data?.let { view.successUpload("Berhasil Upload", it) }
+                            }
+                        } else {
+                            view.failUpload("Gagal, ${response.body()?.message.toString()}")
+                        }
+                    }
+                })
             }
-        })
-
-
-
+        }
 
 
     }
 
 
-    override fun postCreate(meetingRequest: MeetingRequest) {
+    override fun postCreate(meetingRequest: MeetingRequest, idParentMeeting: String) {
+        view.showProgress()
 
+        GlobalScope.launch {
+            withContext(Dispatchers.Main) {
+
+                api.postBooking(Prefuser().getBooking()).enqueue(object : retrofit2.Callback<BaseResponse<ArrayList<BookingDto>>> {
+                    override fun onFailure(call: Call<BaseResponse<ArrayList<BookingDto>>>, t: Throwable) {
+                        Log.e("TAG", "gagal create booking ${t.message}")
+                        view.hideProgress()
+                        view.failCreate("Gagal create data")
+
+                    }
+
+                    override fun onResponse(call: Call<BaseResponse<ArrayList<BookingDto>>>, response: Response<BaseResponse<ArrayList<BookingDto>>>) {
+
+
+                        if (response.isSuccessful) {
+                            if (response.body()?.status == true) {
+
+                                //validasi create meeting (1) and submeeting(0)
+                                if (Prefuser().getvalidateMeeting().equals("1")) {
+                                    createMeeting(meetingRequest, response.body()?.data?.get(0)?.id.toString())
+                                } else {
+                                    createSubMeeting(meetingRequest, response.body()?.data?.get(0)?.id.toString(), idParentMeeting)
+                                }
+                            } else {
+                                view.failCreate(response.body()?.message.toString())
+                            }
+                        } else {
+
+                            view.failCreate(response.body()?.message.toString())
+                        }
+                    }
+                })
+
+            }
+        }
+    }
+
+    private fun createSubMeeting(meetingRequest: MeetingRequest, idBooking: String, idParentMeeting: String) {
+        view.showProgress()
+        val idBookingData = idBooking
+        val meetingSubRequest = MeetingSubRequest(
+                idBookingData,
+                meetingRequest.date,
+                idParentMeeting,
+                meetingRequest.description,
+                meetingRequest.location,
+                meetingRequest.idUser.toString(),
+                meetingRequest.time,
+                meetingRequest.tag,
+                meetingRequest.idFile.toString()
+        )
+
+        GlobalScope.launch {
+            withContext(Dispatchers.Main) {
+
+                api.postMeetingSub(meetingSubRequest).enqueue(object : retrofit2.Callback<BaseResponse<MeetingSubDtoNew>>{
+                    override fun onFailure(call: Call<BaseResponse<MeetingSubDtoNew>>, t: Throwable) {
+                        Log.e("TAG", "gagal create booking ${t.message}")
+                        view.hideProgress()
+                        view.failCreate("Gagal create data")
+                    }
+
+                    override fun onResponse(call: Call<BaseResponse<MeetingSubDtoNew>>, response: Response<BaseResponse<MeetingSubDtoNew>>) {
+                        view.hideProgress()
+                        if (response.isSuccessful) {
+                            if (response.body()?.status == true) {
+                                view.succesCreate("Berhasil membuat meeting")
+                            } else {
+                                view.failCreate("Gagal, " + response.body()?.message.toString())
+                            }
+                        } else {
+
+                            view.failCreate("Gagal, " + response.body()?.message.toString())
+                        }
+                    }
+                })
+
+            }
+        }
+    }
+
+    private fun createMeeting(meetingRequest: MeetingRequest, idBooking: String) {
+
+        meetingRequest.idBooking = idBooking
+        GlobalScope.launch {
+            withContext(Dispatchers.Main) {
+
+                api.postMeeting(meetingRequest).enqueue(object : retrofit2.Callback<BaseResponse<MeetingDto>> {
+                    override fun onFailure(call: Call<BaseResponse<MeetingDto>>, t: Throwable) {
+                        Log.e("TAG", "gagal create booking ${t.message}")
+                        view.hideProgress()
+                        view.failCreate("Gagal create data")
+
+                    }
+
+                    override fun onResponse(call: Call<BaseResponse<MeetingDto>>, response: Response<BaseResponse<MeetingDto>>) {
+
+                        view.hideProgress()
+                        if (response.isSuccessful) {
+                            if (response.body()?.status == true) {
+                                view.succesCreate("Berhasil membuat meeting")
+                            } else {
+                                view.failCreate("Gagal, " + response.body()?.message.toString())
+                            }
+                        } else {
+
+                            view.failCreate("Gagal, " + response.body()?.message.toString())
+                        }
+                    }
+                })
+
+            }
+
+        }
     }
 
 }

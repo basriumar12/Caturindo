@@ -1,13 +1,14 @@
 package com.caturindo.models
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 data class RoomDto(
 
 	@field:SerializedName("image")
 	val image: List<String?>? = null,
 
-	@field:SerializedName("nama_ruangan")
+	@field:SerializedName("name_ruangan")
 	val nameRoom: String? = null,
 
 	@field:SerializedName("status_booking")
@@ -18,6 +19,6 @@ data class RoomDto(
 
 	@field:SerializedName("code_room")
 	val codeRoom: String? = null
-)
+) : Serializable
 
 

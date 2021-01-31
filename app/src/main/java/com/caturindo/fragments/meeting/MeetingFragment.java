@@ -16,6 +16,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.bumptech.glide.Glide;
 import com.caturindo.R;
+import com.caturindo.activities.meeting.SelectMeetingActivity;
 import com.caturindo.activities.meeting.create.CreateMeetingActivity;
 import com.caturindo.adapters.MeetingViewPagerAdapter;
 import com.caturindo.preference.Prefuser;
@@ -51,7 +52,11 @@ public class MeetingFragment extends Fragment {
         fabCreateMeeting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getContext(), CreateMeetingActivity.class);
+                new Prefuser().setAddTeam(null);
+                new Prefuser().setDateBooking(null);
+                new Prefuser().setPropertyBooking(null);
+                new Prefuser().setPropertyMeeting(null);
+                Intent intent = new Intent(getContext(), SelectMeetingActivity.class);
                 startActivity(intent);
                 //Toast.makeText(getContext(), "Create Meeting", Toast.LENGTH_SHORT).show();
             }

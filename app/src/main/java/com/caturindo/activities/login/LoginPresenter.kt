@@ -27,30 +27,33 @@ class LoginPresenter(private val view: LoginContract.View) : LoginContract.Prese
             override fun onFailure(call: Call<BaseResponse<RegisterDto>>, t: Throwable) {
                 view.hideProgress()
                 view.onErrorGetData("Gagal request")
-                Log.e("TAG","gagal login ${t.message}")
+                Log.e("TAG", "gagal login ${t.message}")
             }
 
             override fun onResponse(call: Call<BaseResponse<RegisterDto>>, response: Response<BaseResponse<RegisterDto>>) {
                 view.hideProgress()
                 if (response.isSuccessful) {
 
-                    if (response.body()?.status?.equals(true)!!) {
-
-                        response.body()?.data.let {
-                            if (it != null) {
-                                data = it
-                                view.onSuccessGet(data)
-                            }else{
-                                view.onErrorGetData("Gagal Login, ${response.body()?.message}")
+                    if (response.body()?.status == true) {
+                        if (!response.body()?.data?.role.isNullOrEmpty()) {
+                            response.body()?.data.let {
+                                if (it != null) {
+                                    data = it
+                                    view.onSuccessGet(data)
+                                } else {
+                                    view.onErrorGetData("${response.body()?.message}")
+                                }
                             }
+                        } else {
+                            view.onErrorGetData("${response.body()?.message}")
                         }
 
 
                     } else {
-                        view.onErrorGetData("Gagal Login, ${response.body()?.message}")
+                        view.onErrorGetData("${response.body()?.message}")
                     }
                 } else {
-                    view.onErrorGetData("Gagal Login, ${response.body()?.message}")
+                    view.onErrorGetData("${response.body()?.message}")
                 }
             }
 

@@ -6,14 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
-import android.widget.Toast
 import androidx.appcompat.widget.LinearLayoutCompat
-import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.caturindo.BaseFragment
 import com.caturindo.R
-import com.caturindo.activities.RoomDetailActivity
+import com.caturindo.activities.room.RoomDetailActivity
 import com.caturindo.adapters.RoomItemAdapter
 import com.caturindo.models.RoomDto
 import com.caturindo.models.RoomItemModel

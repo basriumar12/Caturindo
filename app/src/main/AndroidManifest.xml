@@ -7,6 +7,7 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.CALL_PHONE"/>
 
     <application
         android:name=".AppControler"
@@ -18,14 +19,57 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".activities.reset_pass.ResetPassActivity"
+        <activity android:name=".activities.team.edit.EditUserActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             />
-        <activity android:name=".activities.meeting.booking_room_transport.CreateBookingRoomActivity"
+        <activity android:name=".activities.team.AddTeamActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+
             />
         <activity
-            android:name=".activities.team.add.AddTeamActivity"
+            android:name=".activities.meeting.detail.MeetingDetailActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".activities.task.detail.ImageActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".activities.task.add_team.AddTeamTaskActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".activities.task.CreateTaskActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".activities.meeting.list.ListSubMeetingActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".activities.meeting.list.ListSubMeetingForCreateMeetingActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".activities.meeting.list.ListMeetingActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".activities.meeting.list.ListMeetingSelecForCreateSubmeetingActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".activities.transport.ChooseTransportActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".activities.room.ChooseRoomActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".activities.reset_pass.ResetPassActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".activities.meeting.booking_room_transport.CreateBookingRoomActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".activities.team.add.AddTeamMeetingActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".activities.FilterActivity"
@@ -34,19 +78,25 @@
             android:name=".activities.SelectLocationActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
+            android:name=".activities.task.SelectMeetingTaskActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".activities.meeting.SelectMeetingActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
             android:name=".activities.team.TeamActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
-            android:name=".activities.TransportDetailActivity"
+            android:name=".activities.transport.TransportDetailActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
-            android:name=".activities.RoomDetailActivity"
+            android:name=".activities.room.RoomDetailActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
             android:name=".activities.NotificationActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
-            android:name=".activities.TaskDetailActivity"
+            android:name=".activities.task.detail.TaskDetailActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
             android:name=".activities.SplashActivity"
@@ -76,7 +126,7 @@
         <activity
             android:name=".activities.meeting.create.CreateMeetingActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.NoActionBar" />
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
 
         <provider
             android:name="androidx.core.content.FileProvider"

@@ -1,11 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".activities.team.add.AddTeamActivity">
+    tools:context=".activities.team.add.AddTeamMeetingActivity">
+
+<LinearLayout
+    android:layout_above="@id/parent_list_add"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activities.team.add.AddTeamMeetingActivity">
     <!-- Custom Toolbar -->
     <include
         android:id="@+id/toolbar"
@@ -17,12 +25,55 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_member"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="match_parent"/>
 
+
+
+    </LinearLayout>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+
+        android:id="@+id/parent_list_add"
+        android:layout_alignParentBottom="true"
+        android:visibility="gone"
+        android:gravity="center"
+        android:layout_margin="@dimen/size_16dp"
+        android:orientation="vertical"
+        android:layout_height="250dp"
+        android:layout_width="match_parent">
+
+        <TextView
+            android:layout_gravity="center"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/staf_yang_dipilih"
+            android:textSize="@dimen/size_18sp" />
+
+        <View
+            android:layout_marginTop="@dimen/size_10dp"
+            android:background="@color/black"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"/>
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_team"
+            tools:listitem="@layout/item_list_add_team"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
     <ProgressBar
+
+        android:layout_centerInParent="true"
         android:visibility="gone"
         android:id="@+id/progress_circular"
         android:layout_gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
-</LinearLayout>
+
+</RelativeLayout>

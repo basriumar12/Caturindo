@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:orientation="vertical">
+
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/custom_toolbar" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/toolbar"
+        android:background="@android:color/white"
+        android:orientation="vertical">
+        <!-- search bar layout -->
+
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:orientation="vertical">
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:background="@color/grey_gradient_soft">
+
+
+                    <ImageView
+                        android:scaleType="fitXY"
+                        android:id="@+id/img_background"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"/>
+                    <FrameLayout
+                        android:layout_centerInParent="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:id="@+id/img_profile_edit"
+                            android:layout_width="@dimen/size_100dp"
+                            android:layout_height="@dimen/size_100dp"
+                            android:layout_centerInParent="true" />
+
+                        <ImageView
+
+                            android:layout_gravity="right|bottom"
+                            android:layout_below="@id/img_profile_edit"
+                            android:id="@+id/img_edit_profile"
+                            android:layout_width="@dimen/size_20dp"
+                            android:layout_height="@dimen/size_20dp"
+                            app:srcCompat="@drawable/ef_ic_camera_white" />
+
+
+                    </FrameLayout>
+
+
+                    <ImageView
+                        android:id="@+id/img_edit_background"
+                        android:layout_width="@dimen/size_20dp"
+                        android:layout_height="@dimen/size_20dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentBottom="true"
+                        android:layout_margin="@dimen/size_10dp"
+                        app:srcCompat="@drawable/ef_ic_camera_white" />
+
+
+                </RelativeLayout>
+
+                <EditText
+                    android:id="@+id/edt_name"
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/rounded_edit_test"
+                    android:elevation="5dp"
+                    android:hint="@string/nama"
+                    android:paddingHorizontal="8dp"
+                    android:paddingVertical="8dp"
+                    android:textColor="@color/grey_dark"
+                    android:textColorHint="@color/grey_hard"
+                    android:textSize="14sp"
+                    tools:ignore="UnusedAttribute" />
+              <EditText
+                    android:id="@+id/edt_username"
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/rounded_edit_test"
+                    android:elevation="5dp"
+                    android:hint="@string/username"
+                    android:paddingHorizontal="8dp"
+                    android:paddingVertical="8dp"
+                    android:textColor="@color/grey_dark"
+                    android:textColorHint="@color/grey_hard"
+                    android:textSize="14sp"
+                    tools:ignore="UnusedAttribute" />
+                <EditText
+                    android:id="@+id/edt_email"
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/rounded_edit_test"
+                    android:elevation="5dp"
+                    android:hint="Email"
+                    android:paddingHorizontal="8dp"
+                    android:paddingVertical="8dp"
+                    android:textColor="@color/grey_dark"
+                    android:textColorHint="@color/grey_hard"
+                    android:textSize="14sp"
+                    tools:ignore="UnusedAttribute" />
+
+                <EditText
+                    android:id="@+id/edt_phone"
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/rounded_edit_test"
+                    android:elevation="5dp"
+                    android:hint="Phone"
+                    android:paddingHorizontal="8dp"
+                    android:paddingVertical="8dp"
+                    android:textColor="@color/grey_dark"
+                    android:textColorHint="@color/grey_hard"
+                    android:textSize="14sp"
+                    tools:ignore="UnusedAttribute" />
+                <EditText
+                    android:id="@+id/edt_whatsapp"
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/rounded_edit_test"
+                    android:elevation="5dp"
+                    android:hint="WhatsApp"
+                    android:paddingHorizontal="8dp"
+                    android:paddingVertical="8dp"
+                    android:textColor="@color/grey_dark"
+                    android:textColorHint="@color/grey_hard"
+                    android:textSize="14sp"
+                    tools:ignore="UnusedAttribute" />
+
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="16dp"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/btn_save"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginRight="16dp"
+                        android:background="@drawable/rounded_button_gradient"
+                        android:text="Save"
+                        android:textColor="@color/grey_dark" />
+
+
+                    <Button
+                        android:id="@+id/btn_cancel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/rounded_button_gradient"
+                        android:text="Cancel"
+                        android:textColor="@color/grey_dark" />
+                </LinearLayout>
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+
+    </LinearLayout>
+
+
+    <ProgressBar
+        android:id="@+id/progress_circular"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="gone" />
+</RelativeLayout>

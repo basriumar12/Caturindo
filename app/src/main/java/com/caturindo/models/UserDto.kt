@@ -7,6 +7,10 @@ data class UserDto(
 	val phone: String? = null,
 	val id: String? = null,
 	val email: String? = null,
-	val username: String? = null
+	val username: String? = null,
+	val whatsapp: String? = null,
+	val name: String? = null
+
+
 )
 

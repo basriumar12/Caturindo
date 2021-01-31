@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:orientation="vertical">
+
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/custom_toolbar" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/toolbar"
+        android:background="@android:color/white"
+        android:orientation="vertical">
+        <!-- search bar layout -->
+
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/et_meeting_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:background="@drawable/rounded_edit_test"
+                    android:elevation="5dp"
+                    android:hint="Meeting Title"
+                    android:paddingHorizontal="8dp"
+                    android:paddingVertical="8dp"
+                    android:textColor="@color/grey_dark"
+                    android:textColorHint="@color/grey_hard"
+                    android:textSize="14sp"
+                    tools:ignore="UnusedAttribute" />
+
+                <EditText
+                    android:layout_marginTop="8dp"
+
+                    android:id="@+id/et_task_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:background="@drawable/rounded_edit_test"
+                    android:elevation="5dp"
+                    android:hint="@string/judul_task"
+                    android:paddingHorizontal="8dp"
+                    android:paddingVertical="8dp"
+                    android:textColor="@color/grey_dark"
+                    android:textColorHint="@color/grey_hard"
+                    android:textSize="14sp"
+                    tools:ignore="UnusedAttribute" />
+
+                <EditText
+                    android:id="@+id/et_task_desctiption"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/rounded_edit_test"
+                    android:elevation="5dp"
+                    android:gravity="top"
+                    android:hint="@string/deskripsi"
+                    android:lines="5"
+                    android:paddingHorizontal="8dp"
+                    android:paddingVertical="8dp"
+                    android:textColor="@color/grey_dark"
+                    android:textColorHint="@color/grey_hard"
+                    android:textSize="14sp"
+                    tools:ignore="UnusedAttribute" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/tv_attachment_label"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="16dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="2dp"
+                        android:background="@drawable/rounded_edit_test"
+                        android:elevation="5dp"
+                        android:hint="Add Attachment"
+                        android:paddingHorizontal="8dp"
+                        android:paddingVertical="8dp"
+                        android:textColor="@color/grey_dark"
+                        android:textColorHint="@color/grey_hard"
+                        android:textStyle="bold"
+                        tools:ignore="UnusedAttribute" />
+
+                    <ImageView
+                        android:visibility="gone"
+                        android:layout_centerInParent="true"
+                        android:id="@+id/img_upload"
+                        android:layout_width="@dimen/size_75dp"
+                        android:layout_height="@dimen/size_75dp"
+                        android:layout_below="@id/tv_attachment_label"
+                        android:layout_margin="@dimen/size_10dp"
+                        android:layout_marginLeft="@dimen/size_10dp" />
+
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/et_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/rounded_edit_test"
+                    android:elevation="5dp"
+                    android:hint="@string/tanggal"
+                    android:paddingHorizontal="8dp"
+                    android:paddingVertical="8dp"
+                    android:textColor="@color/grey_dark"
+                    android:textColorHint="@color/grey_hard"
+                    android:textSize="14sp"
+                    tools:ignore="UnusedAttribute" />
+
+                <TextView
+                    android:id="@+id/et_time"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/rounded_edit_test"
+                    android:elevation="5dp"
+                    android:hint="@string/waktu"
+                    android:paddingHorizontal="8dp"
+                    android:paddingVertical="8dp"
+                    android:textColor="@color/grey_dark"
+                    android:textColorHint="@color/grey_hard"
+                    android:textSize="14sp"
+                    tools:ignore="UnusedAttribute" />
+
+                <TextView
+                    android:visibility="gone"
+                    android:id="@+id/et_tag"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/rounded_edit_test"
+                    android:elevation="5dp"
+                    android:hint="Tag your team"
+                    android:paddingHorizontal="8dp"
+                    android:paddingVertical="8dp"
+                    android:textColor="@color/grey_dark"
+                    android:textColorHint="@color/grey_hard"
+                    android:textSize="14sp"
+                    tools:ignore="UnusedAttribute" />
+
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="16dp"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/btn_save"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginRight="16dp"
+                        android:background="@drawable/rounded_button_gradient"
+                        android:text="Save"
+                        android:textColor="@color/grey_dark" />
+
+
+                    <Button
+                        android:id="@+id/btn_cancel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/rounded_button_gradient"
+                        android:text="Cancel"
+                        android:textColor="@color/grey_dark" />
+                </LinearLayout>
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+
+    </LinearLayout>
+
+
+    <ProgressBar
+        android:id="@+id/progress_circular"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="gone" />
+</RelativeLayout>

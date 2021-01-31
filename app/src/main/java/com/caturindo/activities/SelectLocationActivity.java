@@ -3,6 +3,7 @@ package com.caturindo.activities;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -12,6 +13,8 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.caturindo.R;
+import com.caturindo.activities.room.ChooseRoomActivity;
+import com.caturindo.activities.transport.ChooseTransportActivity;
 
 public class SelectLocationActivity extends AppCompatActivity {
 
@@ -63,6 +66,26 @@ public class SelectLocationActivity extends AppCompatActivity {
                 if (checkedId == R.id.radio_inside || checkedId == R.id.radio_outside) {
                     //Your code
                     btnBook.setVisibility(View.VISIBLE);
+
+                    if (checkedId == R.id.radio_inside){
+                        btnBook.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                startActivity(new Intent(SelectLocationActivity.this, ChooseRoomActivity.class));
+                                finish();
+                            }
+                        });
+                    }
+
+                    if (checkedId == R.id.radio_outside){
+                        btnBook.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                startActivity(new Intent(SelectLocationActivity.this, ChooseTransportActivity.class));
+                                finish();
+                            }
+                        });
+                    }
                 } else {
                     //Your code
 

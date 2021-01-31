@@ -30,7 +30,7 @@ class RoomPresenter(private val view: RoomContract.View) : RoomContract.Presente
                 view.hideProgress()
                 if (response.isSuccessful) {
                     if (response.body()?.data != null) {
-                        var data = response.body()!!.data
+                        var data = response.body()?.data
                         view.onSuccessGet(data as MutableList<RoomDto>)
                     } else {
                         view.onErrorGetData("Gagal, ${response.message()}")
@@ -54,7 +54,7 @@ class RoomPresenter(private val view: RoomContract.View) : RoomContract.Presente
                 view.hideProgress()
                 if (response.isSuccessful) {
                     if (response.body()?.data != null) {
-                        var data = response.body()!!.data
+                        var data = response.body()?.data
                         view.onSuccessGet(data as MutableList<RoomDto>)
                     } else {
                         view.onErrorGetData("Gagal, ${response.message()}")

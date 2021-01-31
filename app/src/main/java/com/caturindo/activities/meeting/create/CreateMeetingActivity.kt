@@ -4,26 +4,22 @@ import android.Manifest
 import android.content.Intent
 import android.graphics.Bitmap
 import android.os.Bundle
-import android.util.Log
 import android.view.MenuItem
 import android.view.View
-import android.webkit.PermissionRequest
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import com.bumptech.glide.Glide
 import com.caturindo.BaseActivity
 import com.caturindo.R
 import com.caturindo.activities.SelectLocationActivity
-import com.caturindo.activities.meeting.create.CreateMeetingActivity
 import com.caturindo.activities.meeting.create.model.UploadDto
-import com.caturindo.activities.team.add.AddTeamActivity
-import com.caturindo.constant.Constant
-import com.caturindo.models.BaseResponse
-import com.caturindo.utils.ApiInterface
-import com.caturindo.utils.ServiceGenerator
+import com.caturindo.activities.team.add.AddTeamMeetingActivity
+import com.caturindo.models.BookingRequest
+import com.caturindo.models.MeetingRequest
+import com.caturindo.preference.Prefuser
+import com.caturindo.preference.ModelMeeting
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.karumi.dexter.Dexter
 import com.karumi.dexter.MultiplePermissionsReport
@@ -43,9 +39,8 @@ import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import pl.aprilapps.easyphotopicker.*
 import pub.devrel.easypermissions.EasyPermissions
-import retrofit2.Call
-import retrofit2.Response
 import java.io.File
+import java.lang.NullPointerException
 
 class CreateMeetingActivity : BaseActivity(), CreatingMeetingContract.View {
     private var presenter: CreateMeetingPresenter = CreateMeetingPresenter(this)
@@ -58,16 +53,31 @@ class CreateMeetingActivity : BaseActivity(), CreatingMeetingContract.View {
     private var mTitle: TextView? = null
     private var mNavigationMenu: ImageView? = null
     private var tvLocation: TextView? = null
+    private var idFile = ""
+    private var urlImage = ""
+    private var idMeetingParent = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create_meeting)
         setupToolbar()
         setupLocationAction()
         initData()
+        getValidateSubmeeting()
+    }
+
+    private fun getValidateSubmeeting() {
+            if (!Prefuser().getIdParentMeeting().isNullOrEmpty()){
+                idMeetingParent = Prefuser().getIdParentMeeting().toString()
+                et_id_meeting_parent.visibility = View.VISIBLE
+                et_id_meeting_parent.text = idMeetingParent
+
+            }
+
 
     }
 
     private fun initData() {
+
         presenter = CreateMeetingPresenter(this)
         easyImage = EasyImage.Builder(this).setCopyImagesToPublicGalleryFolder(false)
                 .setChooserType(ChooserType.CAMERA_AND_GALLERY)
@@ -90,7 +100,102 @@ class CreateMeetingActivity : BaseActivity(), CreatingMeetingContract.View {
         }
 
         et_tag.setOnClickListener {
-            startActivity(Intent(this,AddTeamActivity::class.java))
+            startActivity(Intent(this, AddTeamMeetingActivity::class.java))
+        }
+
+        et_time.setOnClickListener {
+            showErrorMessage("Waktu akan di isi otmatis ketika memilih location")
+        }
+
+        et_date.setOnClickListener {
+            showErrorMessage("Hari akan di isi otmatis ketika memilih location")
+        }
+
+
+
+
+        btn_cancel.setOnClickListener {
+            finish()
+        }
+
+        btn_save.setOnClickListener {
+
+            if (et_meeting_title.text.toString().isNullOrEmpty()) {
+                showLongErrorMessage("Judul meeting tidak bisa kosong")
+                et_meeting_title.setError("Tidak bisa kosong")
+            } else if (et_meeting_desctiption.text.toString().isNullOrEmpty()) {
+                showLongErrorMessage("Deskripsi meeting tidak bisa kosong")
+                et_meeting_desctiption.setError("Tidak bisa kosong")
+            } else if (idFile.isNullOrEmpty()) {
+                showLongErrorMessage("Belum memilih file")
+            } else {
+                val dateTime = Prefuser().getDateBooking()
+                val propertyBooking = Prefuser().getPropertyBooking()
+                val bodyBooking = BookingRequest(
+                        propertyBooking?.codeTransport,
+                        dateTime?.date,
+                        propertyBooking?.driverName,
+                        propertyBooking?.note,
+                        dateTime?.starTime,
+                        propertyBooking?.location,
+                        Prefuser().getUser()?.id?.toInt(),
+                        dateTime?.endTime,
+                        propertyBooking?.codeRoom
+
+
+                )
+                Prefuser().setBooking(bodyBooking)
+
+                val bodyMeeting = MeetingRequest(
+                        "",
+                        dateTime?.date,
+                        et_meeting_desctiption.text.toString(),
+                        propertyBooking?.location,
+                        Prefuser().getUser()?.id?.toInt(),
+                        et_time.text.toString(),
+                        et_tag.text.toString(),
+                        et_meeting_title.text.toString(),
+                        idFile.toInt()
+                )
+                presenter.postCreate(bodyMeeting,idMeetingParent)
+
+
+            }
+        }
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (!Prefuser().getAddTeam().isNullOrEmpty()) {
+            Prefuser().getAddTeam().let {
+
+                var name: ArrayList<String> = ArrayList()
+
+                it?.forEach {
+                    name.add(it.username.toString())
+                }
+                et_tag.text = name.toString()
+
+            }
+        }
+
+        if (Prefuser().getDateBooking() != null) {
+            et_date.text = Prefuser().getDateBooking()?.date
+            et_time.text = Prefuser().getDateBooking()?.starTime + " - " + Prefuser().getDateBooking()?.endTime
+        }
+
+        if (Prefuser().getPropertyBooking() != null) {
+            et_location.text = Prefuser().getPropertyBooking()?.location
+        }
+
+
+        if (Prefuser().getPropertyMeeting() != null) {
+            et_meeting_desctiption.setText(Prefuser().getPropertyMeeting()?.desc.toString())
+            et_meeting_title.setText(Prefuser().getPropertyMeeting()?.title.toString())
+            idFile = Prefuser().getPropertyMeeting()?.idFile.toString()
+            Glide.with(this@CreateMeetingActivity).load(Prefuser().getPropertyMeeting()?.url.toString()).into(img_upload)
+            img_upload.visibility = View.VISIBLE
         }
     }
 
@@ -110,9 +215,13 @@ class CreateMeetingActivity : BaseActivity(), CreatingMeetingContract.View {
 
             if (EasyPermissions.hasPermissions(this, android.Manifest.permission.CAMERA)) {
                 easyImage.openGallery(this)
-//                ImagePicker.create(this) // Activity or Fragment
-//                    .start();
-                dialog.dismiss()
+                Prefuser().setPropertyMeeting(ModelMeeting(
+                        idFile,
+                        et_meeting_title.text.toString(),
+                        et_meeting_desctiption.text.toString(),
+                        urlImage
+
+                ))
 
 
             } else {
@@ -165,7 +274,18 @@ class CreateMeetingActivity : BaseActivity(), CreatingMeetingContract.View {
 
     private fun setupLocationAction() {
         tvLocation = findViewById(R.id.et_location)
-        tvLocation?.setOnClickListener(View.OnClickListener { startActivityForResult(Intent(this@CreateMeetingActivity, SelectLocationActivity::class.java), 24) })
+        tvLocation?.setOnClickListener(View.OnClickListener {
+            startActivity(Intent(this@CreateMeetingActivity,
+                    SelectLocationActivity::class.java))
+
+            Prefuser().setPropertyMeeting(ModelMeeting(
+                    idFile,
+                    et_meeting_title.text.toString(),
+                    et_meeting_desctiption.text.toString(),
+                    urlImage
+
+            ))
+        })
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -218,7 +338,6 @@ class CreateMeetingActivity : BaseActivity(), CreatingMeetingContract.View {
     }
 
     override fun showProgress() {
-        Log.e("TAG", "progress jalan")
         progress_circular.visibility = View.VISIBLE
     }
 
@@ -229,8 +348,9 @@ class CreateMeetingActivity : BaseActivity(), CreatingMeetingContract.View {
 
     override fun successUpload(msg: String, uploadDto: UploadDto) {
         showLongSuccessMessage(msg)
-        Log.e("TAG", "file ${uploadDto.id}")
         img_upload.visibility = View.VISIBLE
+        idFile = uploadDto.id.toString()
+        urlImage = uploadDto.file.toString()
         Glide.with(this@CreateMeetingActivity).load(uploadDto.file).into(img_upload)
     }
 
@@ -238,7 +358,14 @@ class CreateMeetingActivity : BaseActivity(), CreatingMeetingContract.View {
         showLongErrorMessage(msg)
     }
 
+    override fun failCreate(msg: String) {
+        showLongErrorMessage(msg)
+    }
+
     override fun succesCreate(msg: String) {
+        showSuccessMessage(msg)
+
+        finish()
 
     }
 }

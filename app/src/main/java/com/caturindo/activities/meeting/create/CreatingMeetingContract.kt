@@ -14,12 +14,13 @@ interface CreatingMeetingContract {
         fun hideProgress()
         fun successUpload(msg : String, uploadDto: UploadDto)
         fun failUpload (msg : String)
+        fun failCreate (msg : String)
         fun succesCreate(msg : String)
 
     }
 
     interface Presenter {
         fun uploadFile(file : MultipartBody.Part)
-        fun postCreate(meetingRequest: MeetingRequest)
+        fun postCreate(meetingRequest: MeetingRequest, idParentMeeting : String)
     }
 }

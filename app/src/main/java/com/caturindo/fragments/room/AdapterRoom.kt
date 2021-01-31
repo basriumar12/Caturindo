@@ -36,14 +36,7 @@ class AdapterRoom(val context: Context, val data: MutableList<RoomDto>,
         data?.get(position).let { data ->
             holder.bindView(data,itemListiner)
             holder.itemView.tvRoomItemNameRoom.text = data.nameRoom +" "+data.codeRoom
-            if (data.statusBooking.equals("0") ) {
-                holder.itemView.tvRoomItemNameAvailable.setText("Booked")
-                holder.itemView.ivRoomItemImageAvailable.setImageResource(R.drawable.ic_icon_checked)
-            } else {
-                holder.itemView.tvRoomItemNameAvailable.setText("Available")
-                holder.itemView.ivRoomItemImageAvailable.setImageResource(R.drawable.ic_icon_unchecked)
 
-            }
             holder.itemView.tvRoomItemNameCapacity.setText(data.maxPeople.toString())
             if (data.image.isNullOrEmpty()) {
                 Glide.with(holder.itemView.context)

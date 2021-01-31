@@ -6,10 +6,19 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@android:color/white"
-    tools:context=".activities.TaskDetailActivity">
+    tools:context=".activities.task.detail.TaskDetailActivity">
     <include
         android:id="@+id/toolbar"
         layout="@layout/custom_toolbar" />
+
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -50,8 +59,9 @@
             android:layout_centerVertical="true"
             />
         <TextView
+            android:id="@+id/tv_member"
             android:layout_width="wrap_content"
-            android:text="asdfasdf"
+            android:text=""
             android:layout_centerVertical="true"
             android:layout_marginStart="8dp"
             android:textColor="@color/grey_dark"
@@ -64,13 +74,13 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Descriptions"
+        android:text="@string/deskripsi"
         android:textStyle="bold"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="16dp"
         android:textColor="@color/grey_dark"/>
-    <EditText
+    <TextView
         android:id="@+id/et_task_description"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -95,6 +105,7 @@
             android:background="@drawable/small_button_rounded_gradient"
             app:srcCompat="@drawable/ic_icon_upload"/>
         <ImageView
+            android:visibility="visible"
             android:id="@+id/img_add_person"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -120,15 +131,18 @@
             android:textStyle="bold"
             tools:ignore="HardcodedText" />
         <EditText
+            android:textColor="@color/black"
             android:id="@+id/et_comment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/tv_comment_label"
             android:padding="4dp"
+            android:textColorHint="@color/black"
             android:hint="Insert comment"
             android:layout_marginTop="8dp"
             android:background="@drawable/rounded_text_field_gradient"/>
         <Button
+            android:id="@+id/btn_submit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Submit"
@@ -138,6 +152,12 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_below="@id/et_comment"/>
+        <ProgressBar
+            android:visibility="gone"
+            android:id="@+id/progress_circular"
+            android:layout_centerInParent="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
 
     </RelativeLayout>
     <androidx.recyclerview.widget.RecyclerView
@@ -145,4 +165,7 @@
         android:layout_width="match_parent"
         android:layout_marginTop="8dp"
         android:layout_height="wrap_content"/>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+    </androidx.core.widget.NestedScrollView>
 </LinearLayout>
