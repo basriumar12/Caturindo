@@ -41,11 +41,12 @@ class LoginPresenter(private val view: LoginContract.View) : LoginContract.Prese
                                     data = it
                                     view.onSuccessGet(data)
                                 } else {
-                                    view.onErrorGetData("${response.body()?.message}")
+                                    view.onErrorGetData("Gagal Login, laporkan akun anda pada admin")
                                 }
                             }
                         } else {
-                            view.onErrorGetData("${response.body()?.message}")
+                            view.onErrorGetData("Gagal Login, laporkan akun anda pada admin")
+
                         }
 
 
