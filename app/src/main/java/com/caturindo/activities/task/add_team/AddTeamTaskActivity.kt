@@ -120,6 +120,6 @@ class AddTeamTaskActivity : BaseActivity(), AddTeamTaskContract.View, AdapterAdd
     }
 
     override fun onClick(data: UserDto) {
-        presenter.addTeam(Prefuser().getUser()?.id.toString(), intent.getStringExtra("ID"))
+        presenter.addTeam(data.id.toString(), intent.getStringExtra("ID"))
     }
 }
