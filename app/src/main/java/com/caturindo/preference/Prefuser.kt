@@ -1,5 +1,6 @@
 package com.caturindo.preference
 
+import com.caturindo.activities.meeting.model.AddMemberMeetingDto
 import com.caturindo.activities.task.add_team.model.AddMemberTaskDto
 import com.caturindo.constant.Constant
 import com.caturindo.models.BookingRequest
@@ -54,6 +55,10 @@ class Prefuser {
     fun setTeamTask (data : ArrayList<AddMemberTaskDto>?)  = Hawk.put(AddMemberTaskDto::class.java.simpleName,data)
 
     fun getTeamTask() :  ArrayList<AddMemberTaskDto>? = Hawk.get(AddMemberTaskDto::class.java.simpleName, null)
+
+    fun setTeamMeeting (data : ArrayList<AddMemberMeetingDto>?)  = Hawk.put(AddMemberMeetingDto::class.java.simpleName,data)
+
+    fun getTeamMeeting() :  ArrayList<AddMemberMeetingDto>? = Hawk.get(AddMemberMeetingDto::class.java.simpleName, null)
 
 
 

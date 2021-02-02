@@ -12,7 +12,7 @@ interface LoginContract {
     }
 
     interface Presenter {
-        fun getLogin(email : String, pass : String)
+        fun getLogin(email : String, pass : String, fcm : String)
 
     }
 }

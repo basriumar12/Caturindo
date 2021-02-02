@@ -15,7 +15,7 @@ class LoginPresenter(private val view: LoginContract.View) : LoginContract.Prese
 
     private var data: RegisterDto = RegisterDto()
     var context: Context? = null
-    override fun getLogin(email: String, pass: String) {
+    override fun getLogin(email: String, pass: String, fcm: String) {
         view.showProgress()
         val api = ServiceGenerator.createService(
                 ApiInterface::class.java,
@@ -23,7 +23,7 @@ class LoginPresenter(private val view: LoginContract.View) : LoginContract.Prese
                 Constant.PASS
         )
 
-        api.postLogin(email, pass).enqueue(object : Callback<BaseResponse<RegisterDto>> {
+        api.postLogin(email, pass,fcm).enqueue(object : Callback<BaseResponse<RegisterDto>> {
             override fun onFailure(call: Call<BaseResponse<RegisterDto>>, t: Throwable) {
                 view.hideProgress()
                 view.onErrorGetData("Gagal request")

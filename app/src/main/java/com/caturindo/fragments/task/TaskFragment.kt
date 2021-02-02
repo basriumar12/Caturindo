@@ -87,7 +87,7 @@ class TaskFragment : BaseFragment(), AdapterTask.OnListener, TaskContract.View {
 
     override fun onClick(data: TaskDto) {
         startActivity(Intent(activity, TaskDetailActivity::class.java)
-       .putExtra(TaskDto::class.java.simpleName, data))
+                .putExtra(TaskDto::class.java.simpleName, data))
 
     }
 
@@ -100,23 +100,30 @@ class TaskFragment : BaseFragment(), AdapterTask.OnListener, TaskContract.View {
     }
 
     override fun onSuccessGet(data: MutableList<TaskDto>) {
-        val adapter = rootView?.context?.let { AdapterTask(it, data, this) }
-        rvTask = rootView?.findViewById(R.id.rv_task)
-        rvTask?.setAdapter(adapter)
-        val manager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-        rvTask?.setLayoutManager(manager)
-        search_text.setOnQueryTextListener(object :
-                androidx.appcompat.widget.SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String?): Boolean {
-                return false
-            }
+        try {
+            if (!data.isNullOrEmpty()) {
+                val adapter = rootView?.context?.let { AdapterTask(it, data, this) }
+                rvTask = rootView?.findViewById(R.id.rv_task)
+                rvTask?.setAdapter(adapter)
+                val manager = LinearLayoutManager(rootView?.context, LinearLayoutManager.VERTICAL, false)
+                rvTask?.setLayoutManager(manager)
 
-            override fun onQueryTextChange(newText: String?): Boolean {
-                adapter?.filter?.filter(newText)
-                return false
-            }
+                search_text.setOnQueryTextListener(object :
+                        androidx.appcompat.widget.SearchView.OnQueryTextListener {
+                    override fun onQueryTextSubmit(query: String?): Boolean {
+                        return false
+                    }
 
-        })
+                    override fun onQueryTextChange(newText: String?): Boolean {
+                        adapter?.filter?.filter(newText)
+                        return false
+                    }
+
+                })
+            }
+        } catch (e: NullPointerException) {
+
+        }
 
     }
 

@@ -11,7 +11,9 @@ import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.caturindo.BaseActivity
 import com.caturindo.R
+import com.caturindo.activities.meeting.add_team.AddTeamMeetingActivity
 import com.caturindo.activities.meeting.model.AddMeetingCommentRequest
+import com.caturindo.activities.task.add_team.AddTeamTaskActivity
 import com.caturindo.activities.task.detail.AdapterComment
 import com.caturindo.activities.task.detail.ImageActivity
 import com.caturindo.activities.task.detail.model.CommentDto
@@ -47,6 +49,13 @@ class MeetingDetailActivity : BaseActivity(), CommentMeetingContract.View, Adapt
             tv_member.text = it.tag
             tv_task_time.text = it.time
             tv_task_date.text = it.date
+            tv_location.text = it.location
+
+            tv_member.setOnClickListener {view ->
+                startActivity(Intent(this, AddTeamMeetingActivity::class.java)
+                        .putExtra("ID",it.id)
+                )
+            }
 
             img_attachment.setOnClickListener {
                 startActivity(Intent(this, ImageActivity::class.java)

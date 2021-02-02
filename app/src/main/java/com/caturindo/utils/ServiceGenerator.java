@@ -18,8 +18,8 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 public class ServiceGenerator {
 
-  //public static final String API_BASE_URL = "http://caturindo.kampunginggrisbandung.net/api/";
   public static final String API_BASE_URL = "https://kampunginggrisbandung.net/caturindo/api/";
+  //public static final String API_BASE_URL = "http://caturindo.net/api/";
   public static final String API_BASE_URL_UPLOAD = "https://kampunginggrisbandung.net/caturindo/api/meeting/upload_file";
 
 

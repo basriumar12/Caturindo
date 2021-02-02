@@ -2,6 +2,7 @@ package com.caturindo.utils;
 
 import com.caturindo.activities.meeting.create.model.UploadDto;
 import com.caturindo.activities.meeting.model.AddMeetingCommentRequest;
+import com.caturindo.activities.meeting.model.AddMemberMeetingDto;
 import com.caturindo.activities.meeting.model.MeetingCommentDto;
 import com.caturindo.activities.reset_pass.model.ResetPassRequest;
 import com.caturindo.activities.task.add_team.model.AddMemberTaskDto;
@@ -52,7 +53,9 @@ public interface ApiInterface {
     @FormUrlEncoded
     @POST("users/login")
     Call<BaseResponse<RegisterDto>> postLogin(@Field("username") String email,
-                                              @Field("password") String password);
+                                              @Field("password") String password,
+                                              @Field("token_firebase") String fcm
+    );
 
     @FormUrlEncoded
     @POST("users/register")
@@ -231,6 +234,11 @@ public interface ApiInterface {
     @POST("task/add_member")
     Call<BaseResponse<AddMemberTaskDto>> postAddMemberTask(@Field("id_user") String iduser,
                                                            @Field("id_task") String idTask);
+
+    @FormUrlEncoded
+    @POST("meeting/add_member_meeting")
+    Call<BaseResponse<AddMemberMeetingDto>> postAddMemberMeeting(@Field("username") String username,
+                                                                 @Field("id_meeting") String idMeeting);
 
     @Multipart
     @POST("meeting/upload_file")

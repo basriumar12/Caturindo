@@ -7,5 +7,6 @@ public object Constant {
     val BASE_UPLOAD = "https://kampunginggrisbandung.net/caturindo/api/meeting/upload_file"
     val USER_PREF = "USER-PREF"
     val ADD_TEAM = "ADD_TEAM"
+    val CHANNEL_ID ="CHANNEL_ID"
 
 }
