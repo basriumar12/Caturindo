@@ -44,6 +44,9 @@ data class MeetingDtoNew(
 	@field:SerializedName("status_meeting")
 	val statusMeeting: String? = null,
 
+	@field:SerializedName("count_members")
+	val countMembers: Int? = null,
+
 	@field:SerializedName("id_file")
 	val idFile: String? = null
 ) : Serializable

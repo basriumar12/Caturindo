@@ -41,6 +41,11 @@ class AdapterMeeting(val context: Context, val data: MutableList<MeetingDtoNew>,
             holder.itemView.tv_meeting_date.text = data.date
             holder.itemView.tv_meeting_time.text = data.time
             holder.itemView.tv_meeting_loc.text = data.location
+            if (!data.countMembers.toString().isNullOrEmpty()){
+                holder.itemView.tv_meeting_participant.text = data.countMembers.toString()
+            }else{
+                holder.itemView.tv_meeting_participant.text = "0"
+            }
 
         }
     }
