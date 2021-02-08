@@ -10,6 +10,8 @@ interface TaskContract {
         fun hideProgress()
         fun onSuccessGet(data : MutableList<TaskDto>)
         fun onErrorGetData(msg: String?)
+        fun dataEmpty()
+
     }
 
     interface Presenter {

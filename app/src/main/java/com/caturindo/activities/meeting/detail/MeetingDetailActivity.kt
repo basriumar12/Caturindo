@@ -20,6 +20,7 @@ import com.caturindo.activities.task.detail.model.CommentDto
 import com.caturindo.models.MeetingDtoNew
 import com.caturindo.preference.Prefuser
 import kotlinx.android.synthetic.main.activity_meeting_detail.*
+import kotlinx.android.synthetic.main.custom_toolbar.*
 
 class MeetingDetailActivity : BaseActivity(), CommentMeetingContract.View, AdapterComment.OnListener {
     private var toolbar: Toolbar? = null
@@ -52,6 +53,12 @@ class MeetingDetailActivity : BaseActivity(), CommentMeetingContract.View, Adapt
             tv_location.text = it.location
 
             tv_member.setOnClickListener {view ->
+                startActivity(Intent(this, AddTeamMeetingActivity::class.java)
+                        .putExtra("ID",it.id)
+                )
+            }
+
+            img_add_person.setOnClickListener {view ->
                 startActivity(Intent(this, AddTeamMeetingActivity::class.java)
                         .putExtra("ID",it.id)
                 )
@@ -104,6 +111,8 @@ class MeetingDetailActivity : BaseActivity(), CommentMeetingContract.View, Adapt
         setSupportActionBar(toolbar)
 
         setupNavigationMenu()
+
+        img_first_option.visibility = View.GONE
     }
 
     private fun setupNavigationMenu() {

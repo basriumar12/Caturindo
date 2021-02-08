@@ -19,6 +19,7 @@ import com.caturindo.adapters.TransportDetailItemAdapter
 import com.caturindo.models.MeetingDtoNew
 import com.caturindo.preference.Prefuser
 import kotlinx.android.synthetic.main.activity_list_meeting.*
+import kotlinx.android.synthetic.main.custom_toolbar.*
 
 class ListMeetingSelecForCreateSubmeetingActivity : BaseActivity(), TaskMeetingContract.View, AdapterMeetingTask.OnListener {
 
@@ -56,6 +57,8 @@ class ListMeetingSelecForCreateSubmeetingActivity : BaseActivity(), TaskMeetingC
         setSupportActionBar(toolbar)
         mTitle?.text = "List Meeting"
         setupNavigationMenu()
+
+        img_first_option.visibility = View.GONE
     }
 
     private fun setupNavigationMenu() {

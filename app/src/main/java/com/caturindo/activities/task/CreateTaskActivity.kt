@@ -38,6 +38,7 @@ import kotlinx.android.synthetic.main.activity_create_task.et_tag
 import kotlinx.android.synthetic.main.activity_create_task.et_time
 import kotlinx.android.synthetic.main.activity_create_task.img_upload
 import kotlinx.android.synthetic.main.activity_create_task.progress_circular
+import kotlinx.android.synthetic.main.custom_toolbar.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import okhttp3.MediaType
@@ -239,6 +240,8 @@ class CreateTaskActivity : BaseActivity(), CreatingTaskContract.View {
         setSupportActionBar(toolbar)
         mTitle?.setText("Create Task")
         setupNavigationMenu()
+
+        img_first_option.visibility = View.GONE
     }
 
     private fun setupNavigationMenu() {

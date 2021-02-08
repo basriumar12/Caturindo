@@ -14,11 +14,10 @@ import com.caturindo.activities.meeting.detail.MeetingDetailActivity
 import com.caturindo.activities.task.detail.TaskDetailActivity
 import com.caturindo.adapters.MeetingItemAdapter
 import com.caturindo.models.MeetingDtoNew
-import com.caturindo.models.TaskDto
 import kotlinx.android.synthetic.main.fragment_meeting_current.*
+import kotlinx.android.synthetic.main.fragment_meeting_current.paren_data_empty
+import kotlinx.android.synthetic.main.fragment_meeting_current.progress_circular
 import kotlinx.android.synthetic.main.fragment_room_available.*
-import kotlinx.android.synthetic.main.fragment_room_available.paren_data_empty
-import kotlinx.android.synthetic.main.fragment_room_available.progress_circular
 
 class MeetingCurrentFragment : BaseFragment(), MeetingContract.View, AdapterMeeting.OnListener {
     private var rootView: View? = null
@@ -53,6 +52,8 @@ class MeetingCurrentFragment : BaseFragment(), MeetingContract.View, AdapterMeet
     override fun onSuccessGet(data: MutableList<MeetingDtoNew>) {
         if (data.isNullOrEmpty()){
             paren_data_empty.visibility = View.VISIBLE
+        }else{
+            paren_data_empty.visibility = View.GONE
         }
 
         val adapterMeeting = rootView?.context?.let { AdapterMeeting(it,data,this) }
@@ -65,6 +66,10 @@ class MeetingCurrentFragment : BaseFragment(), MeetingContract.View, AdapterMeet
     override fun onErrorGetData(msg: String?) {
         showLongErrorMessage(msg)
         
+    }
+    override fun dataEmpty() {
+        paren_data_empty.visibility = View.VISIBLE
+
     }
 
     override fun onClick(data: MeetingDtoNew) {

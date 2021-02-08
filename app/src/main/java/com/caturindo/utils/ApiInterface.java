@@ -4,6 +4,7 @@ import com.caturindo.activities.meeting.create.model.UploadDto;
 import com.caturindo.activities.meeting.model.AddMeetingCommentRequest;
 import com.caturindo.activities.meeting.model.AddMemberMeetingDto;
 import com.caturindo.activities.meeting.model.MeetingCommentDto;
+import com.caturindo.activities.notif.model.NotifDto;
 import com.caturindo.activities.reset_pass.model.ResetPassRequest;
 import com.caturindo.activities.task.add_team.model.AddMemberTaskDto;
 import com.caturindo.activities.task.detail.model.AddCommentDto;
@@ -161,7 +162,7 @@ public interface ApiInterface {
 
     @Multipart
     @POST("users/edit_image_profile")
-    Call<BaseResponse<UpdateUploadUserDto>>uploadImageProfile(
+    Call<BaseResponse<UpdateUploadUserDto>> uploadImageProfile(
             @Part("id_user") RequestBody idUser,
             @Part MultipartBody.Part file);
 
@@ -170,7 +171,6 @@ public interface ApiInterface {
     Call<BaseResponse<UpdateUploadUserDto>> uploadBackgroundProfile(
             @Part("id_user") RequestBody idUser,
             @Part MultipartBody.Part file);
-
 
 
     @POST("meeting/cancel_meeting")
@@ -228,6 +228,9 @@ public interface ApiInterface {
 
     @GET("meeting/comment")
     Call<BaseResponse<List<CommentDto>>> getMeetingComment(@Query("id_meeting") String idTask);
+
+    @GET("notification")
+    Call<BaseResponse<List<NotifDto>>> getNotif(@Query("id_user") String idUser);
 
 
     @FormUrlEncoded

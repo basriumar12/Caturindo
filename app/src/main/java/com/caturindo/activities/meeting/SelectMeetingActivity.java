@@ -45,6 +45,9 @@ public class SelectMeetingActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         mTitle.setText("Meeting");
         setupNavigationMenu();
+
+        ImageView img = findViewById(R.id.img_first_option);
+        img.setVisibility(View.GONE);
     }
 
     private void setupNavigationMenu() {

@@ -8,6 +8,7 @@ import com.caturindo.models.MeetingDtoNew
 import com.caturindo.models.RoomDto
 import com.caturindo.utils.ApiInterface
 import com.caturindo.utils.ServiceGenerator
+import com.google.gson.Gson
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -31,15 +32,17 @@ class MeetingPresenter(private val view: MeetingContract.View) : MeetingContract
             }
 
             override fun onResponse(call: Call<BaseResponse<List<MeetingDtoNew>>>, response: Response<BaseResponse<List<MeetingDtoNew>>>) {
-
+                Log.e("TAG","gagal meeting req ${Gson().toJson(response.body())}")
                 view.hideProgress()
                 if (response.isSuccessful) {
-                    if (response.body()?.data != null) {
+                    if (response.body()?.status==true) {
                         var data = response.body()?.data
                         view.onSuccessGet(data as MutableList<MeetingDtoNew>)
-                    } else {
-                        view.onErrorGetData("Gagal, ${response.message()}")
                     }
+                    if (response.body()?.data.isNullOrEmpty()){
+                        view.dataEmpty()
+                    }
+
                 } else {
                     view.onErrorGetData("Gagal, ${response.message()}")
                 }

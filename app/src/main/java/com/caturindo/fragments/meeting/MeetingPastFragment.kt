@@ -52,6 +52,8 @@ class MeetingPastFragment : BaseFragment(), MeetingContract.View, AdapterPastMee
     override fun onSuccessGet(data: MutableList<MeetingDtoNew>) {
         if (data.isNullOrEmpty()){
             paren_data_empty.visibility = View.VISIBLE
+        }else{
+            paren_data_empty.visibility = View.GONE
         }
 
         val adapterMeeting = rootView?.context?.let { AdapterPastMeeting(it,data,this) }
@@ -63,6 +65,11 @@ class MeetingPastFragment : BaseFragment(), MeetingContract.View, AdapterPastMee
 
     override fun onErrorGetData(msg: String?) {
         showLongErrorMessage(msg)
+
+    }
+
+    override fun dataEmpty() {
+        paren_data_empty.visibility = View.VISIBLE
 
     }
 

@@ -20,6 +20,7 @@ import com.caturindo.preference.Prefuser
 import kotlinx.android.synthetic.main.activity_list_sub_meeting.paren_data_empty
 import kotlinx.android.synthetic.main.activity_list_sub_meeting.progress_circular
 import kotlinx.android.synthetic.main.activity_list_sub_meeting.rv_meeting
+import kotlinx.android.synthetic.main.custom_toolbar.*
 
 class ListSubMeetingForCreateMeetingActivity : BaseActivity(), TaskSubMeetingContract.View, AdapterSubMeetingTask.OnListener {
 
@@ -60,6 +61,8 @@ class ListSubMeetingForCreateMeetingActivity : BaseActivity(), TaskSubMeetingCon
         setSupportActionBar(toolbar)
         mTitle?.text = "List Sub Meeting"
         setupNavigationMenu()
+        img_first_option.visibility = View.GONE
+
     }
 
     private fun setupNavigationMenu() {

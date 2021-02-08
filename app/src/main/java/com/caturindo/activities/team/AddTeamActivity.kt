@@ -25,6 +25,7 @@ import com.caturindo.preference.Prefuser
 import com.caturindo.utils.SwipeToDeleteCallback
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_add_team.*
+import kotlinx.android.synthetic.main.custom_toolbar.*
 import kotlinx.android.synthetic.main.fragment_search_bar.*
 
 class AddTeamActivity : BaseActivity(), TeamContract.View, AdapterAddTeam.OnListener {
@@ -59,6 +60,8 @@ class AddTeamActivity : BaseActivity(), TeamContract.View, AdapterAddTeam.OnList
         setSupportActionBar(toolbar)
         mTitle?.setText("Add Team")
         setupNavigationMenu()
+
+        img_first_option.visibility = View.GONE
     }
 
     private fun setupNavigationMenu() {

@@ -6,14 +6,48 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@android:color/white"
-    tools:context=".activities.NotificationActivity">
+    tools:context=".activities.notif.NotificationActivity">
     <include
         android:id="@+id/toolbar"
         layout="@layout/custom_toolbar" />
+    <ProgressBar
+        android:id="@+id/progress_circular"
+        android:layout_marginTop="@dimen/size_20dp"
+        android:layout_gravity="center"
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_notification"
         android:paddingTop="8dp"
         android:paddingBottom="16dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
+    <androidx.appcompat.widget.LinearLayoutCompat
+
+        android:id="@+id/paren_data_empty"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <ImageView
+            android:layout_gravity="center"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_centerInParent="true"
+            app:srcCompat="@drawable/ic_icon_task_history" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/label_data_kosong"
+            android:textColor="@color/grey_gradient_hard"
+            android:textSize="16sp" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+
 </LinearLayout>

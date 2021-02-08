@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingHorizontal="16dp"
+    android:paddingBottom="8dp">
+
+    <TextView
+        android:id="@+id/tv_notification_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:textColor="@color/grey_dark"
+        android:text="John Doe tagged you in task with 5 others"/>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:id="@+id/meeting"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:padding="8dp"
+        android:background="@drawable/rounded_gradient_green">
+        <TextView
+            android:id="@+id/tv_meeting_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Name/Code task"
+            android:textColor="@android:color/white"
+            android:textStyle="bold"/>
+        <TextView
+            android:id="@+id/tv_meeting_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_task_title"
+            android:textColor="@android:color/white"
+            android:maxLength="100"
+            android:text="orem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua"/>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:visibility="gone"
+        android:id="@+id/task"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:padding="8dp"
+        android:background="@drawable/rounded_gradient_blue">
+        <TextView
+            android:id="@+id/tv_task_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Name/Code task"
+            android:textColor="@android:color/white"
+            android:textStyle="bold"/>
+        <TextView
+            android:id="@+id/tv_task_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_task_title"
+            android:textColor="@android:color/white"
+            android:maxLength="100"
+            android:text="orem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua"/>
+    </RelativeLayout>
+</LinearLayout>

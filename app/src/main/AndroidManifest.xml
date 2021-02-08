@@ -98,7 +98,7 @@
             android:name=".activities.room.RoomDetailActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
-            android:name=".activities.NotificationActivity"
+            android:name=".activities.notif.NotificationActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
             android:name=".activities.task.detail.TaskDetailActivity"

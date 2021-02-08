@@ -16,6 +16,7 @@ import com.caturindo.activities.task.detail.model.CommentDto
 import com.caturindo.models.TaskDto
 import com.caturindo.preference.Prefuser
 import kotlinx.android.synthetic.main.activity_task_detail.*
+import kotlinx.android.synthetic.main.custom_toolbar.*
 
 class TaskDetailActivity : BaseActivity(), CommentTaskContract.View, AdapterComment.OnListener {
     
@@ -88,6 +89,8 @@ class TaskDetailActivity : BaseActivity(), CommentTaskContract.View, AdapterComm
         setSupportActionBar(toolbar)
 
         setupNavigationMenu()
+
+        img_first_option.visibility = View.GONE
     }
 
     private fun setupNavigationMenu() {

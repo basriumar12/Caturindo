@@ -6,6 +6,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import androidx.core.app.ActivityCompat
@@ -23,6 +24,7 @@ import com.caturindo.adapters.TeamItemAdapter
 import com.caturindo.models.UserDto
 import com.caturindo.models.UserDtoNew
 import com.caturindo.preference.Prefuser
+import com.google.gson.Gson
 import com.karumi.dexter.Dexter
 import com.karumi.dexter.MultiplePermissionsReport
 import com.karumi.dexter.PermissionToken
@@ -159,6 +161,7 @@ class TeamActivity : BaseActivity(), TeamContract.View, AdapterTeam.OnListener {
     }
 
     override fun onSuccessGetTeam(data: List<MemberItem>) {
+        Log.e("TAG","team member ${Gson().toJson(data)}")
         val adapterTeam = AdapterTeam(this, data as MutableList<MemberItem>, this)
         rv_team.layoutManager = LinearLayoutManager(this)
         rv_team.adapter = adapterTeam

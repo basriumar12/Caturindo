@@ -18,6 +18,7 @@ import com.bumptech.glide.Glide;
 import com.caturindo.R;
 import com.caturindo.activities.meeting.SelectMeetingActivity;
 import com.caturindo.activities.meeting.create.CreateMeetingActivity;
+import com.caturindo.activities.notif.NotificationActivity;
 import com.caturindo.adapters.MeetingViewPagerAdapter;
 import com.caturindo.preference.Prefuser;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -89,6 +90,15 @@ public class MeetingFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 getActivity().finish();
+            }
+        });
+
+
+        ImageView img = rootView.findViewById(R.id.img_first_option);
+        img.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(rootView.getContext(), NotificationActivity.class));
             }
         });
     }

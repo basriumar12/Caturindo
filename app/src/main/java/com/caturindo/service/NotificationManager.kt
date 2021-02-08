@@ -17,6 +17,7 @@ import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
 import com.caturindo.R
 import com.caturindo.activities.SplashActivity
+import com.caturindo.activities.notif.NotificationActivity
 import com.caturindo.constant.Constant
 import java.net.HttpURLConnection
 import java.net.URL
@@ -72,7 +73,7 @@ class NotificationManagers(private val mCtx: Context) {
         }
 
         //intent splash
-        val resultIntent = Intent(mCtx, SplashActivity::class.java)
+        val resultIntent = Intent(mCtx, NotificationActivity::class.java)
         resultIntent.putExtra("DATA", jsooObject)
 
         val pendingIntent = PendingIntent.getActivity(

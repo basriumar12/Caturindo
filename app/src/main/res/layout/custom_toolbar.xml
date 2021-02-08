@@ -41,7 +41,7 @@
             android:layout_marginEnd="16dp"
             android:layout_toStartOf="@id/img_second_option"
             android:layout_toLeftOf="@id/img_second_option"
-            android:visibility="gone"
+            android:visibility="visible"
             app:srcCompat="@drawable/ic_icon_task_history"/>
         <ImageView
             android:id="@+id/img_second_option"
@@ -52,9 +52,10 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:visibility="gone"
-            app:srcCompat="@drawable/ic_icon_filter"
+            android:visibility="visible"
             />
+
+<!--        app:srcCompat="@drawable/ic_icon_filter"-->
 
     </RelativeLayout>
 </androidx.appcompat.widget.Toolbar>

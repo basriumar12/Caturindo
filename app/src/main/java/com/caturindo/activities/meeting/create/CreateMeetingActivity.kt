@@ -31,6 +31,7 @@ import id.zelory.compressor.constraint.quality
 import id.zelory.compressor.constraint.resolution
 import id.zelory.compressor.constraint.size
 import kotlinx.android.synthetic.main.activity_create_meeting.*
+import kotlinx.android.synthetic.main.custom_toolbar.*
 import kotlinx.android.synthetic.main.view_choose_take_photo.view.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -264,6 +265,8 @@ class CreateMeetingActivity : BaseActivity(), CreatingMeetingContract.View {
         setSupportActionBar(toolbar)
         mTitle?.setText("Create Meeting")
         setupNavigationMenu()
+
+        img_first_option.visibility = View.GONE
     }
 
     private fun setupNavigationMenu() {

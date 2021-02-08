@@ -120,6 +120,8 @@ class TeamPresenter(private val view: TeamContract.View) : TeamContract.Presente
                     } else {
                         view.onErrorGetData(response.body()?.message.toString())
                     }
+                }else{
+                    view.onErrorGetData(response.body()?.message.toString())
                 }
             }
         })

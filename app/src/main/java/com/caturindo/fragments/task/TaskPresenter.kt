@@ -24,16 +24,19 @@ class TaskPresenter(private val view: TaskContract.View) : TaskContract.Presente
         api.task.enqueue(object : Callback<BaseResponse<List<TaskDto>>>{
             override fun onFailure(call: Call<BaseResponse<List<TaskDto>>>, t: Throwable) {
                 view.onErrorGetData("Gagal request data")
+                view.hideProgress()
             }
 
             override fun onResponse(call: Call<BaseResponse<List<TaskDto>>>, response: Response<BaseResponse<List<TaskDto>>>) {
                 view.hideProgress()
                 if (response.isSuccessful) {
-                    if (response.body()?.data != null) {
+                    if (response.body()?.status == true) {
                         var data = response.body()?.data
                         view.onSuccessGet(data as MutableList<TaskDto>)
-                    } else {
-                        view.onErrorGetData("Gagal dapatkan data")
+                    }
+
+                    if (response.body()?.data.isNullOrEmpty()){
+                        view.dataEmpty()
                     }
                 } else {
                     view.onErrorGetData("Gagal dapatkan data, ${response.body()?.message}")

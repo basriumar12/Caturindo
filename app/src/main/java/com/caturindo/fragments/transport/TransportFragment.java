@@ -1,5 +1,6 @@
 package com.caturindo.fragments.transport;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,7 @@ import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
 import com.caturindo.R;
+import com.caturindo.activities.notif.NotificationActivity;
 import com.caturindo.adapters.TransportViewPagerAdapter;
 import com.google.android.material.tabs.TabLayout;
 
@@ -55,6 +57,13 @@ public class TransportFragment extends Fragment{
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
         mTitle.setText("Transport");
         setupNavigationMenu();
+        ImageView img = rootView.findViewById(R.id.img_first_option);
+        img.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(rootView.getContext(), NotificationActivity.class));
+            }
+        });
     }
 
     private void setupNavigationMenu() {

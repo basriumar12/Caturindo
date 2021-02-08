@@ -10,6 +10,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.caturindo.BaseActivity
 import com.caturindo.R
 import com.caturindo.activities.team.model.EditUserRequest
@@ -28,6 +29,7 @@ import id.zelory.compressor.constraint.size
 import kotlinx.android.synthetic.main.activity_team.*
 import kotlinx.android.synthetic.main.activity_update_user.*
 import kotlinx.android.synthetic.main.activity_update_user.img_background
+import kotlinx.android.synthetic.main.custom_toolbar.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import okhttp3.MediaType
@@ -75,6 +77,7 @@ class EditUserActivity : BaseActivity(), EditUserContract.View {
         setSupportActionBar(toolbar)
         mTitle?.setText("Edit profile")
         setupNavigationMenu()
+        img_first_option.visibility = View.GONE
     }
 
     private fun setupNavigationMenu() {
@@ -312,5 +315,15 @@ class EditUserActivity : BaseActivity(), EditUserContract.View {
         }
 
         edt_phone.setText(phone)
+
+
+        Glide.with(this)
+                .load(data.imageProfile)
+                .error(R.drawable.no_imge)
+                .apply(RequestOptions().circleCrop())
+                .into(img_profile_edit)
+        Glide.with(this)
+                .load(data.imageBackground)
+                .into(img_background)
     }
 }

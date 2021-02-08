@@ -14,12 +14,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.caturindo.BaseFragment
 import com.caturindo.R
+import com.caturindo.activities.notif.NotificationActivity
 import com.caturindo.activities.task.detail.TaskDetailActivity
 import com.caturindo.activities.task.SelectMeetingTaskActivity
 import com.caturindo.models.TaskDto
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.gson.Gson
 import kotlinx.android.synthetic.main.fragment_search_bar.*
+import kotlinx.android.synthetic.main.fragment_task.*
 
 class TaskFragment : BaseFragment(), AdapterTask.OnListener, TaskContract.View {
     private var rootView: View? = null
@@ -75,8 +76,8 @@ class TaskFragment : BaseFragment(), AdapterTask.OnListener, TaskContract.View {
         mNotificationOption?.setVisibility(View.VISIBLE)
         mFilterOption?.setVisibility(View.VISIBLE)
         mNotificationOption?.setOnClickListener(View.OnClickListener {
-            showLongInfoMessage("Onproses development")
-            //startActivity(new Intent(getActivity(), NotificationActivity.class));
+            //showLongInfoMessage("Onproses development")
+            startActivity(Intent(rootView?.context, NotificationActivity::class.java))
         })
         mFilterOption?.setOnClickListener(View.OnClickListener {
             showLongInfoMessage("Onproses development")
@@ -129,5 +130,10 @@ class TaskFragment : BaseFragment(), AdapterTask.OnListener, TaskContract.View {
 
     override fun onErrorGetData(msg: String?) {
         showLongErrorMessage(msg)
+    }
+
+    override fun dataEmpty() {
+        showLongErrorMessage("Data task kosong")
+        paren_data_empty.visibility = View.VISIBLE
     }
 }

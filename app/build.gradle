@@ -11,8 +11,8 @@ android {
         applicationId "com.caturindo"
         minSdkVersion 19
         targetSdkVersion 29
-        versionCode 10
-        versionName "0.0.10"
+        versionCode 20
+        versionName "0.0.20"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
         multiDexEnabled true
