@@ -21,6 +21,7 @@ import kotlinx.android.synthetic.main.activity_add_team.*
 import kotlinx.android.synthetic.main.activity_add_team_tasl.*
 import kotlinx.android.synthetic.main.activity_add_team_tasl.progress_circular
 import kotlinx.android.synthetic.main.activity_add_team_tasl.rv_member
+import kotlinx.android.synthetic.main.custom_toolbar.*
 import kotlinx.android.synthetic.main.fragment_search_bar.*
 
 class AddTeamTaskActivity : BaseActivity(), AddTeamTaskContract.View, AdapterAddTeamTask.OnListener {
@@ -64,6 +65,8 @@ class AddTeamTaskActivity : BaseActivity(), AddTeamTaskContract.View, AdapterAdd
         setSupportActionBar(toolbar)
         mTitle?.setText("Add Team")
         setupNavigationMenu()
+
+        img_first_option.visibility = View.GONE
     }
 
     private fun setupNavigationMenu() {

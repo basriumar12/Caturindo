@@ -37,7 +37,7 @@ class ListMeetingActivity : BaseActivity(), TaskMeetingContract.View, AdapterMee
         setupToolbar()
 
         presenter = TaskMeetingPresenter(this)
-        presenter.getMeeting("0")
+        presenter.getMeeting("1")
 
     }
 
@@ -86,6 +86,10 @@ class ListMeetingActivity : BaseActivity(), TaskMeetingContract.View, AdapterMee
 
     override fun onErrorGetData(msg: String?) {
      showLongErrorMessage(msg)
+    }
+
+    override fun dataEmpty() {
+        paren_data_empty.visibility = View.VISIBLE
     }
 
     override fun onClick(data: MeetingDtoNew) {

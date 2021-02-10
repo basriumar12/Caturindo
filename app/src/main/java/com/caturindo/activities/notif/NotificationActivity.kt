@@ -59,6 +59,11 @@ class NotificationActivity : BaseActivity(), NotifContract.View, AdapterNotif.On
         mNavigationMenu?.setOnClickListener(View.OnClickListener { finish() })
     }
 
+    override fun onBackPressed() {
+        super.onBackPressed()
+        finish()
+    }
+
     private fun setupRecyclerView() {
         rvNotification = findViewById(R.id.rv_notification)
     }

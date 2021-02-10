@@ -1,24 +1,23 @@
 package com.caturindo.fragments.meeting
 
-import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.caturindo.R
+import com.caturindo.activities.meeting.detail.MeetingDetailActivity
+import com.caturindo.activities.meeting.detail.SubMeetingDetailActivity
 import com.caturindo.models.DataSubMeetingItemItem
 import com.caturindo.models.MeetingDtoNew
 import kotlinx.android.synthetic.main.item_meeting_outdoor.view.*
 import kotlinx.android.synthetic.main.item_room.view.*
 
-class AdapterMeeting(val context: Context, val data: MutableList<MeetingDtoNew>,
-                     private val itemListiner: OnListener
+class AdapterSubMeeting(val context: Context, val data: MutableList<DataSubMeetingItemItem>
                     ) :
-    RecyclerView.Adapter<AdapterMeeting.ViewHolder>() {
+    RecyclerView.Adapter<AdapterSubMeeting.ViewHolder>() {
     companion object {
         const val ON_CLICK_ITEM = 1
     }
@@ -34,29 +33,26 @@ class AdapterMeeting(val context: Context, val data: MutableList<MeetingDtoNew>,
         return data.size
     }
     interface OnListener {
-        fun onClick(data: MeetingDtoNew)
+        fun onClick(data: DataSubMeetingItemItem)
     }
-    @SuppressLint("WrongConstant")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
-        holder.itemView.rv_sub_meeting.apply {
-            layoutManager = LinearLayoutManager(holder.itemView.rv_sub_meeting.context, LinearLayout.VERTICAL, false)
-            adapter = AdapterSubMeeting(context,
-                    data.get(position).dataSubMeeting as MutableList<DataSubMeetingItemItem>
-            )
-        }
+
         data?.get(position).let { data ->
-            holder.bindView(data,itemListiner)
+
+            holder.itemView.setOnClickListener {
+
+                holder.itemView.context.startActivity(Intent(holder.itemView.context, SubMeetingDetailActivity::class.java)
+                        .putExtra(DataSubMeetingItemItem::class.java.simpleName, data))
+
+            }
+
             holder.itemView.tv_meeting_title.text = data.title +" - "+data.id
             holder.itemView.tv_meeting_desc.text = data.description
             holder.itemView.tv_meeting_date.text = data.date
             holder.itemView.tv_meeting_time.text = data.time
             holder.itemView.tv_meeting_loc.text = data.location
-            if (!data.countMembers.toString().isNullOrEmpty()){
-                holder.itemView.tv_meeting_participant.text = data.countMembers.toString()
-            }else{
-                holder.itemView.tv_meeting_participant.text = "0"
-            }
+            holder.itemView.tv_meeting_participant.text = ""
 
         }
     }
@@ -64,10 +60,8 @@ class AdapterMeeting(val context: Context, val data: MutableList<MeetingDtoNew>,
     class ViewHolder(itemView: View) :
         RecyclerView.ViewHolder(itemView) {
 
-        fun bindView(data: MeetingDtoNew, listiner: OnListener){
-            itemView.setOnClickListener {
-                listiner.onClick(data)
-            }
+        fun bindView(data: DataSubMeetingItemItem){
+
 
 
         }

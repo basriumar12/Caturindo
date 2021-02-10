@@ -10,6 +10,7 @@ import com.bumptech.glide.Glide
 import com.caturindo.BaseActivity
 import com.caturindo.R
 import kotlinx.android.synthetic.main.activity_image.*
+import kotlinx.android.synthetic.main.custom_toolbar.*
 
 class ImageActivity : BaseActivity() {
     private var toolbar: Toolbar? = null
@@ -31,6 +32,8 @@ class ImageActivity : BaseActivity() {
         setSupportActionBar(toolbar)
         mTitle?.text = "file attachment"
         setupNavigationMenu()
+
+        img_first_option.visibility = View.GONE
     }
 
     private fun setupNavigationMenu() {

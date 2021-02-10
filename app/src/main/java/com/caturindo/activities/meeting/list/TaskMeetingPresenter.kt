@@ -34,9 +34,21 @@ class TaskMeetingPresenter(private val view: TaskMeetingContract.View) : TaskMee
 
                 view.hideProgress()
                 if (response.isSuccessful) {
-                    if (response.body()?.data != null) {
-                        var data = response.body()?.data
-                        view.onSuccessGet(data as MutableList<MeetingDtoNew>)
+                    if (response.body()?.status == true) {
+
+
+                        if (!response.body()?.data.isNullOrEmpty()) {
+                            var data = response.body()?.data
+                            view.onSuccessGet(data as MutableList<MeetingDtoNew>)
+                        }
+
+                        if (response.body()?.data.isNullOrEmpty()) {
+                           view.dataEmpty()
+                        }
+
+
+
+
                     } else {
                         view.onErrorGetData("Gagal, ${response.message()}")
                     }

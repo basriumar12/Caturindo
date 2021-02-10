@@ -57,9 +57,19 @@ class AdapterNotif(val context: Context, val data: MutableList<NotifDto>,
 
         if (dataFilterList.get(position).meeting != null){
 
+            holder.itemView.meeting.visibility = View.VISIBLE
+            holder.itemView.task.visibility = View.GONE
             val data = dataFilterList.get(position)?.meeting
             holder.itemView.tv_meeting_title.text = data?.title.toString()
             holder.itemView.tv_meeting_content.text = data?.description.toString()
+        }
+
+        if (dataFilterList.get(position).task != null){
+            holder.itemView.meeting.visibility = View.GONE
+            holder.itemView.task.visibility = View.VISIBLE
+            val data = dataFilterList.get(position)?.task
+            holder.itemView.tv_task_title.text = data?.title.toString()
+            holder.itemView.tv_task_content.text = data?.description.toString()
         }
 
     }
@@ -68,9 +78,6 @@ class AdapterNotif(val context: Context, val data: MutableList<NotifDto>,
             RecyclerView.ViewHolder(itemView) {
 
         fun bindView(data: NotifDto, listiner: OnListener) {
-            itemView.telvon.setOnClickListener {
-                listiner.onClick(data)
-            }
 
         
         }

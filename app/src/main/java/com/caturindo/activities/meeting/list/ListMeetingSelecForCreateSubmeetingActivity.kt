@@ -39,7 +39,7 @@ class ListMeetingSelecForCreateSubmeetingActivity : BaseActivity(), TaskMeetingC
         setupToolbar()
 
         presenter = TaskMeetingPresenter(this)
-        presenter.getMeeting("0")
+        presenter.getMeeting("1")
 
     }
 
@@ -88,6 +88,10 @@ class ListMeetingSelecForCreateSubmeetingActivity : BaseActivity(), TaskMeetingC
 
     override fun onErrorGetData(msg: String?) {
      showLongErrorMessage(msg)
+    }
+
+    override fun dataEmpty() {
+        paren_data_empty.visibility = View.VISIBLE
     }
 
     override fun onClick(data: MeetingDtoNew) {

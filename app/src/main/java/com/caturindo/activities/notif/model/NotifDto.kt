@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 data class NotifDto(
 
 	@field:SerializedName("task")
-	val task: List<Task>? = null,
+	val task: Task? = null,
 
 	@field:SerializedName("id_meeting")
 	val idMeeting: String? = null,

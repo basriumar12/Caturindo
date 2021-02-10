@@ -47,6 +47,7 @@
 </LinearLayout>
 
     <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_marginTop="@dimen/size_75dp"
         android:gravity="center"
         android:id="@+id/paren_data_empty"
         android:layout_width="wrap_content"

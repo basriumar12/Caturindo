@@ -2,6 +2,7 @@ package com.caturindo.fragments.task
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,7 +19,11 @@ import com.caturindo.activities.notif.NotificationActivity
 import com.caturindo.activities.task.detail.TaskDetailActivity
 import com.caturindo.activities.task.SelectMeetingTaskActivity
 import com.caturindo.models.TaskDto
+import com.caturindo.models.UpdateTokenRequest
+import com.caturindo.preference.Prefuser
+import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.firebase.messaging.FirebaseMessaging
 import kotlinx.android.synthetic.main.fragment_search_bar.*
 import kotlinx.android.synthetic.main.fragment_task.*
 
@@ -46,9 +51,26 @@ class TaskFragment : BaseFragment(), AdapterTask.OnListener, TaskContract.View {
         super.onActivityCreated(savedInstanceState)
         setupToolbar()
         presenter = TaskPresenter(this)
+        getFcm()
 
     }
 
+    fun getFcm(){
+
+        FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
+            if (!task.isSuccessful) {
+                return@OnCompleteListener
+            }
+
+            // Get new FCM registration token
+            val token = task.result
+            Log.e("TOKEN fcm", "$token")
+
+            presenter?.getUpdateToken(UpdateTokenRequest(token, Prefuser().getUser()?.id?.toInt()))
+        })
+
+
+    }
     override fun onResume() {
         super.onResume()
         presenter?.getTask()

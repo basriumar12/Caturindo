@@ -18,6 +18,7 @@ import com.caturindo.models.RoomDto
 import com.caturindo.preference.ModelBooking
 import com.caturindo.preference.Prefuser
 import kotlinx.android.synthetic.main.activity_room_detail.*
+import kotlinx.android.synthetic.main.custom_toolbar.*
 import java.util.*
 
 class RoomDetailActivity : BaseActivity() {
@@ -114,6 +115,8 @@ class RoomDetailActivity : BaseActivity() {
         setSupportActionBar(toolbar)
 
         setupNavigationMenu()
+
+        img_first_option.visibility = View.GONE
     }
 
     private fun setupNavigationMenu() {

@@ -7,7 +7,7 @@ data class EditUserRequest(
 	@field:SerializedName("whatsapp")
 	val whatsapp: String? = null,
 
-	@field:SerializedName("phone")
+	@field:SerializedName("no_hp")
 	val phone: String? = null,
 
 	@field:SerializedName("name")

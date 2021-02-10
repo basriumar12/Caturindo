@@ -1,14 +1,18 @@
 package com.caturindo.fragments.meeting
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.caturindo.R
+import com.caturindo.models.DataSubMeetingItemItem
 import com.caturindo.models.MeetingDtoNew
-import kotlinx.android.synthetic.main.item_meeting_outdoor.view.*
+import kotlinx.android.synthetic.main.item_meeting_indoor.view.*
 import kotlinx.android.synthetic.main.item_room.view.*
 
 class AdapterPastMeeting(val context: Context, val data: MutableList<MeetingDtoNew>,
@@ -32,8 +36,15 @@ class AdapterPastMeeting(val context: Context, val data: MutableList<MeetingDtoN
     interface OnListener {
         fun onClick(data: MeetingDtoNew)
     }
+    @SuppressLint("WrongConstant")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
+        holder.itemView.rv_sub_meeting.apply {
+            layoutManager = LinearLayoutManager(holder.itemView.rv_sub_meeting.context, LinearLayout.VERTICAL, false)
+            adapter = AdapterSubMeeting(context,
+                    data.get(position).dataSubMeeting as MutableList<DataSubMeetingItemItem>
+            )
+        }
         data?.get(position).let { data ->
             holder.bindView(data,itemListiner)
             holder.itemView.tv_meeting_title.text = data.title +" - "+data.id

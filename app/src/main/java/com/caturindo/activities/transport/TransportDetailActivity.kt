@@ -27,6 +27,7 @@ import kotlinx.android.synthetic.main.activity_transport_detail.btn_save
 import kotlinx.android.synthetic.main.activity_transport_detail.tv_capacity_count
 import kotlinx.android.synthetic.main.activity_transport_detail.tv_date
 import kotlinx.android.synthetic.main.activity_transport_detail.tv_time
+import kotlinx.android.synthetic.main.custom_toolbar.*
 import java.util.*
 
 class TransportDetailActivity : BaseActivity() {
@@ -136,6 +137,8 @@ class TransportDetailActivity : BaseActivity() {
         setSupportActionBar(toolbar)
 
         setupNavigationMenu()
+
+        img_first_option.visibility = View.GONE
     }
 
     private fun setupNavigationMenu() {

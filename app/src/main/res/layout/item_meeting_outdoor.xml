@@ -151,4 +151,11 @@
 
     </androidx.cardview.widget.CardView >
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_sub_meeting"
+        android:layout_marginStart="@dimen/size_20dp"
+        android:layout_marginEnd="@dimen/size_20dp"
+        android:layout_below="@+id/cvMeeting2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 </RelativeLayout>

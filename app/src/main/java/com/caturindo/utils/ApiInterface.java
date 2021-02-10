@@ -3,6 +3,7 @@ package com.caturindo.utils;
 import com.caturindo.activities.meeting.create.model.UploadDto;
 import com.caturindo.activities.meeting.model.AddMeetingCommentRequest;
 import com.caturindo.activities.meeting.model.AddMemberMeetingDto;
+import com.caturindo.activities.meeting.model.AddSubMeetingCommentRequest;
 import com.caturindo.activities.meeting.model.MeetingCommentDto;
 import com.caturindo.activities.notif.model.NotifDto;
 import com.caturindo.activities.reset_pass.model.ResetPassRequest;
@@ -30,6 +31,7 @@ import com.caturindo.models.TaskDto;
 import com.caturindo.models.TaskRequest;
 import com.caturindo.models.TransportDto;
 import com.caturindo.models.UpdateSubMeetingRequest;
+import com.caturindo.models.UpdateTokenRequest;
 import com.caturindo.models.UserDto;
 import com.caturindo.models.UserDtoNew;
 
@@ -84,7 +86,7 @@ public interface ApiInterface {
     Call<BaseResponse<List<MeetingDtoNew>>>
     getMeetingById(@Query("id_meeting") String idMeeting);
 
-    @GET("meeting/sub_meeting")
+    @GET("submeeting")
     Call<BaseResponse<List<MeetingSubDtoNew>>>
     getSubMeeting(@Query("status_meeting")
 
@@ -185,17 +187,30 @@ public interface ApiInterface {
 
     );
 
-    @PUT("meeting/update_status_submeeting")
-    Call<BaseResponse> updateStatusSubMeeting(
+    @PUT("submeeting/update_status_submeeting")
+    Call<BaseResponseOther> updateStatusSubMeeting(
             @Body UpdateSubMeetingRequest updateStatusMeetingRequest
 
     );
+    @POST("submeeting/cancel")
+    Call<BaseResponseOther> cancelStatusSubMeeting(
+            @Body UpdateSubMeetingRequest updateStatusMeetingRequest
+
+    );
+
+    @PUT("users/update_token_firebase")
+    Call<BaseResponseOther> updateTokenUser(
+            @Body UpdateTokenRequest updateTokenRequest
+
+    );
+
+
 
 
     @POST("meeting/create")
     Call<BaseResponse<MeetingDto>> postMeeting(@Body MeetingRequest meetingRequest);
 
-    @POST("meeting/create_sub_meeting")
+    @POST("submeeting/create_sub_meeting")
     Call<BaseResponse<MeetingSubDtoNew>> postMeetingSub(@Body MeetingSubRequest meetingRequest);
 
     @POST("booking/create")
@@ -219,7 +234,10 @@ public interface ApiInterface {
     Call<BaseResponse<TeamMemberDto>> getTeamMember(@Query("id_user") String idUser);
 
 
-    @POST("meeting/add_comment")
+    @POST("submeeting/add_comment_sub_meeting")
+    Call<BaseResponseOther> postSubMeetingComment(@Body AddSubMeetingCommentRequest taskRequest);
+
+ @POST("meeting/add_comment")
     Call<BaseResponse<MeetingCommentDto>> postMeetingComment(@Body AddMeetingCommentRequest taskRequest);
 
 
@@ -228,6 +246,10 @@ public interface ApiInterface {
 
     @GET("meeting/comment")
     Call<BaseResponse<List<CommentDto>>> getMeetingComment(@Query("id_meeting") String idTask);
+
+  @GET("submeeting/comment_sub_meeting")
+    Call<BaseResponse<List<CommentDto>>> getSubMeetingComment(@Query("id_sub_meeting") String idTask);
+
 
     @GET("notification")
     Call<BaseResponse<List<NotifDto>>> getNotif(@Query("id_user") String idUser);
