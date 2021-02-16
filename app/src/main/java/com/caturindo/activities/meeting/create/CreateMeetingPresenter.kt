@@ -14,6 +14,7 @@ import com.caturindo.models.*
 import com.caturindo.preference.Prefuser
 import com.caturindo.utils.ApiInterface
 import com.caturindo.utils.ServiceGenerator
+import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_create_meeting.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -78,7 +79,7 @@ class CreateMeetingPresenter(private val view: CreatingMeetingContract.View) : C
 
     override fun postCreate(meetingRequest: MeetingRequest, idParentMeeting: String) {
         view.showProgress()
-
+        Log.e("TAG","meeting req ${Gson().toJson(meetingRequest)}")
         GlobalScope.launch {
             withContext(Dispatchers.Main) {
 
@@ -86,7 +87,7 @@ class CreateMeetingPresenter(private val view: CreatingMeetingContract.View) : C
                     override fun onFailure(call: Call<BaseResponse<ArrayList<BookingDto>>>, t: Throwable) {
                         Log.e("TAG", "gagal create booking ${t.message}")
                         view.hideProgress()
-                        view.failCreate("Gagal create data")
+                        view.failCreate("Gagal booking, ada kesalahan jaringan atau akses ke server")
 
                     }
 
@@ -128,9 +129,10 @@ class CreateMeetingPresenter(private val view: CreatingMeetingContract.View) : C
                 meetingRequest.idUser.toString(),
                 meetingRequest.time,
                 meetingRequest.tag,
+                meetingRequest.title,
                 meetingRequest.idFile.toString()
         )
-
+        Log.e("TAG","submeeting req ${Gson().toJson(meetingSubRequest)}")
         GlobalScope.launch {
             withContext(Dispatchers.Main) {
 
@@ -138,7 +140,7 @@ class CreateMeetingPresenter(private val view: CreatingMeetingContract.View) : C
                     override fun onFailure(call: Call<BaseResponse<MeetingSubDtoNew>>, t: Throwable) {
                         Log.e("TAG", "gagal create booking ${t.message}")
                         view.hideProgress()
-                        view.failCreate("Gagal create data")
+                        view.failCreate("Gagal mengisi data, ada kesalahan jaringan atau akses ke server")
                     }
 
                     override fun onResponse(call: Call<BaseResponse<MeetingSubDtoNew>>, response: Response<BaseResponse<MeetingSubDtoNew>>) {
@@ -170,7 +172,7 @@ class CreateMeetingPresenter(private val view: CreatingMeetingContract.View) : C
                     override fun onFailure(call: Call<BaseResponse<MeetingDto>>, t: Throwable) {
                         Log.e("TAG", "gagal create booking ${t.message}")
                         view.hideProgress()
-                        view.failCreate("Gagal create data")
+                        view.failCreate("Gagal mengisi data, ada kesalahan jaringan atau akses ke server")
 
                     }
 

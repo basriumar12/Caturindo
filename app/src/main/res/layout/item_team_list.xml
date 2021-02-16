@@ -71,7 +71,7 @@
             android:layout_margin="8dp"
             android:text="email@email.com"/>
     </LinearLayout>
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/contactWrapper"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -87,11 +87,22 @@
             app:tint="@android:color/black"
             app:srcCompat="@drawable/ic_baseline_phone_24"/>
         <ImageView
+            android:layout_toEndOf="@id/telvon"
             android:id="@+id/wa"
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:src="@drawable/wa_logo2"/>
-    </LinearLayout>
+
+        <ImageView
+            android:layout_marginTop="@dimen/size_20dp"
+            android:layout_centerInParent="true"
+            android:layout_below="@id/telvon"
+            android:id="@+id/delete"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            app:srcCompat="@drawable/ic_baseline_delete_forever_24"/>
+
+    </RelativeLayout>
 
     <View
         android:background="@color/green_soft"

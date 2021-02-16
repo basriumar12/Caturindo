@@ -26,8 +26,8 @@ class LoginPresenter(private val view: LoginContract.View) : LoginContract.Prese
         api.postLogin(email, pass,fcm).enqueue(object : Callback<BaseResponse<RegisterDto>> {
             override fun onFailure(call: Call<BaseResponse<RegisterDto>>, t: Throwable) {
                 view.hideProgress()
-                view.onErrorGetData("Gagal request")
-                Log.e("TAG", "gagal login ${t.message}")
+                view.onErrorGetData("Gagal Request, ada kesalahan jaringan atau ke server")
+
             }
 
             override fun onResponse(call: Call<BaseResponse<RegisterDto>>, response: Response<BaseResponse<RegisterDto>>) {

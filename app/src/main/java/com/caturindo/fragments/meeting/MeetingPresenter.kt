@@ -32,7 +32,7 @@ class MeetingPresenter(private val view: MeetingContract.View) : MeetingContract
             }
 
             override fun onResponse(call: Call<BaseResponse<List<MeetingDtoNew>>>, response: Response<BaseResponse<List<MeetingDtoNew>>>) {
-                Log.e("TAG","gagal meeting req ${Gson().toJson(response.body())}")
+                Log.e("TAG","berhasil meeting req ${Gson().toJson(response.body())}")
                 view.hideProgress()
                 if (response.isSuccessful) {
                     if (response.body()?.status==true) {

@@ -1,4 +1,4 @@
-package com.caturindo.activities.meeting.list
+package com.caturindo.activities.meeting.list.fragment.sub
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -9,17 +9,17 @@ import com.caturindo.R
 import com.caturindo.models.MeetingSubDtoNew
 import kotlinx.android.synthetic.main.item_meeting_outdoor.view.*
 
-class AdapterSubMeetingTask(val context: Context, val data: MutableList<MeetingSubDtoNew>,
-                            private val itemListiner: OnListener
+class AdapterSubMeetingCurrentTask(val context: Context, val data: MutableList<MeetingSubDtoNew>,
+                                   private val itemListiner: OnListener
                     ) :
-    RecyclerView.Adapter<AdapterSubMeetingTask.ViewHolder>() {
+    RecyclerView.Adapter<AdapterSubMeetingCurrentTask.ViewHolder>() {
     companion object {
         const val ON_CLICK_ITEM = 1
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         var v: View =
-            LayoutInflater.from(parent.context).inflate(R.layout.item_meeting_indoor, parent, false)
+            LayoutInflater.from(parent.context).inflate(R.layout.item_meeting_outdoor, parent, false)
 
         return ViewHolder(v)
     }

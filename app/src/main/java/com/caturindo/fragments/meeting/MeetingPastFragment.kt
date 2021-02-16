@@ -17,6 +17,7 @@ import com.caturindo.adapters.MeetingItemAdapter
 import com.caturindo.models.MeetingDtoNew
 import com.caturindo.models.MeetingModel
 import kotlinx.android.synthetic.main.fragment_room_available.*
+import kotlinx.android.synthetic.main.fragment_search_bar.*
 import java.util.*
 
 class MeetingPastFragment : BaseFragment(), MeetingContract.View, AdapterPastMeeting.OnListener {
@@ -52,6 +53,7 @@ class MeetingPastFragment : BaseFragment(), MeetingContract.View, AdapterPastMee
     override fun onSuccessGet(data: MutableList<MeetingDtoNew>) {
         if (data.isNullOrEmpty()){
             paren_data_empty.visibility = View.VISIBLE
+            rvMeeting?.visibility = View.GONE
         }else{
             paren_data_empty.visibility = View.GONE
         }
@@ -60,6 +62,18 @@ class MeetingPastFragment : BaseFragment(), MeetingContract.View, AdapterPastMee
         rvMeeting?.layoutManager = LinearLayoutManager(rootView?.context)
         rvMeeting?.adapter = adapterMeeting
         adapterMeeting?.notifyDataSetChanged()
+        search_text.setOnQueryTextListener(object :
+                androidx.appcompat.widget.SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                adapterMeeting?.filter?.filter(newText)
+                return false
+            }
+
+        })
 
     }
 
@@ -70,6 +84,7 @@ class MeetingPastFragment : BaseFragment(), MeetingContract.View, AdapterPastMee
 
     override fun dataEmpty() {
         paren_data_empty.visibility = View.VISIBLE
+        rvMeeting?.visibility = View.GONE
 
     }
 

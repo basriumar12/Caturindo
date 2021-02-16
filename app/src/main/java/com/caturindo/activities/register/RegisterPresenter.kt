@@ -27,14 +27,13 @@ class RegisterPresenter(private val view: RegisterContract.View) : RegisterContr
         api.postRegister(email,pass,username,phone,role.toInt()).enqueue(object : Callback<BaseResponse<RegisterDto>>{
             override fun onFailure(call: Call<BaseResponse<RegisterDto>>, t: Throwable) {
                 view.hideProgress()
-                view.onErrorGetData("Gagal Request")
-                Log.e("TAG","error ${t.message}")
+                view.onErrorGetData("Gagal Request, ada kesalahan jaringan atau ke server")
             }
 
             override fun onResponse(call: Call<BaseResponse<RegisterDto>>, response: Response<BaseResponse<RegisterDto>>) {
                 view.hideProgress()
                 if (response.isSuccessful) {
-                    if (response.body()?.data != null) {
+                    if (response.body()?.status == true) {
                         response.body()?.data.let {
                             if (it != null) {
                                 data = it
@@ -42,7 +41,7 @@ class RegisterPresenter(private val view: RegisterContract.View) : RegisterContr
                         }
                         view.onSuccessGet(data)
                     } else {
-                        view.onErrorGetData("Gagal Register")
+                        view.onErrorGetData("Gagal, , ${response.body()?.message}")
                     }
                 } else {
                     view.onErrorGetData("Gagal Register, ${response.body()?.message}")

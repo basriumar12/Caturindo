@@ -29,7 +29,7 @@ class AddTeamPresenter(private val view: AddTeamContract.View) : AddTeamContract
         api.allDataUser.enqueue(object : Callback<BaseResponse<List<UserDto>>> {
             override fun onFailure(call: Call<BaseResponse<List<UserDto>>>, t: Throwable) {
                 view.hideProgress()
-                view.onErrorGetData("Gagal dapatkan data user")
+                view.onErrorGetData("Gagal Request, ada kesalahan jaringan atau ke server")
             }
 
             override fun onResponse(call: Call<BaseResponse<List<UserDto>>>, response: Response<BaseResponse<List<UserDto>>>) {

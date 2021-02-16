@@ -5,6 +5,8 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Filter
+import android.widget.Filterable
 import android.widget.LinearLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -14,11 +16,17 @@ import com.caturindo.models.DataSubMeetingItemItem
 import com.caturindo.models.MeetingDtoNew
 import kotlinx.android.synthetic.main.item_meeting_outdoor.view.*
 import kotlinx.android.synthetic.main.item_room.view.*
+import java.util.*
+import kotlin.collections.ArrayList
 
 class AdapterMeeting(val context: Context, val data: MutableList<MeetingDtoNew>,
                      private val itemListiner: OnListener
                     ) :
-    RecyclerView.Adapter<AdapterMeeting.ViewHolder>() {
+    RecyclerView.Adapter<AdapterMeeting.ViewHolder>(), Filterable {
+    var dataFilterList = ArrayList<MeetingDtoNew>()
+    init {
+        dataFilterList = data as ArrayList<MeetingDtoNew>
+    }
     companion object {
         const val ON_CLICK_ITEM = 1
     }
@@ -31,21 +39,21 @@ class AdapterMeeting(val context: Context, val data: MutableList<MeetingDtoNew>,
     }
 
     override fun getItemCount(): Int {
-        return data.size
+        return dataFilterList.size
     }
     interface OnListener {
         fun onClick(data: MeetingDtoNew)
     }
     @SuppressLint("WrongConstant")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-
+        val datas = dataFilterList[position]
         holder.itemView.rv_sub_meeting.apply {
             layoutManager = LinearLayoutManager(holder.itemView.rv_sub_meeting.context, LinearLayout.VERTICAL, false)
             adapter = AdapterSubMeeting(context,
                     data.get(position).dataSubMeeting as MutableList<DataSubMeetingItemItem>
             )
         }
-        data?.get(position).let { data ->
+        datas?.let { data ->
             holder.bindView(data,itemListiner)
             holder.itemView.tv_meeting_title.text = data.title +" - "+data.id
             holder.itemView.tv_meeting_desc.text = data.description
@@ -72,6 +80,34 @@ class AdapterMeeting(val context: Context, val data: MutableList<MeetingDtoNew>,
 
         }
 
+    }
+
+    override fun getFilter(): Filter {
+        return object : Filter() {
+            override fun performFiltering(constraint: CharSequence?): FilterResults {
+                val charSearch = constraint.toString()
+                if (charSearch.isEmpty()) {
+                    dataFilterList = data as ArrayList<MeetingDtoNew>
+                } else {
+                    val resultList = ArrayList<MeetingDtoNew>()
+                    for (row in data) {
+                        if (row.title?.toString()?.toLowerCase(Locale.ROOT)?.contains(charSearch.toLowerCase(Locale.ROOT))!!) {
+                            resultList.add(row)
+                        }
+                    }
+                    dataFilterList = resultList
+                }
+                val filterResults = FilterResults()
+                filterResults.values = dataFilterList
+                return filterResults
+            }
+
+            override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
+                dataFilterList = results?.values as ArrayList<MeetingDtoNew>
+                notifyDataSetChanged()
+            }
+
+        }
     }
 
 

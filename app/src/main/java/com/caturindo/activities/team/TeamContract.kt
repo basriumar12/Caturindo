@@ -21,12 +21,15 @@ interface TeamContract {
         fun onErrorGetData(msg: String?)
 
         fun onSuccessAddTeam(msg: String?)
+
+        fun dataEmpty()
     }
 
     interface Presenter {
         fun getUser(idUser : String)
         fun getUser()
         fun postTeam(data : AddTeamRequest)
+        fun deleteTeam(data : AddTeamRequest)
         fun getTeamMember(idUser : String)
 
 

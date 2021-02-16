@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.ImageView
+import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -17,19 +18,23 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.caturindo.BaseActivity
 import com.caturindo.R
+import com.caturindo.activities.login.LoginActivity
 import com.caturindo.activities.team.add.AddTeamMeetingActivity
 import com.caturindo.activities.team.edit.EditUserActivity
+import com.caturindo.activities.team.model.AddTeamRequest
 import com.caturindo.activities.team.model.MemberItem
 import com.caturindo.adapters.TeamItemAdapter
 import com.caturindo.models.UserDto
 import com.caturindo.models.UserDtoNew
 import com.caturindo.preference.Prefuser
+import com.caturindo.utils.AppConstant
 import com.google.gson.Gson
 import com.karumi.dexter.Dexter
 import com.karumi.dexter.MultiplePermissionsReport
 import com.karumi.dexter.PermissionToken
 import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener
+import com.orhanobut.hawk.Hawk
 import kotlinx.android.synthetic.main.activity_team.*
 
 class TeamActivity : BaseActivity(), TeamContract.View, AdapterTeam.OnListener {
@@ -38,6 +43,7 @@ class TeamActivity : BaseActivity(), TeamContract.View, AdapterTeam.OnListener {
     private var userAvatar: ImageView? = null
     private var rvTeams: RecyclerView? = null
     private var adapter: TeamItemAdapter? = null
+    private var adapterTeam : AdapterTeam? =null
     private lateinit var presenter: TeamPresenter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -67,7 +73,13 @@ class TeamActivity : BaseActivity(), TeamContract.View, AdapterTeam.OnListener {
 
     private fun setupButtonAction() {
         menuList?.setOnClickListener { finish() }
-        menuMore?.setOnClickListener { startActivity(Intent(this@TeamActivity, AddTeamActivity::class.java)) }
+        menuMore?.setOnClickListener {
+            if (Prefuser().getUser()?.role.equals("3")) {
+                showInfoMessage("Anda tidak mempunyai akses")
+            } else {
+                startActivity(Intent(this@TeamActivity, AddTeamActivity::class.java))
+            }
+        }
         img_edit?.setOnClickListener { startActivity(Intent(this@TeamActivity, EditUserActivity::class.java)) }
 
 
@@ -157,15 +169,21 @@ class TeamActivity : BaseActivity(), TeamContract.View, AdapterTeam.OnListener {
     }
 
     override fun onSuccessAddTeam(msg: String?) {
+        showLongSuccessMessage(msg)
+        adapterTeam?.notifyDataSetChanged()
+        presenter.getTeamMember(Prefuser().getUser()?.id.toString())
+    }
 
+    override fun dataEmpty() {
+        paren_data_empty.visibility = View.VISIBLE
     }
 
     override fun onSuccessGetTeam(data: List<MemberItem>) {
-        Log.e("TAG","team member ${Gson().toJson(data)}")
-        val adapterTeam = AdapterTeam(this, data as MutableList<MemberItem>, this)
+        Log.e("TAG", "team member ${Gson().toJson(data)}")
+         adapterTeam = AdapterTeam(this, data as MutableList<MemberItem>, this)
         rv_team.layoutManager = LinearLayoutManager(this)
         rv_team.adapter = adapterTeam
-        adapterTeam.notifyDataSetChanged()
+        adapterTeam?.notifyDataSetChanged()
         rv_team.addItemDecoration(DividerItemDecoration(this, LinearLayoutManager.VERTICAL))
 
 
@@ -195,5 +213,20 @@ class TeamActivity : BaseActivity(), TeamContract.View, AdapterTeam.OnListener {
         }
 
         startActivity(intent)
+    }
+
+    override fun onDelete(data: MemberItem) {
+        if (Prefuser().getUser()?.role.equals("3")){
+            showLongErrorMessage("Anda tidak mempunyai akses")
+        }else{
+            val builder = AlertDialog.Builder(this)
+            builder.setTitle("Konfirmasi")
+            builder.setMessage("Apakah anda yakin menghapus team?")
+            builder.setPositiveButton("Ya") { dialogInterface, i -> // clear data
+                presenter.deleteTeam(AddTeamRequest(data.idMember, Prefuser().getUser()?.id))
+            }
+            builder.setNegativeButton("tidak", null)
+            builder.show()
+        }
     }
 }

@@ -9,10 +9,12 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.widget.SwitchCompat
 import androidx.appcompat.widget.Toolbar
+import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.caturindo.BaseActivity
 import com.caturindo.R
+import com.caturindo.activities.meeting.list.fragment.MeetingTaskFragment
 import com.caturindo.activities.task.CreateTaskActivity
 import com.caturindo.adapters.TransportDetailItemAdapter
 import com.caturindo.models.MeetingDtoNew
@@ -36,8 +38,13 @@ class ListMeetingActivity : BaseActivity(), TaskMeetingContract.View, AdapterMee
         bindView()
         setupToolbar()
 
-        presenter = TaskMeetingPresenter(this)
-        presenter.getMeeting("1")
+//        presenter = TaskMeetingPresenter(this)
+//        presenter.getMeeting("1")
+        var fm: FragmentManager? = null
+        // Inisialisasi FragmentManager
+        fm = supportFragmentManager
+        fm.beginTransaction().add(R.id.parent, MeetingTaskFragment()).commit()
+
 
     }
 

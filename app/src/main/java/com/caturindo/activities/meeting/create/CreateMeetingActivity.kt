@@ -67,12 +67,12 @@ class CreateMeetingActivity : BaseActivity(), CreatingMeetingContract.View {
     }
 
     private fun getValidateSubmeeting() {
-            if (!Prefuser().getIdParentMeeting().isNullOrEmpty()){
-                idMeetingParent = Prefuser().getIdParentMeeting().toString()
-                et_id_meeting_parent.visibility = View.VISIBLE
-                et_id_meeting_parent.text = idMeetingParent
+        if (!Prefuser().getIdParentMeeting().isNullOrEmpty()) {
+            idMeetingParent = Prefuser().getIdParentMeeting().toString()
+            et_id_meeting_parent.visibility = View.VISIBLE
+            et_id_meeting_parent.text = idMeetingParent
 
-            }
+        }
 
 
     }
@@ -158,7 +158,7 @@ class CreateMeetingActivity : BaseActivity(), CreatingMeetingContract.View {
                         et_meeting_title.text.toString(),
                         idFile.toInt()
                 )
-                presenter.postCreate(bodyMeeting,idMeetingParent)
+                presenter.postCreate(bodyMeeting, idMeetingParent)
 
 
             }
@@ -303,36 +303,20 @@ class CreateMeetingActivity : BaseActivity(), CreatingMeetingContract.View {
         easyImage.handleActivityResult(requestCode, resultCode, data, this,
                 object : DefaultCallback() {
                     override fun onMediaFilesPicked(imageFiles: Array<MediaFile>, source: MediaSource) {
-                        var file = File(imageFiles.get(0).file.toString())
-                        var requestFile: RequestBody = RequestBody.create(MediaType.parse("image/*"), File(file.path))
-                        var body: MultipartBody.Part = MultipartBody.Part.createFormData("file", file.name, requestFile)
 
-                        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-                            GlobalScope.launch {
-                                val compressedImageFile = Compressor.compress(
-                                        this@CreateMeetingActivity,
-                                        File(file.path)
-                                ) {
-                                    resolution(1280, 720)
-                                    quality(80) // combine with compressor constraint
-                                    format(Bitmap.CompressFormat.JPEG)
-                                    size(2_097_152)
-
-                                }
-
-                                requestFile = RequestBody.create(MediaType.parse("image/*"), File(compressedImageFile.path))
-                                body = MultipartBody.Part.createFormData("file", file.name, requestFile)
-
-                                presenter.uploadFile(body)
-
-                            }
+                        if (imageFiles.get(0).file.length() >= 2219894) {
+                            showLongErrorMessage("Size foto ini lebih dari 2 MB, Pilih foto yang lain yang kurang dari 2MB")
                         } else {
+                            val file = File(imageFiles.get(0).file.toString())
+                            var requestFile: RequestBody = RequestBody.create(MediaType.parse("image/*"), File(file.path))
+                            var body: MultipartBody.Part = MultipartBody.Part.createFormData("file", file.name, requestFile)
+
                             requestFile = RequestBody.create(MediaType.parse("image/*"), File(file.path))
                             body = MultipartBody.Part.createFormData("file", file.name, requestFile)
 
                             presenter.uploadFile(body)
-                        }
 
+                        }
 
                     }
                 })

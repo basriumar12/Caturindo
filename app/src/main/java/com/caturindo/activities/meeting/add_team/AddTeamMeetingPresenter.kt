@@ -31,7 +31,7 @@ class AddTeamMeetingPresenter(private val view: AddTeamMeetingContract.View) : A
         api.allDataUser.enqueue(object : Callback<BaseResponse<List<UserDto>>> {
             override fun onFailure(call: Call<BaseResponse<List<UserDto>>>, t: Throwable) {
                 view.hideProgress()
-                view.onErrorGetData("Gagal dapatkan data user")
+                view.onErrorGetData("Gagal dapatkan data user, ada kesalahan jaringan atau akses ke server")
             }
 
             override fun onResponse(call: Call<BaseResponse<List<UserDto>>>, response: Response<BaseResponse<List<UserDto>>>) {
@@ -56,7 +56,7 @@ class AddTeamMeetingPresenter(private val view: AddTeamMeetingContract.View) : A
         api.postAddMemberMeeting(username,idMeeting).enqueue(object :Callback<BaseResponse<AddMemberMeetingDto>>{
             override fun onFailure(call: Call<BaseResponse<AddMemberMeetingDto>>, t: Throwable) {
                 view.hideProgress()
-                view.faildAddMember("Gagal request data")
+                view.faildAddMember("Gagal request data, ada kesalahan jaringan atau akses ke server")
             }
 
             override fun onResponse(call: Call<BaseResponse<AddMemberMeetingDto>>, response: Response<BaseResponse<AddMemberMeetingDto>>) {

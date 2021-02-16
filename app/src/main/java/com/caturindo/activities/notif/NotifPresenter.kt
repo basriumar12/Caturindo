@@ -36,7 +36,7 @@ class NotifPresenter(private val view: NotifContract.View) : NotifContract.Prese
         api.getNotif(idUser).enqueue(object : Callback<BaseResponse<List<NotifDto>>> {
             override fun onFailure(call: Call<BaseResponse<List<NotifDto>>>, t: Throwable) {
                 view.hideProgress()
-                view.failt("Gagal dapatkan data notif")
+                view.failt("Gagal dapatkan data notif, ada kesalahan jaringan atau akses ke server")
                 Log.e("TAG","get notif ${t.localizedMessage}")
             }
 

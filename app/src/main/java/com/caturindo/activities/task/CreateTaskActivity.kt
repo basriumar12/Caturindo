@@ -85,7 +85,7 @@ class CreateTaskActivity : BaseActivity(), CreatingTaskContract.View {
         val idMeeting = intent.getStringExtra("ID")
         val titleMeeting = intent.getStringExtra("TITLE")
 
-        et_meeting_title.text = titleMeeting +" - "+idMeeting
+        et_meeting_title.text = titleMeeting + " - " + idMeeting
 
         et_time.setOnClickListener {
 
@@ -115,7 +115,7 @@ class CreateTaskActivity : BaseActivity(), CreatingTaskContract.View {
 
                 mTimePicker.setTitle("Select Time")
                 mTimePicker.show()
-            }catch (e : NullPointerException){
+            } catch (e: NullPointerException) {
 
             }
         }
@@ -154,26 +154,22 @@ class CreateTaskActivity : BaseActivity(), CreatingTaskContract.View {
 
         }
         btn_save.setOnClickListener {
-            if (et_meeting_title.text.toString().isNullOrEmpty()){
+            if (et_meeting_title.text.toString().isNullOrEmpty()) {
                 showErrorMessage("Judul meeting tidak bisa kosong")
-            }
-            else if (et_task_title.text.toString().isNullOrEmpty()){
+            } else if (et_task_title.text.toString().isNullOrEmpty()) {
                 showErrorMessage("Judul task tidak bisa kosong")
-            }
-
-            else if (et_task_desctiption.text.toString().isNullOrEmpty()){
+            } else if (et_task_desctiption.text.toString().isNullOrEmpty()) {
                 showErrorMessage("Deskripsi task tidak bisa kosong")
-            }
-            else if (et_date.text.toString().isNullOrEmpty()){
+            } else if (et_date.text.toString().isNullOrEmpty()) {
                 showErrorMessage("Tanggal task tidak bisa kosong")
 
-            }  else if (et_time.text.toString().isNullOrEmpty()){
+            } else if (et_time.text.toString().isNullOrEmpty()) {
                 showErrorMessage("Waktu task tidak bisa kosong")
-            }else{
+            } else {
 
                 val requesDto = TaskRequest(
                         et_task_title.text.toString(),
-                       idMeeting,
+                        idMeeting,
                         et_date.text.toString(),
                         et_task_desctiption.text.toString(),
                         Prefuser().getUser()?.id.toString(),
@@ -194,7 +190,7 @@ class CreateTaskActivity : BaseActivity(), CreatingTaskContract.View {
     override fun onResume() {
         super.onResume()
 
-        if(!Prefuser().getTeamTask().isNullOrEmpty()){
+        if (!Prefuser().getTeamTask().isNullOrEmpty()) {
             Prefuser().getTeamTask().let {
                 var name: ArrayList<String> = ArrayList()
 
@@ -205,6 +201,7 @@ class CreateTaskActivity : BaseActivity(), CreatingTaskContract.View {
             }
         }
     }
+
     private fun initPersmission() {
         Dexter.withActivity(this).withPermissions(
                 Manifest.permission.CAMERA,
@@ -234,6 +231,7 @@ class CreateTaskActivity : BaseActivity(), CreatingTaskContract.View {
         }
         return super.onOptionsItemSelected(item)
     }
+
     private fun setupToolbar() {
         toolbar = findViewById(R.id.toolbar)
         mTitle = findViewById(R.id.tv_toolbar_title)
@@ -255,46 +253,30 @@ class CreateTaskActivity : BaseActivity(), CreatingTaskContract.View {
         easyImage.handleActivityResult(requestCode, resultCode, data, this,
                 object : DefaultCallback() {
                     override fun onMediaFilesPicked(imageFiles: Array<MediaFile>, source: MediaSource) {
-                        var file = File(imageFiles.get(0).file.toString())
-                        var requestFile: RequestBody = RequestBody.create(MediaType.parse("image/*"), File(file.path))
-                        var body: MultipartBody.Part = MultipartBody.Part.createFormData("file", file.name, requestFile)
 
-                        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-                            GlobalScope.launch {
-                                val compressedImageFile = Compressor.compress(
-                                        this@CreateTaskActivity,
-                                        File(file.path)
-                                ) {
-                                    resolution(1280, 720)
-                                    quality(80) // combine with compressor constraint
-                                    format(Bitmap.CompressFormat.JPEG)
-                                    size(2_097_152)
-
-                                }
-
-                                requestFile = RequestBody.create(MediaType.parse("image/*"), File(compressedImageFile.path))
-                                body = MultipartBody.Part.createFormData("file", file.name, requestFile)
-
-                                presenter.uploadFile(body)
-
-                            }
+                        if (imageFiles.get(0).file.length() >= 2219894) {
+                            showLongErrorMessage("Size foto ini lebih dari 2 MB, Pilih foto yang lain yang kurang dari 2MB")
                         } else {
+                            val file = File(imageFiles.get(0).file.toString())
+                            var requestFile: RequestBody = RequestBody.create(MediaType.parse("image/*"), File(file.path))
+                            var body: MultipartBody.Part = MultipartBody.Part.createFormData("file", file.name, requestFile)
+
                             requestFile = RequestBody.create(MediaType.parse("image/*"), File(file.path))
                             body = MultipartBody.Part.createFormData("file", file.name, requestFile)
-
                             presenter.uploadFile(body)
+
+
                         }
-
-
                     }
                 })
 
 
     }
+
     override fun showProgress() {
 
         progress_circular.visibility = View.VISIBLE
-        
+
     }
 
     override fun hideProgress() {
@@ -312,7 +294,7 @@ class CreateTaskActivity : BaseActivity(), CreatingTaskContract.View {
 
     override fun failUpload(msg: String) {
         showLongErrorMessage(msg)
-        
+
     }
 
     override fun failCreate(msg: String) {

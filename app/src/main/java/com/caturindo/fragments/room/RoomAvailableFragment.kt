@@ -68,7 +68,10 @@ class RoomAvailableFragment : BaseFragment(), AdapterRoom.OnListener, RoomContra
         val timeStart = dialogView.findViewById<TextView>(R.id.tv_time_start)
         val timeEnd = dialogView.findViewById<TextView>(R.id.tv_time_end)
         val date = dialogView.findViewById<TextView>(R.id.tv_date)
-
+        val btnCancel = dialogView.findViewById<Button>(R.id.btn_cancel)
+        btnCancel.setOnClickListener {
+            customDialog?.dismiss()
+        }
         timeStart.setOnClickListener {
             try {
                 val mcurrentTime = Calendar.getInstance()

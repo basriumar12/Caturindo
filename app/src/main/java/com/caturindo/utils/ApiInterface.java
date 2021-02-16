@@ -59,6 +59,10 @@ public interface ApiInterface {
                                               @Field("password") String password,
                                               @Field("token_firebase") String fcm
     );
+    @FormUrlEncoded
+    @PUT("users/logout")
+    Call<BaseResponseOther> postLogout(@Field("id_user") String id
+    );
 
     @FormUrlEncoded
     @POST("users/register")
@@ -230,7 +234,10 @@ public interface ApiInterface {
     @POST("team/add")
     Call<BaseResponseOther> postAddTeam(@Body AddTeamRequest taskRequest);
 
-    @GET("team/add")
+    @POST("team/hapus_member")
+    Call<BaseResponseOther> postDeleteTeam(@Body AddTeamRequest taskRequest);
+
+    @GET("team")
     Call<BaseResponse<TeamMemberDto>> getTeamMember(@Query("id_user") String idUser);
 
 
@@ -259,6 +266,12 @@ public interface ApiInterface {
     @POST("task/add_member")
     Call<BaseResponse<AddMemberTaskDto>> postAddMemberTask(@Field("id_user") String iduser,
                                                            @Field("id_task") String idTask);
+    @FormUrlEncoded
+    @PUT("task/update_status")
+    Call<BaseResponseOther> postUpdateTask(@Field("id_task") String idTask);
+    @FormUrlEncoded
+    @PUT("task/cancel")
+    Call<BaseResponseOther> postCancelTask(@Field("id_task") String idTask);
 
     @FormUrlEncoded
     @POST("meeting/add_member_meeting")

@@ -2,6 +2,8 @@ package com.caturindo.activities.task.detail
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
@@ -15,7 +17,17 @@ import com.caturindo.activities.task.detail.model.AddCommentRequest
 import com.caturindo.activities.task.detail.model.CommentDto
 import com.caturindo.models.TaskDto
 import com.caturindo.preference.Prefuser
+import kotlinx.android.synthetic.main.activity_meeting_detail.*
 import kotlinx.android.synthetic.main.activity_task_detail.*
+import kotlinx.android.synthetic.main.activity_task_detail.btn_submit
+import kotlinx.android.synthetic.main.activity_task_detail.et_comment
+import kotlinx.android.synthetic.main.activity_task_detail.et_task_description
+import kotlinx.android.synthetic.main.activity_task_detail.img_add_person
+import kotlinx.android.synthetic.main.activity_task_detail.img_attachment
+import kotlinx.android.synthetic.main.activity_task_detail.progress_circular
+import kotlinx.android.synthetic.main.activity_task_detail.rvComments
+import kotlinx.android.synthetic.main.activity_task_detail.tv_member
+import kotlinx.android.synthetic.main.activity_task_detail.tv_task_date
 import kotlinx.android.synthetic.main.custom_toolbar.*
 
 class TaskDetailActivity : BaseActivity(), CommentTaskContract.View, AdapterComment.OnListener {
@@ -58,6 +70,7 @@ class TaskDetailActivity : BaseActivity(), CommentTaskContract.View, AdapterComm
 
             }
         }
+        img_add_person.visibility = View.GONE
 
         img_attachment.setOnClickListener {
             startActivity(Intent(this, ImageActivity::class.java)
@@ -65,10 +78,16 @@ class TaskDetailActivity : BaseActivity(), CommentTaskContract.View, AdapterComm
             )
         }
 
+
         img_add_person.setOnClickListener {
-            startActivity(Intent(this, AddTeamTaskActivity::class.java)
-                    .putExtra("ID",idTask)
-            )
+
+            if(Prefuser().getUser()?.role.equals("3")){
+                showInfoMessage("Anda tidak mempunyai akses")
+            }else {
+                startActivity(Intent(this, AddTeamTaskActivity::class.java)
+                        .putExtra("ID", idTask)
+                )
+            }
         }
         btn_submit.setOnClickListener {
             if (et_comment.text.toString().isNullOrEmpty()){
@@ -132,5 +151,33 @@ class TaskDetailActivity : BaseActivity(), CommentTaskContract.View, AdapterComm
 
     override fun onClick(data: CommentDto) {
 
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+
+        when(item.itemId){
+            R.id.menu_cancel ->{
+                if (Prefuser().getUser()?.role.equals("3")) {
+                    showInfoMessage("Anda tidak mempunya akses")
+                }else {
+                    presenter.postCancel(idTask)
+                }
+            }
+
+            R.id.menu_done ->{
+                if (Prefuser().getUser()?.role.equals("3")) {
+                    showInfoMessage("Anda tidak mempunya akses")
+                }else {
+                    presenter.postDone(idTask)
+                }
+            }
+        }
+        return super.onOptionsItemSelected(item)
+
+    }
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        val inflater = menuInflater
+        inflater.inflate(R.menu.meeting_detail_menu, menu)
+        return true
     }
 }

@@ -1,4 +1,4 @@
-package com.caturindo.fragments.meeting
+package com.caturindo.activities.meeting.list.fragment
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -14,16 +14,15 @@ import com.bumptech.glide.Glide
 import com.caturindo.R
 import com.caturindo.models.DataSubMeetingItemItem
 import com.caturindo.models.MeetingDtoNew
-import com.caturindo.models.TaskDto
-import kotlinx.android.synthetic.main.item_meeting_indoor.view.*
+import kotlinx.android.synthetic.main.item_meeting_outdoor.view.*
 import kotlinx.android.synthetic.main.item_room.view.*
 import java.util.*
 import kotlin.collections.ArrayList
 
-class AdapterPastMeeting(val context: Context, val data: MutableList<MeetingDtoNew>,
-                         private val itemListiner: OnListener
+class AdapterMeetingForTask(val context: Context, val data: MutableList<MeetingDtoNew>,
+                            private val itemListiner: OnListener
                     ) :
-    RecyclerView.Adapter<AdapterPastMeeting.ViewHolder>() , Filterable {
+    RecyclerView.Adapter<AdapterMeetingForTask.ViewHolder>(), Filterable {
     var dataFilterList = ArrayList<MeetingDtoNew>()
     init {
         dataFilterList = data as ArrayList<MeetingDtoNew>
@@ -34,7 +33,7 @@ class AdapterPastMeeting(val context: Context, val data: MutableList<MeetingDtoN
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         var v: View =
-            LayoutInflater.from(parent.context).inflate(R.layout.item_meeting_indoor, parent, false)
+            LayoutInflater.from(parent.context).inflate(R.layout.item_meeting_outdoor, parent, false)
 
         return ViewHolder(v)
     }
@@ -48,12 +47,7 @@ class AdapterPastMeeting(val context: Context, val data: MutableList<MeetingDtoN
     @SuppressLint("WrongConstant")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val datas = dataFilterList[position]
-        holder.itemView.rv_sub_meeting.apply {
-            layoutManager = LinearLayoutManager(holder.itemView.rv_sub_meeting.context, LinearLayout.VERTICAL, false)
-            adapter = AdapterSubMeeting(context,
-                    data.get(position).dataSubMeeting as MutableList<DataSubMeetingItemItem>
-            )
-        }
+
         datas?.let { data ->
             holder.bindView(data,itemListiner)
             holder.itemView.tv_meeting_title.text = data.title +" - "+data.id
@@ -61,7 +55,6 @@ class AdapterPastMeeting(val context: Context, val data: MutableList<MeetingDtoN
             holder.itemView.tv_meeting_date.text = data.date
             holder.itemView.tv_meeting_time.text = data.time
             holder.itemView.tv_meeting_loc.text = data.location
-
             if (!data.countMembers.toString().isNullOrEmpty()){
                 holder.itemView.tv_meeting_participant.text = data.countMembers.toString()
             }else{

@@ -20,7 +20,7 @@
         <RadioButton android:id="@+id/radio_inside"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Meeting"
+            android:text="New Meeting"
             android:textStyle="bold"
             android:layout_marginEnd="16dp"
             android:layout_marginRight="16dp"

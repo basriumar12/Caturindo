@@ -16,8 +16,8 @@ import kotlin.collections.ArrayList
 
 class AdapterTask(val context: Context, val data: MutableList<TaskDto>,
                   private val itemListiner: OnListener
-                    ) :
-    RecyclerView.Adapter<AdapterTask.ViewHolder>(), Filterable {
+) :
+        RecyclerView.Adapter<AdapterTask.ViewHolder>(), Filterable {
     var dataFilterList = ArrayList<TaskDto>()
 
     init {
@@ -30,7 +30,7 @@ class AdapterTask(val context: Context, val data: MutableList<TaskDto>,
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         var v: View =
-            LayoutInflater.from(parent.context).inflate(R.layout.item_task, parent, false)
+                LayoutInflater.from(parent.context).inflate(R.layout.item_task, parent, false)
 
         return ViewHolder(v)
     }
@@ -38,34 +38,40 @@ class AdapterTask(val context: Context, val data: MutableList<TaskDto>,
     override fun getItemCount(): Int {
         return dataFilterList.size
     }
+
     interface OnListener {
         fun onClick(data: TaskDto)
     }
+
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val datas = dataFilterList[position]
         holder.bindView(datas, itemListiner)
 
+        if (datas.statusTask.equals("Y")) {
+            holder.itemView.cv_task.setBackgroundColor(holder.itemView.context.resources.getColor(R.color.black))
+        }
+
+
     }
 
     class ViewHolder(itemView: View) :
-        RecyclerView.ViewHolder(itemView) {
+            RecyclerView.ViewHolder(itemView) {
 
-        fun bindView(data: TaskDto, listiner: OnListener){
+        fun bindView(data: TaskDto, listiner: OnListener) {
             itemView.setOnClickListener {
                 listiner.onClick(data)
             }
 
-           itemView.tv_task_name.text = data.nameTask.toString() +" - "+data.id
-           itemView.tv_task_desc.text = data.description.toString()
-           itemView.tv_task_date.text = data.time +"\n"+data.date.toString()
+            itemView.tv_task_name.text = data.nameTask.toString() + " - " + data.id
+            itemView.tv_task_desc.text = data.description.toString()
+            itemView.tv_task_date.text = data.time + "\n" + data.date.toString()
             itemView.tv_task_participant_count.text = "0"
 
-            if (data.member.isNullOrEmpty()){
+            if (data.member.isNullOrEmpty()) {
                 itemView.tv_task_participant_count.text = "0"
-            }else {
-             itemView.tv_task_participant_count.text = data.member.size.toString()
+            } else {
+                itemView.tv_task_participant_count.text = data.member.size.toString()
             }
-
 
 
         }

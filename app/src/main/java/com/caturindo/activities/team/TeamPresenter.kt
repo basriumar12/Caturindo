@@ -35,7 +35,7 @@ class TeamPresenter(private val view: TeamContract.View) : TeamContract.Presente
         api.getUserDetail(idUser).enqueue(object : Callback<BaseResponse<UserDtoNew>> {
             override fun onFailure(call: Call<BaseResponse<UserDtoNew>>, t: Throwable) {
                 view.hideProgress()
-                view.onErrorGetDataDetail("Gagal dapatkan data user")
+                view.onErrorGetData("Gagal Request, ada kesalahan jaringan atau ke server")
             }
 
             override fun onResponse(call: Call<BaseResponse<UserDtoNew>>, response: Response<BaseResponse<UserDtoNew>>) {
@@ -85,7 +85,31 @@ class TeamPresenter(private val view: TeamContract.View) : TeamContract.Presente
         api.postAddTeam(data).enqueue(object  : Callback<BaseResponseOther>{
             override fun onFailure(call: Call<BaseResponseOther>, t: Throwable) {
                 view.hideProgress()
-                view.onErrorGetData("Gagal tambahkan data member")
+                view.onErrorGetData("Gagal tambahkan data member, ada kesalahan jaringan atau akses ke server")
+            }
+
+            override fun onResponse(call: Call<BaseResponseOther>, response: Response<BaseResponseOther>) {
+                view.hideProgress()
+                Log.e("TAG","data ${Gson().toJson(response?.body()?.status)}")
+                if (response.isSuccessful) {
+                    if (response.body()?.status == true) {
+                            view.onSuccessAddTeam(response.body()?.message.toString())
+                    } else {
+                        view.onErrorGetData(response.body()?.message.toString())
+                    }
+                }
+            }
+        })
+
+    }
+
+    override fun deleteTeam(data: AddTeamRequest) {
+        view.showProgress()
+
+        api.postDeleteTeam(data).enqueue(object  : Callback<BaseResponseOther>{
+            override fun onFailure(call: Call<BaseResponseOther>, t: Throwable) {
+                view.hideProgress()
+                view.onErrorGetData("Gagal hapus data member, ada kesalahan jaringan atau akses ke server")
             }
 
             override fun onResponse(call: Call<BaseResponseOther>, response: Response<BaseResponseOther>) {
@@ -109,7 +133,7 @@ class TeamPresenter(private val view: TeamContract.View) : TeamContract.Presente
         api.getTeamMember(idUser).enqueue(object : Callback<BaseResponse<TeamMemberDto>>{
             override fun onFailure(call: Call<BaseResponse<TeamMemberDto>>, t: Throwable) {
                 view.hideProgress()
-                view.onErrorGetData("Gagal dapatkan data member")
+                view.onErrorGetData("Gagal dapatkan data member, ada kesalahan akses ke server")
             }
 
             override fun onResponse(call: Call<BaseResponse<TeamMemberDto>>, response: Response<BaseResponse<TeamMemberDto>>) {
@@ -118,7 +142,13 @@ class TeamPresenter(private val view: TeamContract.View) : TeamContract.Presente
                     if (response.body()?.status == true) {
                         view.onSuccessGetTeam(response.body()?.data?.member as List<MemberItem>)
                     } else {
-                        view.onErrorGetData(response.body()?.message.toString())
+
+                        view.dataEmpty()
+                        //view.onErrorGetData(response.body()?.message.toString())
+                    }
+
+                    if (response.body()?.data?.member.isNullOrEmpty()){
+                        view.dataEmpty()
                     }
                 }else{
                     view.onErrorGetData(response.body()?.message.toString())

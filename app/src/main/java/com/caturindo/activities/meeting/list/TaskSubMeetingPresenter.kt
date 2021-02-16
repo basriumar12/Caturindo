@@ -18,27 +18,29 @@ class TaskSubMeetingPresenter(private val view: TaskSubMeetingContract.View) : T
             Constant.USERNAME,
             Constant.PASS
     )
-   
+
     var context: Context? = null
     override fun getMeeting(status: String) {
-        
+
         view.showProgress()
-        api.getSubMeeting(status).enqueue(object : Callback<BaseResponse<List<MeetingSubDtoNew>>>{
+        api.getSubMeeting(status).enqueue(object : Callback<BaseResponse<List<MeetingSubDtoNew>>> {
             override fun onFailure(call: Call<BaseResponse<List<MeetingSubDtoNew>>>, t: Throwable) {
-                Log.e("TAG","gagal meeting req ${t.message}")
+                Log.e("TAG", "gagal meeting req ${t.message}")
                 view.hideProgress()
-                view.onErrorGetData("Gagal request data")
+                view.onErrorGetData("Gagal request data, ada kesalahan dari server")
             }
 
             override fun onResponse(call: Call<BaseResponse<List<MeetingSubDtoNew>>>, response: Response<BaseResponse<List<MeetingSubDtoNew>>>) {
 
                 view.hideProgress()
                 if (response.isSuccessful) {
-                    if (response.body()?.data != null) {
-                        var data = response.body()?.data
+                    var data = response.body()?.data
+
+                    if (response.body()?.status == true) {
                         view.onSuccessGet(data as MutableList<MeetingSubDtoNew>)
                     } else {
-                        view.onErrorGetData("Gagal, ${response.message()}")
+                        view.onSuccessGet(data as MutableList<MeetingSubDtoNew>)
+
                     }
                 } else {
                     view.onErrorGetData("Gagal, ${response.message()}")

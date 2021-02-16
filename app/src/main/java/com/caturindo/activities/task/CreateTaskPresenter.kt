@@ -89,7 +89,7 @@ class CreateTaskPresenter(private val view: CreatingTaskContract.View) : Creatin
                     override fun onFailure(call: Call<BaseResponse<TaskDto>>, t: Throwable) {
                      Log.e("TAG","gagal create booking ${t.message}")
                         view.hideProgress()
-                        view.failCreate("Gagal create data")
+                        view.failCreate("Gagal create data, ada kesalahan jaringan atau akses ke server")
 
                     }
 

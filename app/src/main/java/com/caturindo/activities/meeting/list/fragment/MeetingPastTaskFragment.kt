@@ -1,4 +1,4 @@
-package com.caturindo.fragments.meeting
+package com.caturindo.activities.meeting.list.fragment
 
 import android.content.Intent
 import android.os.Bundle
@@ -11,8 +11,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.caturindo.BaseFragment
 import com.caturindo.R
 import com.caturindo.activities.meeting.detail.MeetingDetailActivity
+import com.caturindo.activities.task.CreateTaskActivity
 import com.caturindo.activities.task.detail.TaskDetailActivity
 import com.caturindo.adapters.MeetingItemAdapter
+import com.caturindo.fragments.meeting.AdapterMeeting
+import com.caturindo.fragments.meeting.AdapterPastMeeting
+import com.caturindo.fragments.meeting.MeetingContract
+import com.caturindo.fragments.meeting.MeetingPresenter
 import com.caturindo.models.MeetingDtoNew
 import kotlinx.android.synthetic.main.fragment_meeting_current.*
 import kotlinx.android.synthetic.main.fragment_meeting_current.paren_data_empty
@@ -20,7 +25,7 @@ import kotlinx.android.synthetic.main.fragment_meeting_current.progress_circular
 import kotlinx.android.synthetic.main.fragment_room_available.*
 import kotlinx.android.synthetic.main.fragment_search_bar.*
 
-class MeetingCurrentFragment : BaseFragment(), MeetingContract.View, AdapterMeeting.OnListener {
+class MeetingPastTaskFragment : BaseFragment(), MeetingContract.View, AdapterPastMeetingForTask.OnListener {
     private var rootView: View? = null
     private var rvMeeting: RecyclerView? = null
     private val adapter: MeetingItemAdapter? = null
@@ -35,11 +40,12 @@ class MeetingCurrentFragment : BaseFragment(), MeetingContract.View, AdapterMeet
         super.onActivityCreated(savedInstanceState)
         presenter = MeetingPresenter(this)
 
+
     }
 
     override fun onResume() {
         super.onResume()
-        presenter.getMeeting("0")
+        presenter.getMeeting("1")
     }
 
     override fun showProgress() {
@@ -57,7 +63,7 @@ class MeetingCurrentFragment : BaseFragment(), MeetingContract.View, AdapterMeet
             paren_data_empty.visibility = View.GONE
         }
 
-        val adapterMeeting = rootView?.context?.let { AdapterMeeting(it,data,this) }
+        val adapterMeeting = rootView?.context?.let { AdapterPastMeetingForTask(it,data,this) }
         rvMeeting?.layoutManager = LinearLayoutManager(rootView?.context)
         rvMeeting?.adapter = adapterMeeting
         adapterMeeting?.notifyDataSetChanged()
@@ -89,7 +95,11 @@ class MeetingCurrentFragment : BaseFragment(), MeetingContract.View, AdapterMeet
 
     override fun onClick(data: MeetingDtoNew) {
 
-        startActivity(Intent(activity, MeetingDetailActivity::class.java)
-                .putExtra(MeetingDtoNew::class.java.simpleName, data))
+        startActivity(Intent(rootView?.context, CreateTaskActivity::class.java)
+                .putExtra("ID",data.id)
+                .putExtra("TITLE",data.title)
+
+
+        )
     }
 }

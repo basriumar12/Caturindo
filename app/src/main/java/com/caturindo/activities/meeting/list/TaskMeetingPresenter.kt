@@ -27,7 +27,7 @@ class TaskMeetingPresenter(private val view: TaskMeetingContract.View) : TaskMee
             override fun onFailure(call: Call<BaseResponse<List<MeetingDtoNew>>>, t: Throwable) {
                 Log.e("TAG","gagal meeting req ${t.message}")
                 view.hideProgress()
-                view.onErrorGetData("Gagal request data")
+                view.onErrorGetData("Gagal request data, ada kesalahan dari server")
             }
 
             override fun onResponse(call: Call<BaseResponse<List<MeetingDtoNew>>>, response: Response<BaseResponse<List<MeetingDtoNew>>>) {
@@ -45,8 +45,6 @@ class TaskMeetingPresenter(private val view: TaskMeetingContract.View) : TaskMee
                         if (response.body()?.data.isNullOrEmpty()) {
                            view.dataEmpty()
                         }
-
-
 
 
                     } else {

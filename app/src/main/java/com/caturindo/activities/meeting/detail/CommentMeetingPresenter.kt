@@ -36,7 +36,7 @@ class CommentMeetingPresenter(private val view: CommentMeetingContract.View) : C
 
                 api.updateStatusMeeting(CancelMeetingRequest(idMeeting)).enqueue(object :Callback<BaseResponseOther>{
                     override fun onFailure(call: Call<BaseResponseOther>, t: Throwable) {
-                        view.failGetComment("Gagal request data")
+                        view.failGetComment("Gagal update meeting, ada kesalahan jaringan atau akses ke server")
                         view.hideProgress()
                     }
 
@@ -67,7 +67,7 @@ class CommentMeetingPresenter(private val view: CommentMeetingContract.View) : C
 
                 api.cancelMeeting(CancelMeetingRequest(idMeeting)).enqueue(object :Callback<BaseResponseOther>{
                     override fun onFailure(call: Call<BaseResponseOther>, t: Throwable) {
-                        view.failGetComment("Gagal request data")
+                        view.failGetComment("Gagal cancel meeting, ada kesalahan jaringan atau akses ke server")
                         view.hideProgress()
                     }
 
@@ -100,7 +100,7 @@ class CommentMeetingPresenter(private val view: CommentMeetingContract.View) : C
                 api.getMeetingComment(idMeeting).enqueue(object : retrofit2.Callback<BaseResponse<List<CommentDto>>> {
                     override fun onFailure(call: Call<BaseResponse<List<CommentDto>>>, t: Throwable) {
                         view.hideProgress()
-                        view.failGetComment("Gagal Request data")
+                        view.failGetComment("Gagal dapatkan komentar, ada kesalahan jaringan atau akses ke server")
                     }
 
                     override fun onResponse(call: Call<BaseResponse<List<CommentDto>>>, response: Response<BaseResponse<List<CommentDto>>>) {
@@ -130,7 +130,7 @@ class CommentMeetingPresenter(private val view: CommentMeetingContract.View) : C
                 api.postMeetingComment(addCommentRequest).enqueue(object : Callback<BaseResponse<MeetingCommentDto>> {
                     override fun onFailure(call: Call<BaseResponse<MeetingCommentDto>>, t: Throwable) {
                         view.hideProgress()
-                        view.failPostComment("gagal create data")
+                        view.failPostComment("gagal create data, ada kesalahan jaringan atau akses ke server")
                     }
 
                     override fun onResponse(call: Call<BaseResponse<MeetingCommentDto>>, response: Response<BaseResponse<MeetingCommentDto>>) {

@@ -99,7 +99,7 @@ class ListSubMeetingForCreateMeetingActivity : BaseActivity(), TaskSubMeetingCon
         //for create submeeting
         startActivity(Intent(this, CreateMeetingActivity::class.java)
         )
-        //di isi id pareng meeting
+        //di isi id parent meeting
         Prefuser().setIdPerentMeeting(data.id.toString())
     }
 }

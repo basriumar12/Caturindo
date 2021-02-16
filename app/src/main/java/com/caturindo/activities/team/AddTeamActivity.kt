@@ -164,6 +164,10 @@ class AddTeamActivity : BaseActivity(), TeamContract.View, AdapterAddTeam.OnList
         showSuccessMessage(msg)
     }
 
+    override fun dataEmpty() {
+
+    }
+
     override fun onClick(data: UserDto) {
 
         presenter.postTeam(AddTeamRequest(data.id, Prefuser().getUser()?.id))

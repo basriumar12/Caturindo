@@ -33,12 +33,13 @@ class TaskPresenter(private val view: TaskContract.View) : TaskContract.Presente
             override fun onResponse(call: Call<BaseResponse<List<TaskDto>>>, response: Response<BaseResponse<List<TaskDto>>>) {
                 view.hideProgress()
                 if (response.isSuccessful) {
+                    val data = response.body()?.data
                     if (response.body()?.status == true) {
-                        var data = response.body()?.data
+
                         view.onSuccessGet(data as MutableList<TaskDto>)
                     }
 
-                    if (response.body()?.data.isNullOrEmpty()){
+                    if (response.body()?.data.isNullOrEmpty() || response.body()?.status == false){
                         view.dataEmpty()
                     }
                 } else {

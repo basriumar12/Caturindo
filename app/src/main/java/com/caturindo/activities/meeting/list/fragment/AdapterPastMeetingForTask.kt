@@ -1,4 +1,4 @@
-package com.caturindo.fragments.meeting
+package com.caturindo.activities.meeting.list.fragment
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -20,10 +20,10 @@ import kotlinx.android.synthetic.main.item_room.view.*
 import java.util.*
 import kotlin.collections.ArrayList
 
-class AdapterPastMeeting(val context: Context, val data: MutableList<MeetingDtoNew>,
-                         private val itemListiner: OnListener
+class AdapterPastMeetingForTask(val context: Context, val data: MutableList<MeetingDtoNew>,
+                                private val itemListiner: OnListener
                     ) :
-    RecyclerView.Adapter<AdapterPastMeeting.ViewHolder>() , Filterable {
+    RecyclerView.Adapter<AdapterPastMeetingForTask.ViewHolder>() , Filterable {
     var dataFilterList = ArrayList<MeetingDtoNew>()
     init {
         dataFilterList = data as ArrayList<MeetingDtoNew>
@@ -48,12 +48,7 @@ class AdapterPastMeeting(val context: Context, val data: MutableList<MeetingDtoN
     @SuppressLint("WrongConstant")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val datas = dataFilterList[position]
-        holder.itemView.rv_sub_meeting.apply {
-            layoutManager = LinearLayoutManager(holder.itemView.rv_sub_meeting.context, LinearLayout.VERTICAL, false)
-            adapter = AdapterSubMeeting(context,
-                    data.get(position).dataSubMeeting as MutableList<DataSubMeetingItemItem>
-            )
-        }
+
         datas?.let { data ->
             holder.bindView(data,itemListiner)
             holder.itemView.tv_meeting_title.text = data.title +" - "+data.id

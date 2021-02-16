@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.caturindo.R
 import com.caturindo.activities.team.model.MemberItem
 import com.caturindo.models.UserDto
+import com.caturindo.preference.Prefuser
 import kotlinx.android.synthetic.main.item_add_team.view.*
 import kotlinx.android.synthetic.main.item_team_list.view.*
 import java.util.*
@@ -46,6 +47,7 @@ class AdapterTeam(val context: Context, val data: MutableList<MemberItem>,
 
     interface OnListener {
         fun onClick(data: MemberItem)
+        fun onDelete(data: MemberItem)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -60,6 +62,13 @@ class AdapterTeam(val context: Context, val data: MutableList<MemberItem>,
         fun bindView(data: MemberItem, listiner: OnListener) {
             itemView.telvon.setOnClickListener {
                 listiner.onClick(data)
+            }
+
+            if (Prefuser().getUser()?.role.equals("3")){
+                itemView.delete.visibility = View.GONE
+            }
+            itemView.delete.setOnClickListener {
+                listiner.onDelete(data)
             }
 
             var name = ""

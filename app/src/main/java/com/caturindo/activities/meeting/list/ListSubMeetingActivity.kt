@@ -1,7 +1,6 @@
 package com.caturindo.activities.meeting.list
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
@@ -9,18 +8,17 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.widget.SwitchCompat
 import androidx.appcompat.widget.Toolbar
+import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.caturindo.BaseActivity
 import com.caturindo.R
+import com.caturindo.activities.meeting.list.fragment.MeetingTaskFragment
+import com.caturindo.activities.meeting.list.fragment.sub.SubMeetingTaskFragment
 import com.caturindo.activities.task.CreateTaskActivity
 import com.caturindo.adapters.TransportDetailItemAdapter
 import com.caturindo.models.MeetingSubDtoNew
-import kotlinx.android.synthetic.main.activity_list_meeting.*
 import kotlinx.android.synthetic.main.activity_list_sub_meeting.*
-import kotlinx.android.synthetic.main.activity_list_sub_meeting.paren_data_empty
-import kotlinx.android.synthetic.main.activity_list_sub_meeting.progress_circular
-import kotlinx.android.synthetic.main.activity_list_sub_meeting.rv_meeting
 import kotlinx.android.synthetic.main.custom_toolbar.*
 
 class ListSubMeetingActivity : BaseActivity(), TaskSubMeetingContract.View, AdapterSubMeetingTask.OnListener {
@@ -32,16 +30,20 @@ class ListSubMeetingActivity : BaseActivity(), TaskSubMeetingContract.View, Adap
     private var rvRoom: RecyclerView? = null
     private var tglBtn: SwitchCompat? = null
     private var bookingForm: LinearLayout? = null
-    private var adapter: TransportDetailItemAdapter? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_list_sub_meeting)
         bindView()
         setupToolbar()
         initData()
-        presenter = TaskSubMeetingPresenter(this)
-        presenter.getMeeting("0")
+//        presenter = TaskSubMeetingPresenter(this)
+//        presenter.getMeeting("1")
 
+        var fm: FragmentManager? = null
+        // Inisialisasi FragmentManager
+        fm = supportFragmentManager
+        fm.beginTransaction().add(R.id.parent, SubMeetingTaskFragment()).commit()
     }
 
     private fun initData() {

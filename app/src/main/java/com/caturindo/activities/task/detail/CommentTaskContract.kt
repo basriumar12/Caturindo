@@ -25,6 +25,8 @@ interface CommentTaskContract {
 
     interface Presenter {
         fun getComment(idTask : String)
+        fun postCancel(idTask : String)
+        fun postDone(idTask : String)
         fun postComment(addCommentRequest: AddCommentRequest)
 
     }

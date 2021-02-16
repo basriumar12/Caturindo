@@ -77,6 +77,7 @@ class TaskFragment : BaseFragment(), AdapterTask.OnListener, TaskContract.View {
     }
 
     private fun setupToolbar() {
+        rvTask = rootView?.findViewById(R.id.rv_task)
         progress_circular = rootView?.findViewById(R.id.progress_circular)
         floatingActionButton = rootView?.findViewById(R.id.fabCreateTask)
         toolbar = rootView?.findViewById(R.id.toolbar)
@@ -105,6 +106,10 @@ class TaskFragment : BaseFragment(), AdapterTask.OnListener, TaskContract.View {
             showLongInfoMessage("Onproses development")
             //startActivity(new Intent(getActivity(), FilterActivity.class));
         })
+
+        if(Prefuser().getUser()?.role.equals("3")){
+            floatingActionButton?.visibility = View.GONE
+        }
         floatingActionButton?.setOnClickListener { startActivity(Intent(activity, SelectMeetingTaskActivity::class.java)) }
     }
 
@@ -124,9 +129,9 @@ class TaskFragment : BaseFragment(), AdapterTask.OnListener, TaskContract.View {
 
     override fun onSuccessGet(data: MutableList<TaskDto>) {
         try {
+            val adapter = rootView?.context?.let { AdapterTask(it, data, this) }
             if (!data.isNullOrEmpty()) {
-                val adapter = rootView?.context?.let { AdapterTask(it, data, this) }
-                rvTask = rootView?.findViewById(R.id.rv_task)
+
                 rvTask?.setAdapter(adapter)
                 val manager = LinearLayoutManager(rootView?.context, LinearLayoutManager.VERTICAL, false)
                 rvTask?.setLayoutManager(manager)
@@ -143,7 +148,11 @@ class TaskFragment : BaseFragment(), AdapterTask.OnListener, TaskContract.View {
                     }
 
                 })
+            }else{
+                adapter?.notifyDataSetChanged()
+
             }
+
         } catch (e: NullPointerException) {
 
         }
@@ -155,7 +164,9 @@ class TaskFragment : BaseFragment(), AdapterTask.OnListener, TaskContract.View {
     }
 
     override fun dataEmpty() {
+        rvTask?.visibility = View.GONE
         showLongErrorMessage("Data task kosong")
         paren_data_empty.visibility = View.VISIBLE
+
     }
 }

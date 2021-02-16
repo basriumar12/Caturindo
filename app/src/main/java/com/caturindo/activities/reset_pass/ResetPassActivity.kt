@@ -39,7 +39,7 @@ class ResetPassActivity : BaseActivity() {
                     override fun onFailure(call: Call<BaseResponse<List<String>>>, t: Throwable) {
                         Log.e("TAG","data gagal ${t.localizedMessage}")
                         progressBar.visibility = View.GONE
-                        showLongInfoMessage("Gagal Request")
+                        showLongInfoMessage("Gagal Request, ada kesalahan jaringan atau akses ke server")
                     }
 
                     override fun onResponse(call: Call<BaseResponse<List<String>>>, response: Response<BaseResponse<List<String>>>) {

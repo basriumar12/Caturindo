@@ -57,11 +57,16 @@ class MeetingDetailActivity : BaseActivity(), CommentMeetingContract.View, Adapt
                         .putExtra("ID",it.id)
                 )
             }
+            img_add_person.visibility = View.GONE
 
             img_add_person.setOnClickListener {view ->
-                startActivity(Intent(this, AddTeamMeetingActivity::class.java)
-                        .putExtra("ID",it.id)
-                )
+                if(Prefuser().getUser()?.role.equals("3")){
+                    showInfoMessage("Anda tidak mempunyai akses")
+                }else {
+                    startActivity(Intent(this, AddTeamMeetingActivity::class.java)
+                            .putExtra("ID", it.id)
+                    )
+                }
             }
 
             img_attachment.setOnClickListener {
@@ -89,11 +94,19 @@ class MeetingDetailActivity : BaseActivity(), CommentMeetingContract.View, Adapt
 
         when(item.itemId){
             R.id.menu_cancel ->{
-                presenter.cancelMeeting(idMeeting)
+                if (Prefuser().getUser()?.role.equals("3")) {
+                    showInfoMessage("Anda tidak mempunya akses")
+                }else {
+                    presenter.cancelMeeting(idMeeting)
+                }
             }
 
             R.id.menu_done ->{
-                presenter.updateMeeting(idMeeting)
+                if (Prefuser().getUser()?.role.equals("3")) {
+                    showInfoMessage("Anda tidak mempunya akses")
+                }else {
+                    presenter.updateMeeting(idMeeting)
+                }
             }
         }
         return super.onOptionsItemSelected(item)

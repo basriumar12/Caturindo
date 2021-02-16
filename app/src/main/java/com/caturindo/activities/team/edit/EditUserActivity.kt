@@ -5,6 +5,7 @@ import android.app.ProgressDialog
 import android.content.Intent
 import android.graphics.Bitmap
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
@@ -21,17 +22,10 @@ import com.karumi.dexter.Dexter
 import com.karumi.dexter.MultiplePermissionsReport
 import com.karumi.dexter.PermissionToken
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener
-import id.zelory.compressor.Compressor
-import id.zelory.compressor.constraint.format
-import id.zelory.compressor.constraint.quality
-import id.zelory.compressor.constraint.resolution
-import id.zelory.compressor.constraint.size
-import kotlinx.android.synthetic.main.activity_team.*
 import kotlinx.android.synthetic.main.activity_update_user.*
 import kotlinx.android.synthetic.main.activity_update_user.img_background
 import kotlinx.android.synthetic.main.custom_toolbar.*
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
+
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -58,7 +52,7 @@ class EditUserActivity : BaseActivity(), EditUserContract.View {
         setContentView(R.layout.activity_update_user)
         presenter = EditUserPresenter(this)
         progressDialog = ProgressDialog(this)
-
+        progressDialog.setCancelable(false)
 
 
         initData()
@@ -121,7 +115,7 @@ class EditUserActivity : BaseActivity(), EditUserContract.View {
             if (EasyPermissions.hasPermissions(this, android.Manifest.permission.CAMERA)) {
                 easyImage.openGallery(this)
 
-                imageProfile = true
+                imageProfile = false
                 imageProfileBackground = true
             } else {
                 EasyPermissions.requestPermissions(
@@ -172,73 +166,39 @@ class EditUserActivity : BaseActivity(), EditUserContract.View {
         easyImage.handleActivityResult(requestCode, resultCode, data, this,
                 object : DefaultCallback() {
                     override fun onMediaFilesPicked(imageFiles: Array<MediaFile>, source: MediaSource) {
-                        var file = File(imageFiles.get(0).file.toString())
-                        var requestFile: RequestBody = RequestBody.create(MediaType.parse("image/*"), File(file.path))
-                        var body: MultipartBody.Part = MultipartBody.Part.createFormData("file", file.name, requestFile)
-                        val idUser: RequestBody = RequestBody.create(
-                                MultipartBody.FORM, Prefuser().getUser()?.id
-                                .toString())
+                        if (imageFiles.get(0).file.length() >= 2219894) {
+                            showLongErrorMessage("Size foto ini lebih dari 2 MB, Pilih foto yang lain yang kurang dari 2MB")
+                        } else {
+                            Log.e("TAG", "image size ${imageFiles.get(0).file.length()}")
 
-                        if (imageProfile == true) {
-                            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-                                GlobalScope.launch {
-                                    val compressedImageFile = Compressor.compress(
-                                            this@EditUserActivity,
-                                            File(file.path)
-                                    ) {
-                                        resolution(1280, 720)
-                                        quality(80) // combine with compressor constraint
-                                        format(Bitmap.CompressFormat.JPEG)
-                                        size(2_097_152)
+                            val file = File(imageFiles.get(0).file.toString())
+                            var requestFile: RequestBody = RequestBody.create(MediaType.parse("image/*"), File(file.path))
+                            var body: MultipartBody.Part = MultipartBody.Part.createFormData("file", file.name, requestFile)
+                            val idUser: RequestBody = RequestBody.create(
+                                    MultipartBody.FORM, Prefuser().getUser()?.id
+                                    .toString())
 
-                                    }
-
-                                    requestFile = RequestBody.create(MediaType.parse("image/*"), File(compressedImageFile.path))
-                                    body = MultipartBody.Part.createFormData("file", file.name, requestFile)
-
-                                    presenter.uploadImage(idUser, body)
-
-                                }
-                            } else {
+                            if (imageProfile == true) {
                                 requestFile = RequestBody.create(MediaType.parse("image/*"), File(file.path))
                                 body = MultipartBody.Part.createFormData("file", file.name, requestFile)
 
                                 presenter.uploadImage(idUser, body)
+
                             }
 
-                        }
 
+                            if (imageProfileBackground == true) {
 
-                        if (imageProfileBackground == true) {
-                            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-                                GlobalScope.launch {
-                                    val compressedImageFile = Compressor.compress(
-                                            this@EditUserActivity,
-                                            File(file.path)
-                                    ) {
-                                        resolution(1280, 720)
-                                        quality(80) // combine with compressor constraint
-                                        format(Bitmap.CompressFormat.JPEG)
-                                        size(2_097_152)
-
-                                    }
-
-                                    requestFile = RequestBody.create(MediaType.parse("image/*"), File(compressedImageFile.path))
-                                    body = MultipartBody.Part.createFormData("file", file.name, requestFile)
-
-                                    presenter.uploadBackgroundImage(idUser, body)
-
-                                }
-                            } else {
                                 requestFile = RequestBody.create(MediaType.parse("image/*"), File(file.path))
                                 body = MultipartBody.Part.createFormData("file", file.name, requestFile)
 
                                 presenter.uploadBackgroundImage(idUser, body)
+
+
                             }
 
+
                         }
-
-
                     }
                 })
 
@@ -270,10 +230,13 @@ class EditUserActivity : BaseActivity(), EditUserContract.View {
 
     override fun showProgress() {
         progressDialog.show()
+        progress_circular.visibility = View.VISIBLE
     }
 
     override fun hideProgress() {
         progressDialog.dismiss()
+
+        progress_circular.visibility = View.GONE
     }
 
     override fun onSuccessGet(data: UpdateUploadUserDto) {

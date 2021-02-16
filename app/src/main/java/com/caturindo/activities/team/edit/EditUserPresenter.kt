@@ -48,7 +48,7 @@ class EditUserPresenter(private val view: EditUserContract.View) : EditUserContr
         api.getUserDetail(idUser).enqueue(object : retrofit2.Callback<BaseResponse<UserDtoNew>> {
             override fun onFailure(call: Call<BaseResponse<UserDtoNew>>, t: Throwable) {
                 view.hideProgress()
-                view.onErrorGetData("Gagal dapatkan data user")
+                view.onErrorGetData("Gagal dapatkan data user, ada kesalahan jaringan atau akses ke server")
             }
 
             override fun onResponse(call: Call<BaseResponse<UserDtoNew>>, response: Response<BaseResponse<UserDtoNew>>) {
@@ -76,7 +76,7 @@ class EditUserPresenter(private val view: EditUserContract.View) : EditUserContr
                         api.editUser(data).enqueue(object : retrofit2.Callback<BaseResponseOther>{
                             override fun onFailure(call: Call<BaseResponseOther>, t: Throwable) {
                                 view.hideProgress()
-                                view.onErrorGetData("gagal edit user")
+                                view.onErrorGetData("gagal edit user, ada kesalahan jaringan atau akses ke server")
                             }
 
                             override fun onResponse(call: Call<BaseResponseOther>, response: Response<BaseResponseOther>) {

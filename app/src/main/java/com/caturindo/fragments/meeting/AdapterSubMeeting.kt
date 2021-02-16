@@ -14,17 +14,18 @@ import com.caturindo.models.DataSubMeetingItemItem
 import com.caturindo.models.MeetingDtoNew
 import kotlinx.android.synthetic.main.item_meeting_outdoor.view.*
 import kotlinx.android.synthetic.main.item_room.view.*
+import kotlinx.android.synthetic.main.item_task.view.*
 
 class AdapterSubMeeting(val context: Context, val data: MutableList<DataSubMeetingItemItem>
-                    ) :
-    RecyclerView.Adapter<AdapterSubMeeting.ViewHolder>() {
+) :
+        RecyclerView.Adapter<AdapterSubMeeting.ViewHolder>() {
     companion object {
         const val ON_CLICK_ITEM = 1
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         var v: View =
-            LayoutInflater.from(parent.context).inflate(R.layout.item_meeting_outdoor, parent, false)
+                LayoutInflater.from(parent.context).inflate(R.layout.item_meeting_outdoor, parent, false)
 
         return ViewHolder(v)
     }
@@ -32,14 +33,24 @@ class AdapterSubMeeting(val context: Context, val data: MutableList<DataSubMeeti
     override fun getItemCount(): Int {
         return data.size
     }
+
     interface OnListener {
         fun onClick(data: DataSubMeetingItemItem)
     }
+
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
 
         data?.get(position).let { data ->
+            try {
 
+                if (data.statusMeeting.equals("1")) {
+                    holder.itemView.cv_meeting.setBackgroundColor(holder.itemView.context.resources.getColor(R.color.black))
+                }
+
+            } catch (e: NullPointerException) {
+
+            }
             holder.itemView.setOnClickListener {
 
                 holder.itemView.context.startActivity(Intent(holder.itemView.context, SubMeetingDetailActivity::class.java)
@@ -47,7 +58,7 @@ class AdapterSubMeeting(val context: Context, val data: MutableList<DataSubMeeti
 
             }
 
-            holder.itemView.tv_meeting_title.text = data.title +" - "+data.id
+            holder.itemView.tv_meeting_title.text = data.title + " - " + data.id
             holder.itemView.tv_meeting_desc.text = data.description
             holder.itemView.tv_meeting_date.text = data.date
             holder.itemView.tv_meeting_time.text = data.time
@@ -58,10 +69,9 @@ class AdapterSubMeeting(val context: Context, val data: MutableList<DataSubMeeti
     }
 
     class ViewHolder(itemView: View) :
-        RecyclerView.ViewHolder(itemView) {
+            RecyclerView.ViewHolder(itemView) {
 
-        fun bindView(data: DataSubMeetingItemItem){
-
+        fun bindView(data: DataSubMeetingItemItem) {
 
 
         }
