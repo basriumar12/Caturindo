@@ -25,8 +25,9 @@ class FirebaseMessageService : FirebaseMessagingService() {
         super.onMessageReceived(remoteMessage)
         val title = remoteMessage.notification?.title
         val body = remoteMessage.notification?.body
-        val image = remoteMessage.notification?.imageUrl
+       // val image = remoteMessage.notification?.imageUrl
         Log.e("TAG","body fcm ${remoteMessage.data}")
+        Log.e("TAG","body fcm ${remoteMessage.notification}")
 
 
 
@@ -36,8 +37,8 @@ class FirebaseMessageService : FirebaseMessagingService() {
             if (jsonObject != null) {
                 val jsonObjectTitle = jsonObject.getString("title")
                 val jsonObjectBody = jsonObject.getString("body")
-                val id = jsonObject.getString("id").toString()
-                NotificationManagers(this).displayNotification(jsonObjectTitle, jsonObjectBody, "image", id)
+                //val id = jsonObject.getString("id").toString()
+                NotificationManagers(this).displayNotification(jsonObjectTitle, jsonObjectBody, "image", "id")
 
             }
             }

@@ -46,6 +46,10 @@ public class SelectMeetingTaskActivity extends AppCompatActivity {
     }
 
     private void setupNavigationMenu() {
+        ImageView img = findViewById(R.id.img_first_option);
+        ImageView img2 = findViewById(R.id.img_second_option);
+        img.setVisibility(View.GONE);
+        img2.setVisibility(View.GONE);
         mNavigationMenu = findViewById(R.id.img_toolbar_start_button);
         mNavigationMenu.setImageResource(R.drawable.ic_baseline_chevron_left_24);
         mNavigationMenu.setOnClickListener(new View.OnClickListener() {

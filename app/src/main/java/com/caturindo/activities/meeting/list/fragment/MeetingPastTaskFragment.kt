@@ -5,24 +5,18 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.caturindo.BaseFragment
 import com.caturindo.R
-import com.caturindo.activities.meeting.detail.MeetingDetailActivity
+import com.caturindo.activities.meeting.model.MeetingNewRequest
 import com.caturindo.activities.task.CreateTaskActivity
-import com.caturindo.activities.task.detail.TaskDetailActivity
 import com.caturindo.adapters.MeetingItemAdapter
-import com.caturindo.fragments.meeting.AdapterMeeting
-import com.caturindo.fragments.meeting.AdapterPastMeeting
 import com.caturindo.fragments.meeting.MeetingContract
 import com.caturindo.fragments.meeting.MeetingPresenter
 import com.caturindo.models.MeetingDtoNew
+import com.caturindo.preference.Prefuser
 import kotlinx.android.synthetic.main.fragment_meeting_current.*
-import kotlinx.android.synthetic.main.fragment_meeting_current.paren_data_empty
-import kotlinx.android.synthetic.main.fragment_meeting_current.progress_circular
-import kotlinx.android.synthetic.main.fragment_room_available.*
 import kotlinx.android.synthetic.main.fragment_search_bar.*
 
 class MeetingPastTaskFragment : BaseFragment(), MeetingContract.View, AdapterPastMeetingForTask.OnListener {
@@ -45,7 +39,9 @@ class MeetingPastTaskFragment : BaseFragment(), MeetingContract.View, AdapterPas
 
     override fun onResume() {
         super.onResume()
-        presenter.getMeeting("1")
+        presenter.getMeetingAll(MeetingNewRequest(
+                "", Prefuser().getUser()?.id.toString(),"1", Prefuser().getCarruntDate()
+        ))
     }
 
     override fun showProgress() {
@@ -61,6 +57,7 @@ class MeetingPastTaskFragment : BaseFragment(), MeetingContract.View, AdapterPas
             paren_data_empty.visibility = View.VISIBLE
         }else{
             paren_data_empty.visibility = View.GONE
+            rvMeeting?.visibility = View.VISIBLE
         }
 
         val adapterMeeting = rootView?.context?.let { AdapterPastMeetingForTask(it,data,this) }

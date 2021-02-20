@@ -28,6 +28,7 @@ import com.orhanobut.hawk.Hawk
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.text.SimpleDateFormat
 import java.util.*
 
 class HomeActivity : AppCompatActivity(), HomeItemAdapter.ItemListener {
@@ -62,7 +63,15 @@ class HomeActivity : AppCompatActivity(), HomeItemAdapter.ItemListener {
         recyclerView?.adapter = adapter
         val manager = GridLayoutManager(this, 3, RecyclerView.VERTICAL, false)
         recyclerView?.layoutManager = manager
-        Log.e("TAG", "cek user pref" + Gson().toJson(Prefuser().getUser()))
+
+
+
+        val sdf = SimpleDateFormat("yyyy-M")
+        var currentDate = sdf.format(Date())
+        if (currentDate.isNullOrEmpty()){
+            currentDate = ""
+        }
+        Prefuser().setCarruntDate(currentDate)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

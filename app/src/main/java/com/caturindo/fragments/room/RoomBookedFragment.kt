@@ -40,7 +40,8 @@ class RoomBookedFragment : BaseFragment(), AdapterRoom.OnListener, RoomContract.
     }
 
     override fun onClick(data: RoomDto) {
-        startActivity(Intent(activity, RoomDetailActivity::class.java))
+        startActivity(Intent(rootView?.context, RoomDetailActivity::class.java)
+                .putExtra(RoomDto::class.java.simpleName, data))
     }
 
     override fun showProgress() {

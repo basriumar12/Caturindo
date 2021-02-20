@@ -65,13 +65,8 @@ class AdapterTask(val context: Context, val data: MutableList<TaskDto>,
             itemView.tv_task_name.text = data.nameTask.toString() + " - " + data.id
             itemView.tv_task_desc.text = data.description.toString()
             itemView.tv_task_date.text = data.time + "\n" + data.date.toString()
-            itemView.tv_task_participant_count.text = "0"
+            itemView.tv_task_participant_count.text = data.count_members.toString()
 
-            if (data.member.isNullOrEmpty()) {
-                itemView.tv_task_participant_count.text = "0"
-            } else {
-                itemView.tv_task_participant_count.text = data.member.size.toString()
-            }
 
 
         }

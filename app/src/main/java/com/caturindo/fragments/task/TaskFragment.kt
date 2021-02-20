@@ -15,9 +15,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.caturindo.BaseFragment
 import com.caturindo.R
+import com.caturindo.activities.FilterActivity
 import com.caturindo.activities.notif.NotificationActivity
 import com.caturindo.activities.task.detail.TaskDetailActivity
 import com.caturindo.activities.task.SelectMeetingTaskActivity
+import com.caturindo.activities.task.model.TaskNewRequest
 import com.caturindo.models.TaskDto
 import com.caturindo.models.UpdateTokenRequest
 import com.caturindo.preference.Prefuser
@@ -26,6 +28,8 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.messaging.FirebaseMessaging
 import kotlinx.android.synthetic.main.fragment_search_bar.*
 import kotlinx.android.synthetic.main.fragment_task.*
+import java.text.SimpleDateFormat
+import java.util.*
 
 class TaskFragment : BaseFragment(), AdapterTask.OnListener, TaskContract.View {
     private var rootView: View? = null
@@ -38,6 +42,7 @@ class TaskFragment : BaseFragment(), AdapterTask.OnListener, TaskContract.View {
     private var progress_circular: ProgressBar? = null
     private var presenter: TaskPresenter? = null
     private var floatingActionButton: FloatingActionButton? = null
+   private var currentDate =""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -50,6 +55,12 @@ class TaskFragment : BaseFragment(), AdapterTask.OnListener, TaskContract.View {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         setupToolbar()
+        val sdf = SimpleDateFormat("yyyy-M")
+         currentDate = sdf.format(Date())
+        if (currentDate.isNullOrEmpty()){
+            currentDate = ""
+        }
+        Prefuser().setCarruntDate(currentDate)
         presenter = TaskPresenter(this)
         getFcm()
 
@@ -73,7 +84,8 @@ class TaskFragment : BaseFragment(), AdapterTask.OnListener, TaskContract.View {
     }
     override fun onResume() {
         super.onResume()
-        presenter?.getTask()
+
+        presenter?.getAllTask(TaskNewRequest("",Prefuser().getUser()?.id,Prefuser().getCarruntDate()))
     }
 
     private fun setupToolbar() {
@@ -103,14 +115,16 @@ class TaskFragment : BaseFragment(), AdapterTask.OnListener, TaskContract.View {
             startActivity(Intent(rootView?.context, NotificationActivity::class.java))
         })
         mFilterOption?.setOnClickListener(View.OnClickListener {
-            showLongInfoMessage("Onproses development")
-            //startActivity(new Intent(getActivity(), FilterActivity.class));
+
+            startActivity( Intent(getActivity(), FilterActivity::class.java))
         })
 
         if(Prefuser().getUser()?.role.equals("3")){
             floatingActionButton?.visibility = View.GONE
         }
-        floatingActionButton?.setOnClickListener { startActivity(Intent(activity, SelectMeetingTaskActivity::class.java)) }
+        floatingActionButton?.setOnClickListener {
+            Prefuser().setCarruntDate(currentDate)
+            startActivity(Intent(activity, SelectMeetingTaskActivity::class.java)) }
     }
 
     override fun onClick(data: TaskDto) {

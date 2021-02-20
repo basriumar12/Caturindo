@@ -57,7 +57,7 @@ class TeamPresenter(private val view: TeamContract.View) : TeamContract.Presente
         view.showProgress()
   
 
-        api.allDataUser.enqueue(object : Callback<BaseResponse<List<UserDto>>> {
+        api.allDataUsers.enqueue(object : Callback<BaseResponse<List<UserDto>>> {
             override fun onFailure(call: Call<BaseResponse<List<UserDto>>>, t: Throwable) {
                 view.hideProgress()
                 view.onErrorGetData("Gagal dapatkan data user")

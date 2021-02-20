@@ -36,6 +36,7 @@ class TaskDetailActivity : BaseActivity(), CommentTaskContract.View, AdapterComm
     private var toolbar: Toolbar? = null
     private var mTitle: TextView? = null
     private var idTask = ""
+    private var idUserCreate = ""
     private var mNavigationMenu: ImageView? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,9 +56,10 @@ class TaskDetailActivity : BaseActivity(), CommentTaskContract.View, AdapterComm
         presenter = CommentTaskPresenter(this)
         val data =  intent.getSerializableExtra(TaskDto::class.java.simpleName) as TaskDto
         data.let {
+            idUserCreate = it.id_user.toString()
             idTask = it.id.toString()
             tv_task_date.text = it.time +" - "+it.date
-            mTitle?.text = it.nameTask
+            mTitle?.text = "${it.nameTask} - ${it.id}"
             et_task_description?.text = it.description
             presenter.getComment(it.id.toString())
 
@@ -157,17 +159,21 @@ class TaskDetailActivity : BaseActivity(), CommentTaskContract.View, AdapterComm
 
         when(item.itemId){
             R.id.menu_cancel ->{
-                if (Prefuser().getUser()?.role.equals("3")) {
+                if (Prefuser().getUser()?.role.equals("3") || !Prefuser().getUser()?.id.toString().equals(idUserCreate)) {
                     showInfoMessage("Anda tidak mempunya akses")
-                }else {
+                }
+                else {
                     presenter.postCancel(idTask)
                 }
             }
 
             R.id.menu_done ->{
-                if (Prefuser().getUser()?.role.equals("3")) {
+                if (Prefuser().getUser()?.role.equals("3") || !Prefuser().getUser()?.id.toString().equals(idUserCreate)) {
                     showInfoMessage("Anda tidak mempunya akses")
-                }else {
+                }
+
+
+                else {
                     presenter.postDone(idTask)
                 }
             }

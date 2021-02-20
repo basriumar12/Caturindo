@@ -139,6 +139,7 @@ class TransportDetailActivity : BaseActivity() {
         setupNavigationMenu()
 
         img_first_option.visibility = View.GONE
+        img_second_option.visibility = View.GONE
     }
 
     private fun setupNavigationMenu() {

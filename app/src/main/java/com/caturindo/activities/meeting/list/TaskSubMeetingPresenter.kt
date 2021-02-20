@@ -6,6 +6,7 @@ import com.caturindo.constant.Constant
 import com.caturindo.models.BaseResponse
 import com.caturindo.models.MeetingSubDtoNew
 import com.caturindo.models.RoomDto
+import com.caturindo.preference.Prefuser
 import com.caturindo.utils.ApiInterface
 import com.caturindo.utils.ServiceGenerator
 import retrofit2.Call
@@ -23,7 +24,7 @@ class TaskSubMeetingPresenter(private val view: TaskSubMeetingContract.View) : T
     override fun getMeeting(status: String) {
 
         view.showProgress()
-        api.getSubMeeting(status).enqueue(object : Callback<BaseResponse<List<MeetingSubDtoNew>>> {
+        api.getSubMeeting(status, Prefuser().getUser()?.id.toString()).enqueue(object : Callback<BaseResponse<List<MeetingSubDtoNew>>> {
             override fun onFailure(call: Call<BaseResponse<List<MeetingSubDtoNew>>>, t: Throwable) {
                 Log.e("TAG", "gagal meeting req ${t.message}")
                 view.hideProgress()

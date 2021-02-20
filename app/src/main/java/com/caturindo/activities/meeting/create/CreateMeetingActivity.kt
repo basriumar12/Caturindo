@@ -2,7 +2,6 @@ package com.caturindo.activities.meeting.create
 
 import android.Manifest
 import android.content.Intent
-import android.graphics.Bitmap
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
@@ -18,30 +17,22 @@ import com.caturindo.activities.meeting.create.model.UploadDto
 import com.caturindo.activities.team.add.AddTeamMeetingActivity
 import com.caturindo.models.BookingRequest
 import com.caturindo.models.MeetingRequest
-import com.caturindo.preference.Prefuser
 import com.caturindo.preference.ModelMeeting
+import com.caturindo.preference.Prefuser
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.karumi.dexter.Dexter
 import com.karumi.dexter.MultiplePermissionsReport
 import com.karumi.dexter.PermissionToken
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener
-import id.zelory.compressor.Compressor
-import id.zelory.compressor.constraint.format
-import id.zelory.compressor.constraint.quality
-import id.zelory.compressor.constraint.resolution
-import id.zelory.compressor.constraint.size
 import kotlinx.android.synthetic.main.activity_create_meeting.*
 import kotlinx.android.synthetic.main.custom_toolbar.*
 import kotlinx.android.synthetic.main.view_choose_take_photo.view.*
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import pl.aprilapps.easyphotopicker.*
 import pub.devrel.easypermissions.EasyPermissions
 import java.io.File
-import java.lang.NullPointerException
 
 class CreateMeetingActivity : BaseActivity(), CreatingMeetingContract.View {
     private var presenter: CreateMeetingPresenter = CreateMeetingPresenter(this)
@@ -154,7 +145,7 @@ class CreateMeetingActivity : BaseActivity(), CreatingMeetingContract.View {
                         propertyBooking?.location,
                         Prefuser().getUser()?.id?.toInt(),
                         et_time.text.toString(),
-                        et_tag.text.toString(),
+                        "",//et_tag.text.toString(),
                         et_meeting_title.text.toString(),
                         idFile.toInt()
                 )
@@ -267,6 +258,7 @@ class CreateMeetingActivity : BaseActivity(), CreatingMeetingContract.View {
         setupNavigationMenu()
 
         img_first_option.visibility = View.GONE
+        img_second_option.visibility = View.GONE
     }
 
     private fun setupNavigationMenu() {

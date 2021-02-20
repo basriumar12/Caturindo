@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
 import com.caturindo.R;
+import com.caturindo.activities.FilterActivity;
 import com.caturindo.activities.meeting.SelectMeetingActivity;
 import com.caturindo.activities.notif.NotificationActivity;
 import com.caturindo.adapters.MeetingViewPagerAdapter;
@@ -112,7 +113,7 @@ public class MeetingTaskFragment extends Fragment {
         mFilterOption.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                startActivity(new Intent(getActivity(), FilterActivity.class));
             }
         });
     }

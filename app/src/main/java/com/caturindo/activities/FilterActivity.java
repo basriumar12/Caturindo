@@ -21,7 +21,7 @@ import com.caturindo.adapters.TransportDetailItemAdapter;
 
 import java.util.ArrayList;
 
-public class FilterActivity extends AppCompatActivity {
+public class FilterActivity extends AppCompatActivity implements FilterItemAdapter.ItemListener {
     private Toolbar toolbar;
     private TextView mTitle;
     private ImageView mNavigationMenu;
@@ -50,7 +50,10 @@ public class FilterActivity extends AppCompatActivity {
     }
 
     private void setupNavigationMenu(){
-
+        ImageView img = findViewById(R.id.img_first_option);
+        ImageView img2 = findViewById(R.id.img_second_option);
+        img.setVisibility(View.GONE);
+        img2.setVisibility(View.GONE);
         mNavigationMenu.setImageResource(R.drawable.ic_baseline_chevron_left_24);
         mNavigationMenu.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,11 +66,12 @@ public class FilterActivity extends AppCompatActivity {
     private void setupRecyclerView(){
         adjustArrowList();
         ArrayList<String> images = new ArrayList();
-        images.add("2019");
-        images.add("2018");
-        images.add("2017");
-        images.add("2016");
-        adapter = new FilterItemAdapter(this,images);
+        images.add("2021");
+        images.add("2022");
+        images.add("2023");
+        images.add("2024");
+        adapter = new FilterItemAdapter(this,images,this);
+
         rvFilter.setAdapter(adapter);
     }
 
@@ -87,4 +91,8 @@ public class FilterActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public void onItemClick(String item) {
+        finish();
+    }
 }

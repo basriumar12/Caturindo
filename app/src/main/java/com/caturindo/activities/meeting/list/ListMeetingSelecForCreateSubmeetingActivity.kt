@@ -14,12 +14,15 @@ import androidx.recyclerview.widget.RecyclerView
 import com.caturindo.BaseActivity
 import com.caturindo.R
 import com.caturindo.activities.meeting.create.CreateMeetingActivity
+import com.caturindo.activities.meeting.model.MeetingNewRequest
 import com.caturindo.activities.task.CreateTaskActivity
 import com.caturindo.adapters.TransportDetailItemAdapter
 import com.caturindo.models.MeetingDtoNew
 import com.caturindo.preference.Prefuser
 import kotlinx.android.synthetic.main.activity_list_meeting.*
 import kotlinx.android.synthetic.main.custom_toolbar.*
+import java.text.SimpleDateFormat
+import java.util.*
 
 class ListMeetingSelecForCreateSubmeetingActivity : BaseActivity(), TaskMeetingContract.View, AdapterMeetingTask.OnListener {
 
@@ -37,9 +40,16 @@ class ListMeetingSelecForCreateSubmeetingActivity : BaseActivity(), TaskMeetingC
 
         bindView()
         setupToolbar()
-
+        val sdf = SimpleDateFormat("yyyy-M")
+        var currentDate = sdf.format(Date())
+        if (currentDate.isNullOrEmpty()){
+            currentDate = ""
+        }
+        Prefuser().setCarruntDate(currentDate)
         presenter = TaskMeetingPresenter(this)
-        presenter.getMeeting("1")
+        presenter.getMeetingAll(MeetingNewRequest(
+                "", Prefuser().getUser()?.id.toString(),"1",Prefuser().getCarruntDate()
+        ))
 
     }
 
@@ -59,6 +69,7 @@ class ListMeetingSelecForCreateSubmeetingActivity : BaseActivity(), TaskMeetingC
         setupNavigationMenu()
 
         img_first_option.visibility = View.GONE
+        img_second_option.visibility = View.GONE
     }
 
     private fun setupNavigationMenu() {

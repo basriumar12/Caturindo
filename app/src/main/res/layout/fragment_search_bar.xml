@@ -42,6 +42,7 @@
                 android:textColor="#999999"/>
 
             <ImageButton
+                android:visibility="gone"
                 android:id="@+id/bt_menu"
                 android:layout_width="48dp"
                 android:layout_height="48dp"

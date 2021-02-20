@@ -4,8 +4,6 @@ import android.Manifest
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.content.Intent
-import android.graphics.Bitmap
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
@@ -16,38 +14,21 @@ import com.bumptech.glide.Glide
 import com.caturindo.BaseActivity
 import com.caturindo.R
 import com.caturindo.activities.meeting.MeetingActivity
-import com.caturindo.activities.meeting.create.CreateMeetingActivity
 import com.caturindo.activities.meeting.create.model.UploadDto
-import com.caturindo.activities.task.add_team.AddTeamTaskActivity
 import com.caturindo.models.TaskRequest
 import com.caturindo.preference.Prefuser
 import com.karumi.dexter.Dexter
 import com.karumi.dexter.MultiplePermissionsReport
 import com.karumi.dexter.PermissionToken
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener
-import id.zelory.compressor.Compressor
-import id.zelory.compressor.constraint.format
-import id.zelory.compressor.constraint.quality
-import id.zelory.compressor.constraint.resolution
-import id.zelory.compressor.constraint.size
 import kotlinx.android.synthetic.main.activity_create_task.*
-import kotlinx.android.synthetic.main.activity_create_task.btn_save
-import kotlinx.android.synthetic.main.activity_create_task.et_date
-import kotlinx.android.synthetic.main.activity_create_task.et_meeting_title
-import kotlinx.android.synthetic.main.activity_create_task.et_tag
-import kotlinx.android.synthetic.main.activity_create_task.et_time
-import kotlinx.android.synthetic.main.activity_create_task.img_upload
-import kotlinx.android.synthetic.main.activity_create_task.progress_circular
 import kotlinx.android.synthetic.main.custom_toolbar.*
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import pl.aprilapps.easyphotopicker.*
 import pub.devrel.easypermissions.EasyPermissions
 import java.io.File
-import java.lang.NullPointerException
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -240,6 +221,7 @@ class CreateTaskActivity : BaseActivity(), CreatingTaskContract.View {
         setupNavigationMenu()
 
         img_first_option.visibility = View.GONE
+        img_second_option.visibility = View.GONE
     }
 
     private fun setupNavigationMenu() {

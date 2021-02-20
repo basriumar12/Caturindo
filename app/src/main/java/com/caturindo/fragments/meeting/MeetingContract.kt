@@ -1,5 +1,6 @@
 package com.caturindo.fragments.meeting
 
+import com.caturindo.activities.meeting.model.MeetingNewRequest
 import com.caturindo.models.MeetingDtoNew
 import com.caturindo.models.RoomDto
 
@@ -15,6 +16,7 @@ interface MeetingContract {
 
     interface Presenter {
         fun getMeeting(status : String)
+        fun getMeetingAll(body : MeetingNewRequest)
 
     }
 }

@@ -16,6 +16,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.bumptech.glide.Glide;
 import com.caturindo.R;
+import com.caturindo.activities.FilterActivity;
 import com.caturindo.activities.meeting.SelectMeetingActivity;
 import com.caturindo.activities.meeting.create.CreateMeetingActivity;
 import com.caturindo.activities.notif.NotificationActivity;
@@ -23,6 +24,9 @@ import com.caturindo.adapters.MeetingViewPagerAdapter;
 import com.caturindo.preference.Prefuser;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class MeetingFragment extends Fragment {
 
@@ -73,6 +77,7 @@ public class MeetingFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         setupToolbar();
+
     }
 
     private void setupToolbar() {
@@ -110,7 +115,7 @@ public class MeetingFragment extends Fragment {
         mFilterOption.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                startActivity(new Intent(getActivity(), FilterActivity.class));
             }
         });
     }

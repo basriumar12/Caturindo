@@ -13,11 +13,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.caturindo.BaseFragment
 import com.caturindo.R
 import com.caturindo.activities.meeting.detail.MeetingDetailActivity
+import com.caturindo.activities.meeting.model.MeetingNewRequest
 import com.caturindo.adapters.MeetingItemAdapter
 import com.caturindo.models.MeetingDtoNew
 import com.caturindo.models.MeetingModel
+import com.caturindo.preference.Prefuser
 import kotlinx.android.synthetic.main.fragment_room_available.*
 import kotlinx.android.synthetic.main.fragment_search_bar.*
+import java.text.SimpleDateFormat
 import java.util.*
 
 class MeetingPastFragment : BaseFragment(), MeetingContract.View, AdapterPastMeeting.OnListener {
@@ -34,12 +37,22 @@ class MeetingPastFragment : BaseFragment(), MeetingContract.View, AdapterPastMee
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         presenter = MeetingPresenter(this)
+        val sdf = SimpleDateFormat("yyyy-M")
+        var currentDate = sdf.format(Date())
+        if (currentDate.isNullOrEmpty()){
+            currentDate = ""
+        }
+        Prefuser().setCarruntDate(currentDate)
 
     }
 
     override fun onResume() {
         super.onResume()
-        presenter.getMeeting("1")
+
+
+        presenter.getMeetingAll(MeetingNewRequest(
+                "", Prefuser().getUser()?.id.toString(),"1",Prefuser().getCarruntDate()
+        ))
     }
 
     override fun showProgress() {
@@ -55,6 +68,7 @@ class MeetingPastFragment : BaseFragment(), MeetingContract.View, AdapterPastMee
             paren_data_empty.visibility = View.VISIBLE
             rvMeeting?.visibility = View.GONE
         }else{
+            rvMeeting?.visibility = View.VISIBLE
             paren_data_empty.visibility = View.GONE
         }
 

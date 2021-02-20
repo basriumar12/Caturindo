@@ -93,27 +93,24 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:gravity="center"
                     android:visibility="visible"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:orientation="horizontal">
+                    android:orientation="vertical">
 
                     <ImageView
                         android:layout_width="24dp"
                         android:layout_height="24dp"
                         android:layout_marginTop="4dp"
-                        android:layout_gravity="center_vertical"
                         app:srcCompat="@drawable/ic_person" />
 
                     <TextView
                         android:id="@+id/tv_meeting_participant"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
                         android:layout_marginTop="4dp"
-                        android:padding="10dp"
-
                         android:textColor="@android:color/white"
                         android:textSize="12sp" />
 
@@ -123,20 +120,19 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:layout_marginTop="12dp"
                     android:orientation="horizontal">
 
                     <ImageView
                         android:layout_width="24dp"
                         android:layout_height="24dp"
-                        android:layout_marginTop="8dp"
                         app:srcCompat="@drawable/ic_pin"/>
 
                     <TextView
                         android:id="@+id/tv_meeting_loc"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:padding="10dp"
-                        android:layout_marginTop="4dp"
+                        android:layout_marginTop="5dp"
                         android:text="Lt.5 R.123"
                         android:textColor="@android:color/white"
                         android:textSize="12sp" />

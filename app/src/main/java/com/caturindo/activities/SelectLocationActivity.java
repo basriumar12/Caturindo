@@ -44,7 +44,9 @@ public class SelectLocationActivity extends AppCompatActivity {
 
 
         ImageView img = findViewById(R.id.img_first_option);
+        ImageView img2 = findViewById(R.id.img_second_option);
         img.setVisibility(View.GONE);
+        img2.setVisibility(View.GONE);
 
     }
 

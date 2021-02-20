@@ -11,14 +11,18 @@ import androidx.recyclerview.widget.RecyclerView
 import com.caturindo.BaseFragment
 import com.caturindo.R
 import com.caturindo.activities.meeting.detail.MeetingDetailActivity
+import com.caturindo.activities.meeting.model.MeetingNewRequest
 import com.caturindo.activities.task.detail.TaskDetailActivity
 import com.caturindo.adapters.MeetingItemAdapter
 import com.caturindo.models.MeetingDtoNew
+import com.caturindo.preference.Prefuser
 import kotlinx.android.synthetic.main.fragment_meeting_current.*
 import kotlinx.android.synthetic.main.fragment_meeting_current.paren_data_empty
 import kotlinx.android.synthetic.main.fragment_meeting_current.progress_circular
 import kotlinx.android.synthetic.main.fragment_room_available.*
 import kotlinx.android.synthetic.main.fragment_search_bar.*
+import java.text.SimpleDateFormat
+import java.util.*
 
 class MeetingCurrentFragment : BaseFragment(), MeetingContract.View, AdapterMeeting.OnListener {
     private var rootView: View? = null
@@ -34,20 +38,31 @@ class MeetingCurrentFragment : BaseFragment(), MeetingContract.View, AdapterMeet
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         presenter = MeetingPresenter(this)
+        val sdf = SimpleDateFormat("yyyy-M")
+        var currentDate = sdf.format(Date())
+        if (currentDate.isNullOrEmpty()){
+            currentDate = ""
+        }
+        Prefuser().setCarruntDate(currentDate)
 
     }
 
     override fun onResume() {
         super.onResume()
-        presenter.getMeeting("0")
+
+
+        presenter.getMeetingAll(MeetingNewRequest(
+                "",Prefuser().getUser()?.id.toString(),"0",Prefuser().getCarruntDate()
+        ))
+
     }
 
     override fun showProgress() {
-        progress_circular.visibility = View.VISIBLE
+        progress_circular?.visibility = View.VISIBLE
     }
 
     override fun hideProgress() {
-        progress_circular.visibility = View.GONE
+        progress_circular?.visibility = View.GONE
     }
 
     override fun onSuccessGet(data: MutableList<MeetingDtoNew>) {
@@ -55,6 +70,8 @@ class MeetingCurrentFragment : BaseFragment(), MeetingContract.View, AdapterMeet
             paren_data_empty.visibility = View.VISIBLE
         }else{
             paren_data_empty.visibility = View.GONE
+            rvMeeting?.visibility = View.VISIBLE
+
         }
 
         val adapterMeeting = rootView?.context?.let { AdapterMeeting(it,data,this) }

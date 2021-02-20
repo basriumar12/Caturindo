@@ -27,7 +27,7 @@ import kotlinx.android.synthetic.main.custom_toolbar.*
 class SubMeetingDetailActivity : BaseActivity(), SubCommentMeetingContract.View, AdapterComment.OnListener {
     private var toolbar: Toolbar? = null
     private var mTitle: TextView? = null
-
+    var idUserCreate = ""
     private var mNavigationMenu: ImageView? = null
     var idMeeting = ""
     lateinit var presenter: SubCommentMeetingPresenter
@@ -45,6 +45,7 @@ class SubMeetingDetailActivity : BaseActivity(), SubCommentMeetingContract.View,
     private fun iniData() {
         val data =  intent.getSerializableExtra(DataSubMeetingItemItem::class.java.simpleName) as DataSubMeetingItemItem
         data.let {
+            idUserCreate = it.idUser.toString()
             idMeeting = it.id.toString()
             presenter.getComment(idMeeting)
             mTitle?.text = it.title
@@ -97,7 +98,7 @@ class SubMeetingDetailActivity : BaseActivity(), SubCommentMeetingContract.View,
 
         when(item.itemId){
             R.id.menu_cancel ->{
-                if (Prefuser().getUser()?.role.equals("3")) {
+                if (Prefuser().getUser()?.role.equals("3") || !Prefuser().getUser()?.id.toString().equals(idUserCreate)) {
                     showInfoMessage("Anda tidak mempunya akses")
                 }else {
                     presenter.cancelMeeting(idMeeting)
@@ -105,7 +106,7 @@ class SubMeetingDetailActivity : BaseActivity(), SubCommentMeetingContract.View,
             }
 
             R.id.menu_done ->{
-                if (Prefuser().getUser()?.role.equals("3")) {
+                if (Prefuser().getUser()?.role.equals("3") || !Prefuser().getUser()?.id.toString().equals(idUserCreate)) {
                     showInfoMessage("Anda tidak mempunya akses")
                 }else {
                     presenter.updateMeeting(idMeeting)

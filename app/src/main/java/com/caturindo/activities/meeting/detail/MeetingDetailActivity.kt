@@ -28,6 +28,7 @@ class MeetingDetailActivity : BaseActivity(), CommentMeetingContract.View, Adapt
 
     private var mNavigationMenu: ImageView? = null
     var idMeeting = ""
+    var idUserCreate = ""
     lateinit var presenter: CommentMeetingPresenter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,6 +45,7 @@ class MeetingDetailActivity : BaseActivity(), CommentMeetingContract.View, Adapt
         val data =  intent.getSerializableExtra(MeetingDtoNew::class.java.simpleName) as MeetingDtoNew
         data.let {
             idMeeting = it.id.toString()
+            idUserCreate = it.idUser.toString()
             presenter.getComment(idMeeting)
             mTitle?.text = it.title
             et_task_description.text = it.description
@@ -94,15 +96,16 @@ class MeetingDetailActivity : BaseActivity(), CommentMeetingContract.View, Adapt
 
         when(item.itemId){
             R.id.menu_cancel ->{
-                if (Prefuser().getUser()?.role.equals("3")) {
+                if (Prefuser().getUser()?.role.equals("3") || !Prefuser().getUser()?.id.toString().equals(idUserCreate)) {
                     showInfoMessage("Anda tidak mempunya akses")
-                }else {
+                }
+                    else {
                     presenter.cancelMeeting(idMeeting)
                 }
             }
 
             R.id.menu_done ->{
-                if (Prefuser().getUser()?.role.equals("3")) {
+                if (Prefuser().getUser()?.role.equals("3") || !Prefuser().getUser()?.id.toString().equals(idUserCreate)) {
                     showInfoMessage("Anda tidak mempunya akses")
                 }else {
                     presenter.updateMeeting(idMeeting)

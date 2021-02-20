@@ -57,6 +57,8 @@ public class TransportFragment extends Fragment{
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
         mTitle.setText("Transport");
         setupNavigationMenu();
+        ImageView img2 = rootView.findViewById(R.id.img_second_option);
+        img2.setVisibility(View.GONE);
         ImageView img = rootView.findViewById(R.id.img_first_option);
         img.setOnClickListener(new View.OnClickListener() {
             @Override

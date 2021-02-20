@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
 import com.caturindo.R;
+import com.caturindo.activities.FilterActivity;
 import com.caturindo.activities.meeting.SelectMeetingActivity;
 import com.caturindo.activities.meeting.list.fragment.MeetingCurrentTaskFragment;
 import com.caturindo.activities.meeting.list.fragment.MeetingPastTaskFragment;
@@ -96,6 +97,7 @@ public class SubMeetingTaskFragment extends Fragment {
 
 
         ImageView img = rootView.findViewById(R.id.img_first_option);
+        img.setVisibility(View.GONE);
         img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -106,12 +108,12 @@ public class SubMeetingTaskFragment extends Fragment {
 
     private void setupOptionsMenu() {
         mFilterOption = rootView.findViewById(R.id.img_second_option);
-        mFilterOption.setVisibility(View.VISIBLE);
+        mFilterOption.setVisibility(View.GONE);
 
         mFilterOption.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                startActivity(new Intent(getActivity(), FilterActivity.class));
             }
         });
     }

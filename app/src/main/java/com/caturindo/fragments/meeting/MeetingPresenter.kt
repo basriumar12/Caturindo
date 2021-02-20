@@ -2,6 +2,7 @@ package com.caturindo.fragments.meeting
 
 import android.content.Context
 import android.util.Log
+import com.caturindo.activities.meeting.model.MeetingNewRequest
 import com.caturindo.constant.Constant
 import com.caturindo.models.BaseResponse
 import com.caturindo.models.MeetingDtoNew
@@ -25,6 +26,34 @@ class MeetingPresenter(private val view: MeetingContract.View) : MeetingContract
         
         view.showProgress()
         api.getMeeting(status).enqueue(object : Callback<BaseResponse<List<MeetingDtoNew>>>{
+            override fun onFailure(call: Call<BaseResponse<List<MeetingDtoNew>>>, t: Throwable) {
+                Log.e("TAG","gagal meeting req ${t.message}")
+                view.hideProgress()
+                view.onErrorGetData("Gagal request data")
+            }
+
+            override fun onResponse(call: Call<BaseResponse<List<MeetingDtoNew>>>, response: Response<BaseResponse<List<MeetingDtoNew>>>) {
+                Log.e("TAG","berhasil meeting req ${Gson().toJson(response.body())}")
+                view.hideProgress()
+                if (response.isSuccessful) {
+                    if (response.body()?.status==true) {
+                        var data = response.body()?.data
+                        view.onSuccessGet(data as MutableList<MeetingDtoNew>)
+                    }
+                    if (response.body()?.data.isNullOrEmpty()){
+                        view.dataEmpty()
+                    }
+
+                } else {
+                    view.onErrorGetData("Gagal, ${response.message()}")
+                }
+            }
+        })
+    }
+
+    override fun getMeetingAll(body: MeetingNewRequest) {
+        view.showProgress()
+        api.getMeetingAll(body).enqueue(object : Callback<BaseResponse<List<MeetingDtoNew>>>{
             override fun onFailure(call: Call<BaseResponse<List<MeetingDtoNew>>>, t: Throwable) {
                 Log.e("TAG","gagal meeting req ${t.message}")
                 view.hideProgress()

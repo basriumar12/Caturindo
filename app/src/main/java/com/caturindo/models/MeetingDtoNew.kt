@@ -45,7 +45,7 @@ data class MeetingDtoNew(
         val statusMeeting: String? = null,
 
         @field:SerializedName("count_members")
-        val countMembers: Int? = null,
+        val countMembers: Int? = 0,
 
         @field:SerializedName("id_file")
         val idFile: String? = null
@@ -104,5 +104,7 @@ data class DataSubMeetingItemItem(
         @field:SerializedName("id_file")
         val idFile: String? = null,
         @field:SerializedName("file")
-        val file: String? = null
+        val file: String? = null,
+        @field:SerializedName("count_members")
+        val countMembers: Int? = 0
 ) : Serializable

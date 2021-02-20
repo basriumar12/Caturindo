@@ -40,6 +40,7 @@ class AdapterSubMeetingTask(val context: Context, val data: MutableList<MeetingS
             holder.itemView.tv_meeting_date.text = data.date
             holder.itemView.tv_meeting_time.text = data.time
             holder.itemView.tv_meeting_loc.text = data.location
+            holder.itemView.img_participation.visibility = View.GONE
         }
     }
 

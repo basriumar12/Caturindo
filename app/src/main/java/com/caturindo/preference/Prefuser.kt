@@ -29,7 +29,13 @@ class Prefuser {
     fun getvalidateMeeting(): String? = Hawk.get("MEETING", null)
 
 
-  fun setIdPerentMeeting(validate: String?) = Hawk.put("ID_MEETING", validate)
+    //set currentdate
+    fun setCarruntDate(validate: String?) = Hawk.put("DATE_CURRENT", validate)
+
+    fun getCarruntDate(): String? = Hawk.get("DATE_CURRENT", null)
+
+
+    fun setIdPerentMeeting(validate: String?) = Hawk.put("ID_MEETING", validate)
 
     fun getIdParentMeeting(): String? = Hawk.get("ID_MEETING", null)
 

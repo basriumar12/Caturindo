@@ -2,6 +2,7 @@ package com.caturindo.fragments.task
 
 import android.content.Context
 import android.util.Log
+import com.caturindo.activities.task.model.TaskNewRequest
 import com.caturindo.constant.Constant
 import com.caturindo.models.BaseResponse
 import com.caturindo.models.BaseResponseOther
@@ -50,6 +51,34 @@ class TaskPresenter(private val view: TaskContract.View) : TaskContract.Presente
 
 
 
+    }
+
+    override fun getAllTask(body: TaskNewRequest) {
+        view.showProgress()
+
+        api.getAllTask(body).enqueue(object : Callback<BaseResponse<List<TaskDto>>>{
+            override fun onFailure(call: Call<BaseResponse<List<TaskDto>>>, t: Throwable) {
+                view.onErrorGetData("Gagal request data, ada kesalahan di server")
+                view.hideProgress()
+            }
+
+            override fun onResponse(call: Call<BaseResponse<List<TaskDto>>>, response: Response<BaseResponse<List<TaskDto>>>) {
+                view.hideProgress()
+                if (response.isSuccessful) {
+                    val data = response.body()?.data
+                    if (response.body()?.status == true) {
+
+                        view.onSuccessGet(data as MutableList<TaskDto>)
+                    }
+
+                    if (response.body()?.data.isNullOrEmpty() || response.body()?.status == false){
+                        view.dataEmpty()
+                    }
+                } else {
+                    view.onErrorGetData("Gagal dapatkan data, ${response.body()?.message}")
+                }
+            }
+        })
     }
 
     override fun getUpdateToken(body: UpdateTokenRequest) {

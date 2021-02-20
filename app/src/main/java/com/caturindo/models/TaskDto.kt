@@ -7,6 +7,8 @@ data class TaskDto(
 
         @field:SerializedName("due_date")
         val date: String? = null,
+        @field:SerializedName("id_user")
+        val id_user: String? = null,
 
         @field:SerializedName("name_task")
         val nameTask: String? = null,
@@ -16,6 +18,8 @@ data class TaskDto(
 
         @field:SerializedName("description")
         val description: String? = null,
+        @field:SerializedName("count_members")
+        val count_members: Int? = 0,
 
 		@field:SerializedName("status_task")
         val statusTask: String? = null,

@@ -5,29 +5,16 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.caturindo.BaseFragment
 import com.caturindo.R
-import com.caturindo.activities.meeting.detail.MeetingDetailActivity
-import com.caturindo.activities.meeting.list.AdapterSubMeetingTask
 import com.caturindo.activities.meeting.list.TaskSubMeetingContract
 import com.caturindo.activities.meeting.list.TaskSubMeetingPresenter
 import com.caturindo.activities.task.CreateTaskActivity
-import com.caturindo.activities.task.detail.TaskDetailActivity
 import com.caturindo.adapters.MeetingItemAdapter
-import com.caturindo.fragments.meeting.AdapterMeeting
-import com.caturindo.fragments.meeting.AdapterPastMeeting
-import com.caturindo.fragments.meeting.MeetingContract
-import com.caturindo.fragments.meeting.MeetingPresenter
-import com.caturindo.models.MeetingDtoNew
 import com.caturindo.models.MeetingSubDtoNew
 import kotlinx.android.synthetic.main.fragment_meeting_current.*
-import kotlinx.android.synthetic.main.fragment_meeting_current.paren_data_empty
-import kotlinx.android.synthetic.main.fragment_meeting_current.progress_circular
-import kotlinx.android.synthetic.main.fragment_room_available.*
-import kotlinx.android.synthetic.main.fragment_search_bar.*
 
 class SubMeetingPastTaskFragment : BaseFragment(), TaskSubMeetingContract.View, AdapterSubMeetingPastTask.OnListener {
     private var rootView: View? = null

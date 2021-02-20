@@ -4,6 +4,7 @@
     android:layout_height="wrap_content"
     android:background="@color/grey_soft">
     <com.nex3z.flowlayout.FlowLayout
+
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_marginHorizontal="16dp"
@@ -14,6 +15,7 @@
         app:flRowSpacing="16dp">
 
         <TextView
+            android:id="@+id/januari"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingVertical="4dp"
@@ -22,6 +24,7 @@
             android:text="January"/>
 
         <TextView
+            android:id="@+id/februari"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingVertical="4dp"
@@ -29,6 +32,7 @@
             android:background="@drawable/rounded_gradient_grey"
             android:text="February"/>
         <TextView
+            android:id="@+id/maret"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingVertical="4dp"
@@ -36,6 +40,7 @@
             android:background="@drawable/rounded_gradient_grey"
             android:text="March"/>
         <TextView
+            android:id="@+id/april"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingVertical="4dp"
@@ -43,6 +48,7 @@
             android:background="@drawable/rounded_gradient_grey"
             android:text="April"/>
         <TextView
+            android:id="@+id/mei"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingVertical="4dp"
@@ -50,6 +56,7 @@
             android:background="@drawable/rounded_gradient_grey"
             android:text="May"/>
         <TextView
+            android:id="@+id/juni"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingVertical="4dp"
@@ -57,6 +64,7 @@
             android:background="@drawable/rounded_gradient_grey"
             android:text="June"/>
         <TextView
+            android:id="@+id/juli"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingVertical="4dp"
@@ -64,6 +72,7 @@
             android:background="@drawable/rounded_gradient_grey"
             android:text="July"/>
         <TextView
+            android:id="@+id/agusutus"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingVertical="4dp"
@@ -71,6 +80,7 @@
             android:background="@drawable/rounded_gradient_grey"
             android:text="August"/>
         <TextView
+            android:id="@+id/september"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingVertical="4dp"
@@ -78,6 +88,7 @@
             android:background="@drawable/rounded_gradient_grey"
             android:text="September"/>
         <TextView
+            android:id="@+id/oktober"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingVertical="4dp"
@@ -85,6 +96,7 @@
             android:background="@drawable/rounded_gradient_grey"
             android:text="October"/>
         <TextView
+            android:id="@+id/november"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingVertical="4dp"
@@ -92,6 +104,7 @@
             android:background="@drawable/rounded_gradient_grey"
             android:text="November"/>
         <TextView
+            android:id="@+id/desember"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingVertical="4dp"

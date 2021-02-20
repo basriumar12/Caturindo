@@ -32,6 +32,12 @@
             android:textSize="20sp"
             android:textStyle="bold"
             android:layout_centerInParent="true"/>
+        <LinearLayout
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
         <ImageView
             android:id="@+id/img_first_option"
             android:layout_width="wrap_content"
@@ -39,8 +45,6 @@
             android:layout_centerVertical="true"
             android:layout_marginRight="16dp"
             android:layout_marginEnd="16dp"
-            android:layout_toStartOf="@id/img_second_option"
-            android:layout_toLeftOf="@id/img_second_option"
             android:visibility="visible"
             app:srcCompat="@drawable/ic_icon_task_history"/>
         <ImageView
@@ -49,11 +53,11 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
             android:layout_marginRight="16dp"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
+
             android:visibility="visible"
+            app:srcCompat="@drawable/ic_icon_filter"
             />
+        </LinearLayout>
 
 <!--        app:srcCompat="@drawable/ic_icon_filter"-->
 

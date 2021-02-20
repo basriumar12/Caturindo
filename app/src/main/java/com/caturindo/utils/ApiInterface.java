@@ -5,12 +5,14 @@ import com.caturindo.activities.meeting.model.AddMeetingCommentRequest;
 import com.caturindo.activities.meeting.model.AddMemberMeetingDto;
 import com.caturindo.activities.meeting.model.AddSubMeetingCommentRequest;
 import com.caturindo.activities.meeting.model.MeetingCommentDto;
+import com.caturindo.activities.meeting.model.MeetingNewRequest;
 import com.caturindo.activities.notif.model.NotifDto;
 import com.caturindo.activities.reset_pass.model.ResetPassRequest;
 import com.caturindo.activities.task.add_team.model.AddMemberTaskDto;
 import com.caturindo.activities.task.detail.model.AddCommentDto;
 import com.caturindo.activities.task.detail.model.AddCommentRequest;
 import com.caturindo.activities.task.detail.model.CommentDto;
+import com.caturindo.activities.task.model.TaskNewRequest;
 import com.caturindo.activities.team.model.AddTeamRequest;
 import com.caturindo.activities.team.model.EditUserRequest;
 import com.caturindo.activities.team.model.TeamMemberDto;
@@ -59,6 +61,7 @@ public interface ApiInterface {
                                               @Field("password") String password,
                                               @Field("token_firebase") String fcm
     );
+
     @FormUrlEncoded
     @PUT("users/logout")
     Call<BaseResponseOther> postLogout(@Field("id_user") String id
@@ -75,6 +78,10 @@ public interface ApiInterface {
     @GET("task")
     Call<BaseResponse<List<TaskDto>>> getTask();
 
+    @POST("task")
+    Call<BaseResponse<List<TaskDto>>> getAllTask(@Body TaskNewRequest taskNewRequest);
+
+
     @GET("task")
     Call<BaseResponse<List<TaskDto>>> getTaskById(@Query("id_task") String idTask);
 
@@ -82,6 +89,11 @@ public interface ApiInterface {
     @GET("meeting")
     Call<BaseResponse<List<MeetingDtoNew>>> getMeeting(
             @Query("status_meeting") String status
+    );
+
+    @POST("meeting")
+    Call<BaseResponse<List<MeetingDtoNew>>> getMeetingAll(
+            @Body MeetingNewRequest meetingNewRequest
     );
 //    0 atau kosong untuk incoming atau belum di mulai
 //1 untuk sedang atau telah selesai
@@ -92,9 +104,9 @@ public interface ApiInterface {
 
     @GET("submeeting")
     Call<BaseResponse<List<MeetingSubDtoNew>>>
-    getSubMeeting(@Query("status_meeting")
-
-                          String statusMeeting);
+    getSubMeeting(
+            @Query("status_meeting") String statusMeeting,
+            @Query("id_user") String idUser);
 
     //    0 atau kosong untuk incoming atau belum di mulai
 //1 untuk sedang atau telah selesai
@@ -160,6 +172,10 @@ public interface ApiInterface {
     Call<BaseResponse<List<UserDto>>> getAllDataUser(
     );
 
+    @GET("team/search_user")
+    Call<BaseResponse<List<UserDto>>> getAllDataUsers(
+    );
+
 
     @PUT("users/edit_user")
     Call<BaseResponseOther> editUser(
@@ -196,6 +212,7 @@ public interface ApiInterface {
             @Body UpdateSubMeetingRequest updateStatusMeetingRequest
 
     );
+
     @POST("submeeting/cancel")
     Call<BaseResponseOther> cancelStatusSubMeeting(
             @Body UpdateSubMeetingRequest updateStatusMeetingRequest
@@ -207,8 +224,6 @@ public interface ApiInterface {
             @Body UpdateTokenRequest updateTokenRequest
 
     );
-
-
 
 
     @POST("meeting/create")
@@ -244,7 +259,7 @@ public interface ApiInterface {
     @POST("submeeting/add_comment_sub_meeting")
     Call<BaseResponseOther> postSubMeetingComment(@Body AddSubMeetingCommentRequest taskRequest);
 
- @POST("meeting/add_comment")
+    @POST("meeting/add_comment")
     Call<BaseResponse<MeetingCommentDto>> postMeetingComment(@Body AddMeetingCommentRequest taskRequest);
 
 
@@ -254,7 +269,7 @@ public interface ApiInterface {
     @GET("meeting/comment")
     Call<BaseResponse<List<CommentDto>>> getMeetingComment(@Query("id_meeting") String idTask);
 
-  @GET("submeeting/comment_sub_meeting")
+    @GET("submeeting/comment_sub_meeting")
     Call<BaseResponse<List<CommentDto>>> getSubMeetingComment(@Query("id_sub_meeting") String idTask);
 
 
@@ -266,9 +281,11 @@ public interface ApiInterface {
     @POST("task/add_member")
     Call<BaseResponse<AddMemberTaskDto>> postAddMemberTask(@Field("id_user") String iduser,
                                                            @Field("id_task") String idTask);
+
     @FormUrlEncoded
     @PUT("task/update_status")
     Call<BaseResponseOther> postUpdateTask(@Field("id_task") String idTask);
+
     @FormUrlEncoded
     @PUT("task/cancel")
     Call<BaseResponseOther> postCancelTask(@Field("id_task") String idTask);
