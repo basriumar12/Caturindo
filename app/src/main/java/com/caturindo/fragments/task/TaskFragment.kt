@@ -145,7 +145,8 @@ class TaskFragment : BaseFragment(), AdapterTask.OnListener, TaskContract.View {
         try {
             val adapter = rootView?.context?.let { AdapterTask(it, data, this) }
             if (!data.isNullOrEmpty()) {
-
+                rvTask?.visibility = View.VISIBLE
+                paren_data_empty.visibility = View.GONE
                 rvTask?.setAdapter(adapter)
                 val manager = LinearLayoutManager(rootView?.context, LinearLayoutManager.VERTICAL, false)
                 rvTask?.setLayoutManager(manager)

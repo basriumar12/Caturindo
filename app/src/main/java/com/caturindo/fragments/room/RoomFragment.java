@@ -37,7 +37,7 @@ public class RoomFragment extends Fragment {
 
         viewPagerAdapter = new RoomViewPagerAdapter(getChildFragmentManager());
         viewPagerAdapter.addFragment(new RoomAvailableFragment(), "Available");
-        viewPagerAdapter.addFragment(new RoomBookedFragment(), "Booked");
+        viewPagerAdapter.addFragment(new RoomBookedFragment(), "All");
         viewPager.setAdapter(viewPagerAdapter);
         viewPager.setSaveFromParentEnabled(false);
         tabLayout.setupWithViewPager(viewPager);

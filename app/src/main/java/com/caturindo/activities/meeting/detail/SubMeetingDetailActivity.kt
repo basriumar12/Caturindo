@@ -130,6 +130,7 @@ class SubMeetingDetailActivity : BaseActivity(), SubCommentMeetingContract.View,
         setupNavigationMenu()
 
         img_first_option.visibility = View.GONE
+        img_second_option.visibility = View.GONE
     }
 
     private fun setupNavigationMenu() {

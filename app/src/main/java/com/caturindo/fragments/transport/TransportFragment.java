@@ -37,7 +37,7 @@ public class TransportFragment extends Fragment{
 
         viewPagerAdapter = new TransportViewPagerAdapter(getChildFragmentManager());
         viewPagerAdapter.addFragment(new TransportAvailableFragment(), "Available");
-        viewPagerAdapter.addFragment(new TransportBookedFragment(), "Booked");
+        viewPagerAdapter.addFragment(new TransportBookedFragment(), "All");
         viewPager.setAdapter(viewPagerAdapter);
         viewPager.setSaveFromParentEnabled(false);
         tabLayout.setupWithViewPager(viewPager);

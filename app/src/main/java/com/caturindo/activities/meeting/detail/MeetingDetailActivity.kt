@@ -61,6 +61,7 @@ class MeetingDetailActivity : BaseActivity(), CommentMeetingContract.View, Adapt
             }
             img_add_person.visibility = View.GONE
 
+
             img_add_person.setOnClickListener {view ->
                 if(Prefuser().getUser()?.role.equals("3")){
                     showInfoMessage("Anda tidak mempunyai akses")
@@ -129,6 +130,7 @@ class MeetingDetailActivity : BaseActivity(), CommentMeetingContract.View, Adapt
         setupNavigationMenu()
 
         img_first_option.visibility = View.GONE
+        img_second_option.visibility = View.GONE
     }
 
     private fun setupNavigationMenu() {
