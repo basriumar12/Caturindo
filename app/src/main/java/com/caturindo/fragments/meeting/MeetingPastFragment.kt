@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -28,9 +29,12 @@ class MeetingPastFragment : BaseFragment(), MeetingContract.View, AdapterPastMee
     private var rvMeeting: RecyclerView? = null
     private val adapter: MeetingItemAdapter? = null
     private lateinit var presenter : MeetingPresenter
+    private  var progress_circular : ProgressBar? =null
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         rootView = inflater.inflate(R.layout.fragment_meeting_current, null)
         rvMeeting = rootView?.findViewById(R.id.rv_meeting)
+        progress_circular = rootView?.findViewById(R.id.progress_circular)
         return rootView
     }
 
@@ -56,11 +60,11 @@ class MeetingPastFragment : BaseFragment(), MeetingContract.View, AdapterPastMee
     }
 
     override fun showProgress() {
-        progress_circular.visibility = View.VISIBLE
+        progress_circular?.visibility = View.VISIBLE
     }
 
     override fun hideProgress() {
-        progress_circular.visibility = View.GONE
+        progress_circular?.visibility = View.GONE
     }
 
     override fun onSuccessGet(data: MutableList<MeetingDtoNew>) {

@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -29,9 +30,12 @@ class MeetingCurrentFragment : BaseFragment(), MeetingContract.View, AdapterMeet
     private var rvMeeting: RecyclerView? = null
     private val adapter: MeetingItemAdapter? = null
     private lateinit var presenter : MeetingPresenter
+    private  var progress_circular : ProgressBar? =null
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         rootView = inflater.inflate(R.layout.fragment_meeting_current, null)
         rvMeeting = rootView?.findViewById(R.id.rv_meeting)
+        progress_circular = rootView?.findViewById(R.id.progress_circular)
+
         return rootView
     }
 

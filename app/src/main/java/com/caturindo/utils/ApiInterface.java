@@ -36,6 +36,7 @@ import com.caturindo.models.UpdateSubMeetingRequest;
 import com.caturindo.models.UpdateTokenRequest;
 import com.caturindo.models.UserDto;
 import com.caturindo.models.UserDtoNew;
+import com.caturindo.models.VersionDto;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -254,6 +255,9 @@ public interface ApiInterface {
 
     @GET("team")
     Call<BaseResponse<TeamMemberDto>> getTeamMember(@Query("id_user") String idUser);
+
+    @GET("notification/app_version")
+    Call<BaseResponseOther> getVersion(@Query("version") String version);
 
 
     @POST("submeeting/add_comment_sub_meeting")

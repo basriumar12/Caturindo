@@ -15,8 +15,6 @@ import androidx.appcompat.widget.Toolbar;
 import com.caturindo.R;
 import com.caturindo.activities.meeting.list.ListMeetingActivity;
 import com.caturindo.activities.meeting.list.ListSubMeetingActivity;
-import com.caturindo.activities.room.ChooseRoomActivity;
-import com.caturindo.activities.transport.ChooseTransportActivity;
 
 public class SelectMeetingTaskActivity extends AppCompatActivity {
 
@@ -31,7 +29,7 @@ public class SelectMeetingTaskActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_select_meeting);
+        setContentView(R.layout.activity_select_task_meeting);
         setupToolbar();
         setupNavigationMenu();
         setupRadioButton();

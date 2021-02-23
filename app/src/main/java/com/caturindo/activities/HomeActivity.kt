@@ -1,7 +1,9 @@
 package com.caturindo.activities
 
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.drawable.ColorDrawable
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
@@ -17,13 +19,14 @@ import com.caturindo.activities.meeting.MeetingActivity
 import com.caturindo.activities.team.TeamActivity
 import com.caturindo.adapters.HomeItemAdapter
 import com.caturindo.constant.Constant
+import com.caturindo.models.BaseResponse
 import com.caturindo.models.BaseResponseOther
 import com.caturindo.models.HomeItemModel
+import com.caturindo.models.VersionDto
 import com.caturindo.preference.Prefuser
 import com.caturindo.utils.ApiInterface
 import com.caturindo.utils.AppConstant
 import com.caturindo.utils.ServiceGenerator
-import com.google.gson.Gson
 import com.orhanobut.hawk.Hawk
 import retrofit2.Call
 import retrofit2.Callback
@@ -36,10 +39,11 @@ class HomeActivity : AppCompatActivity(), HomeItemAdapter.ItemListener {
     private var adapter: HomeItemAdapter? = null
     private var recyclerView: RecyclerView? = null
     private var arraylist: ArrayList<HomeItemModel>? = null
+    private  lateinit var builder : AlertDialog.Builder
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
-
+        builder =  AlertDialog.Builder(self)
         //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         //setSupportActionBar(toolbar);
         supportActionBar?.setDisplayShowTitleEnabled(true)
@@ -72,15 +76,50 @@ class HomeActivity : AppCompatActivity(), HomeItemAdapter.ItemListener {
             currentDate = ""
         }
         Prefuser().setCarruntDate(currentDate)
+
+        getVersionApp()
+    }
+
+    private fun getVersionApp() {
+        val manager = this.packageManager
+        val info = manager.getPackageInfo(this.packageName, PackageManager.GET_ACTIVITIES)
+
+        val api = ServiceGenerator.createService(
+                ApiInterface::class.java,
+                Constant.USERNAME,
+                Constant.PASS
+        )
+        Log.e("TAG","version name ${info.versionName}")
+
+        api.getVersion(info.versionName).enqueue(object : Callback<BaseResponseOther>{
+            override fun onFailure(call: Call<BaseResponseOther>, t: Throwable) {
+
+            }
+
+            override fun onResponse(call: Call<BaseResponseOther>, response: Response<BaseResponseOther>) {
+
+                if (response.isSuccessful)
+                if (response.body()?.status == false){
+                    builder.setTitle("Informasi update")
+                    builder.setMessage("Apakah anda ingin update aplikasi")
+                    builder.setPositiveButton("Ya") { dialogInterface, i -> // clear data
+                        val marketUri: Uri = Uri.parse("market://details?id=com.caturindo")
+                        startActivity(Intent(Intent.ACTION_VIEW, marketUri))
+                    }
+                    builder.setNegativeButton("Tidak", null)
+                    builder.show()
+               }
+            }
+        })
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.menu_logout -> {
-                val builder = AlertDialog.Builder(self)
-                builder.setTitle("Logout Confirmation")
-                builder.setMessage("Are you sure want to logout?")
-                builder.setPositiveButton("Logout") { dialogInterface, i -> // clear data
+
+                builder.setTitle("Informasi Keluar")
+                builder.setMessage("Apakah anda ingin logout dari akun?")
+                builder.setPositiveButton("Ya") { dialogInterface, i -> // clear data
                     Hawk.deleteAll()
                     Prefuser().setUser(null)
                     logout()
@@ -93,7 +132,7 @@ class HomeActivity : AppCompatActivity(), HomeItemAdapter.ItemListener {
                     self.finish()
                     Prefuser().setUser(null)
                 }
-                builder.setNegativeButton("Cancel", null)
+                builder.setNegativeButton("Tidak", null)
                 builder.show()
                 return true
             }
