@@ -77,7 +77,7 @@ class HomeActivity : AppCompatActivity(), HomeItemAdapter.ItemListener {
         }
         Prefuser().setCarruntDate(currentDate)
 
-        getVersionApp()
+        //getVersionApp()
     }
 
     private fun getVersionApp() {
@@ -89,7 +89,6 @@ class HomeActivity : AppCompatActivity(), HomeItemAdapter.ItemListener {
                 Constant.USERNAME,
                 Constant.PASS
         )
-        Log.e("TAG","version name ${info.versionName}")
 
         api.getVersion(info.versionName).enqueue(object : Callback<BaseResponseOther>{
             override fun onFailure(call: Call<BaseResponseOther>, t: Throwable) {
