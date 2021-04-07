@@ -7,7 +7,7 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.CALL_PHONE"/>
+    <uses-permission android:name="android.permission.CALL_PHONE" />
 
     <application
         android:name=".AppControler"
@@ -19,15 +19,22 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".activities.team.edit.EditUserActivity"
+        <activity android:name=".activities.grup.GrupTeamActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             />
-        <activity android:name=".activities.team.AddTeamActivity"
+        <activity
+            android:name=".activities.grup.AddGrupActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
-
-            />
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".activities.team.edit.EditUserActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".activities.team.AddTeamActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".activities.meeting.detail.MeetingDetailActivity"
             android:screenOrientation="portrait"
@@ -44,7 +51,6 @@
             android:name=".activities.task.add_team.AddTeamTaskActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-
         <activity
             android:name=".activities.meeting.add_team.AddTeamMeetingActivity"
             android:screenOrientation="portrait"
@@ -94,7 +100,8 @@
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".activities.team.TeamActivity"
-            android:theme="@style/Theme.AppCompat.NoActionBar" />
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".activities.transport.TransportDetailActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
@@ -148,8 +155,8 @@
         </provider>
 
         <service
-            android:exported="false"
-            android:name=".service.FirebaseMessageService">
+            android:name=".service.FirebaseMessageService"
+            android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>

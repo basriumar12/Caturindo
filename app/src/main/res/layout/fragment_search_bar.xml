@@ -38,8 +38,7 @@
                 android:background="@android:color/transparent"
                 android:gravity="center_vertical"
                 android:hint="Search"
-                android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
-                android:textColor="#999999"/>
+                android:textColor="@color/black"/>
 
             <ImageButton
                 android:visibility="gone"

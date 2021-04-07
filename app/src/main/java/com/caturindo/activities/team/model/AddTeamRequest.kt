@@ -8,5 +8,7 @@ data class AddTeamRequest(
 	val idMember: String? = null,
 
 	@field:SerializedName("id_user")
-	val idUser: String? = null
+	val idUser: String? = null,
+	@field:SerializedName("id_group")
+	val id_group: String? = null
 )

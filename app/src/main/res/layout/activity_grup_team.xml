@@ -10,7 +10,6 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@id/parent_list_add"
         android:orientation="vertical"
         tools:context=".activities.team.add.AddTeamMeetingActivity">
         <!-- Custom Toolbar -->
@@ -18,53 +17,41 @@
             android:id="@+id/toolbar"
             layout="@layout/custom_toolbar" />
         <!-- search bar layout -->
-        <include
-            android:id="@+id/Meeting_search_bar"
-            layout="@layout/fragment_search_bar" />
+
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_member"
+            android:id="@+id/rv_grup_team"
+            android:layout_margin="@dimen/size_16dp"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-
-
+            android:layout_height="wrap_content"/>
     </LinearLayout>
 
     <androidx.appcompat.widget.LinearLayoutCompat
-
-        android:id="@+id/parent_list_add"
+        android:id="@+id/paren_data_empty"
         android:layout_width="match_parent"
-        android:layout_height="250dp"
-        android:layout_alignParentBottom="true"
-        android:layout_margin="@dimen/size_16dp"
-        android:gravity="center"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="@dimen/size_50dp"
         android:orientation="vertical"
         android:visibility="gone">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_centerInParent="true"
             android:layout_gravity="center"
-            android:text="@string/staf_yang_dipilih"
-            android:textColor="@color/black"
-            android:textSize="@dimen/size_18sp"
-            android:textStyle="bold" />
+            app:srcCompat="@drawable/ic_icon_task_history" />
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:layout_marginTop="@dimen/size_10dp"
-            android:background="@color/black" />
-
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_team"
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:listitem="@layout/item_list_add_team" />
-
+            android:gravity="center"
+            android:text="Data member kosong"
+            android:textColor="@color/grey_gradient_hard"
+            android:textSize="16sp" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>
+
 
     <ProgressBar
 

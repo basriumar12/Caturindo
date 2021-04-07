@@ -171,7 +171,7 @@ class AddTeamActivity : BaseActivity(), TeamContract.View, AdapterAddTeam.OnList
 
     override fun onClick(data: UserDto) {
 
-        presenter.postTeam(AddTeamRequest(data.id, Prefuser().getUser()?.id))
+        presenter.postTeam(AddTeamRequest(data.id, Prefuser().getUser()?.id, intent.getStringExtra("ID")))
 
     }
 

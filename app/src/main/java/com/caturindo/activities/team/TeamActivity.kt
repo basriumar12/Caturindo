@@ -1,7 +1,6 @@
 package com.caturindo.activities.team
 
 import android.Manifest
-import android.companion.BluetoothDeviceFilter
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
@@ -18,32 +17,40 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.caturindo.BaseActivity
 import com.caturindo.R
-import com.caturindo.activities.login.LoginActivity
-import com.caturindo.activities.team.add.AddTeamMeetingActivity
+import com.caturindo.activities.grup.AddGrupActivity
+import com.caturindo.activities.grup.GrupTeamActivity
+import com.caturindo.activities.grup.model.ResponseGroupDto
 import com.caturindo.activities.team.edit.EditUserActivity
 import com.caturindo.activities.team.model.AddTeamRequest
 import com.caturindo.activities.team.model.MemberItem
 import com.caturindo.adapters.TeamItemAdapter
+import com.caturindo.constant.Constant
+import com.caturindo.models.BaseResponse
+import com.caturindo.models.BaseResponseOther
 import com.caturindo.models.UserDto
 import com.caturindo.models.UserDtoNew
 import com.caturindo.preference.Prefuser
-import com.caturindo.utils.AppConstant
+import com.caturindo.utils.ApiInterface
+import com.caturindo.utils.ServiceGenerator
 import com.google.gson.Gson
 import com.karumi.dexter.Dexter
 import com.karumi.dexter.MultiplePermissionsReport
 import com.karumi.dexter.PermissionToken
 import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener
-import com.orhanobut.hawk.Hawk
 import kotlinx.android.synthetic.main.activity_team.*
+import kotlinx.android.synthetic.main.fragment_search_bar.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
-class TeamActivity : BaseActivity(), TeamContract.View, AdapterTeam.OnListener {
+class TeamActivity : BaseActivity(), TeamContract.View, AdapterTeam.OnListener, AdapterGroup.OnListener {
     private var menuMore: ImageView? = null
     private var menuList: ImageView? = null
     private var userAvatar: ImageView? = null
     private var rvTeams: RecyclerView? = null
     private var adapter: TeamItemAdapter? = null
-    private var adapterTeam : AdapterTeam? =null
+    private var adapterTeam: AdapterTeam? = null
     private lateinit var presenter: TeamPresenter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,8 +68,9 @@ class TeamActivity : BaseActivity(), TeamContract.View, AdapterTeam.OnListener {
     override fun onResume() {
         super.onResume()
         presenter.getUser(Prefuser().getUser()?.id.toString())
-        presenter.getTeamMember(Prefuser().getUser()?.id.toString())
+        //presenter.getTeamMember(Prefuser().getUser()?.id.toString())
         presenter.getUser()
+        getGrup()
     }
 
     private fun bindView() {
@@ -77,7 +85,7 @@ class TeamActivity : BaseActivity(), TeamContract.View, AdapterTeam.OnListener {
             if (Prefuser().getUser()?.role.equals("3")) {
                 showInfoMessage("Anda tidak mempunyai akses")
             } else {
-                startActivity(Intent(this@TeamActivity, AddTeamActivity::class.java))
+                startActivity(Intent(this@TeamActivity, AddGrupActivity::class.java))
             }
         }
         img_edit?.setOnClickListener { startActivity(Intent(this@TeamActivity, EditUserActivity::class.java)) }
@@ -179,8 +187,8 @@ class TeamActivity : BaseActivity(), TeamContract.View, AdapterTeam.OnListener {
     }
 
     override fun onSuccessGetTeam(data: List<MemberItem>) {
-        Log.e("TAG", "team member ${Gson().toJson(data)}")
-         adapterTeam = AdapterTeam(this, data as MutableList<MemberItem>, this)
+
+        adapterTeam = AdapterTeam(this, data as MutableList<MemberItem>, this)
         rv_team.layoutManager = LinearLayoutManager(this)
         rv_team.adapter = adapterTeam
         adapterTeam?.notifyDataSetChanged()
@@ -200,6 +208,91 @@ class TeamActivity : BaseActivity(), TeamContract.View, AdapterTeam.OnListener {
     }
 
 
+    fun getGrup() {
+        val api = ServiceGenerator.createService(
+                ApiInterface::class.java,
+                Constant.USERNAME,
+                Constant.PASS
+        )
+        progress_circular.visibility = View.VISIBLE
+        api.getGroup(Prefuser().getUser()?.id).enqueue(object : Callback<BaseResponse<List<ResponseGroupDto>>> {
+            override fun onFailure(call: Call<BaseResponse<List<ResponseGroupDto>>>, t: Throwable) {
+                progress_circular.visibility = View.GONE
+                showLongErrorMessage("Gagal dapatkan data grup")
+            }
+
+            override fun onResponse(call: Call<BaseResponse<List<ResponseGroupDto>>>, response: Response<BaseResponse<List<ResponseGroupDto>>>) {
+                progress_circular.visibility = View.GONE
+                if (response.isSuccessful) {
+                    if (response.body()?.status == true) {
+                        setDataGrup(response.body()?.data as MutableList<ResponseGroupDto>)
+                    }else{
+                        setDataGrup(response.body()?.data as MutableList<ResponseGroupDto>)
+                    }
+                }
+            }
+        })
+    }
+
+    fun deleteGrup(id : String){
+        val api = ServiceGenerator.createService(
+                ApiInterface::class.java,
+                Constant.USERNAME,
+                Constant.PASS
+        )
+        progress_circular.visibility = View.VISIBLE
+        api.deleteGroup(id).enqueue(object : Callback<BaseResponseOther>{
+            override fun onFailure(call: Call<BaseResponseOther>, t: Throwable) {
+                progress_circular.visibility = View.GONE
+                showLongErrorMessage("Gagal hapus grup")
+            }
+
+            override fun onResponse(call: Call<BaseResponseOther>, response: Response<BaseResponseOther>) {
+                progress_circular.visibility = View.GONE
+                if (response.isSuccessful){
+
+                    if (response.body()?.status == true){
+                        showLongSuccessMessage("Berhasil hapus grup")
+                        getGrup()
+                    }else{
+                        showLongErrorMessage("Gagal hapus grup")
+                    }
+                }
+            }
+        })
+    }
+
+    private fun setDataGrup(mutableList: MutableList<ResponseGroupDto>) {
+        val adapter = AdapterGroup(this@TeamActivity, mutableList, this)
+        rv_team.layoutManager = LinearLayoutManager(this)
+        rv_team.adapter = adapter
+        adapter?.notifyDataSetChanged()
+        rv_team.addItemDecoration(DividerItemDecoration(this, LinearLayoutManager.VERTICAL))
+
+
+        if (mutableList.isNullOrEmpty()) {
+            paren_data_empty.visibility = View.VISIBLE
+        } else {
+
+            paren_data_empty.visibility = View.GONE
+        }
+
+
+        search_text.setOnQueryTextListener(object :
+                androidx.appcompat.widget.SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                adapter?.filter?.filter(newText)
+                return false
+            }
+
+        })
+
+    }
+
     override fun onClick(data: MemberItem) {
         val intent = Intent(Intent.ACTION_CALL);
         intent.data = Uri.parse("tel:${data.phone}")
@@ -216,9 +309,9 @@ class TeamActivity : BaseActivity(), TeamContract.View, AdapterTeam.OnListener {
     }
 
     override fun onDelete(data: MemberItem) {
-        if (Prefuser().getUser()?.role.equals("3")){
+        if (Prefuser().getUser()?.role.equals("3")) {
             showLongErrorMessage("Anda tidak mempunyai akses")
-        }else{
+        } else {
             val builder = AlertDialog.Builder(this)
             builder.setTitle("Konfirmasi")
             builder.setMessage("Apakah anda yakin menghapus team?")
@@ -228,5 +321,18 @@ class TeamActivity : BaseActivity(), TeamContract.View, AdapterTeam.OnListener {
             builder.setNegativeButton("tidak", null)
             builder.show()
         }
+    }
+
+
+    override fun onClickGrup(data: ResponseGroupDto) {
+        startActivity(Intent(this@TeamActivity, GrupTeamActivity::class.java)
+                .putExtra("ID",data.id)
+                .putExtra("NAMA",data.namaTeam)
+
+        )
+    }
+
+    override fun onDeleteGrup(data: ResponseGroupDto) {
+        deleteGrup(data.id.toString())
     }
 }

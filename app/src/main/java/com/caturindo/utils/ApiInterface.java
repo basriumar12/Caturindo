@@ -1,5 +1,6 @@
 package com.caturindo.utils;
 
+import com.caturindo.activities.grup.model.ResponseGroupDto;
 import com.caturindo.activities.meeting.create.model.UploadDto;
 import com.caturindo.activities.meeting.model.AddMeetingCommentRequest;
 import com.caturindo.activities.meeting.model.AddMemberMeetingDto;
@@ -256,6 +257,13 @@ public interface ApiInterface {
     @GET("team")
     Call<BaseResponse<TeamMemberDto>> getTeamMember(@Query("id_user") String idUser);
 
+    @GET("team")
+    Call<BaseResponse<TeamMemberDto>> getTeamMemberWithGrup(
+            @Query("id_user") String idUser,
+            @Query("id_group") String idGrup
+
+    );
+
     @GET("notification/app_version")
     Call<BaseResponseOther> getVersion(@Query("version") String version);
 
@@ -285,6 +293,17 @@ public interface ApiInterface {
     @POST("task/add_member")
     Call<BaseResponse<AddMemberTaskDto>> postAddMemberTask(@Field("id_user") String iduser,
                                                            @Field("id_task") String idTask);
+
+    @FormUrlEncoded
+    @POST("group/create_group")
+    Call<BaseResponse<ResponseGroupDto>> postAddGroup(@Field("id_user") String iduser,
+                                                      @Field("nama_team") String namaTeam);
+
+    @GET("group")
+    Call<BaseResponse<List<ResponseGroupDto>>> getGroup(@Query("id_user") String iduser);
+
+    @GET("group/delete_group")
+    Call<BaseResponseOther> deleteGroup(@Query("id_group") String iduser);
 
     @FormUrlEncoded
     @PUT("task/update_status")
