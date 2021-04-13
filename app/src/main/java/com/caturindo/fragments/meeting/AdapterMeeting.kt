@@ -48,10 +48,17 @@ class AdapterMeeting(val context: Context, val data: MutableList<MeetingDtoNew>,
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val datas = dataFilterList[position]
         holder.itemView.rv_sub_meeting.apply {
-            layoutManager = LinearLayoutManager(holder.itemView.rv_sub_meeting.context, LinearLayout.VERTICAL, false)
-            adapter = AdapterSubMeeting(context,
-                    data.get(position).dataSubMeeting as MutableList<DataSubMeetingItemItem>
-            )
+            try {
+                if (!data.get(position).dataSubMeeting.isNullOrEmpty())
+                layoutManager = LinearLayoutManager(holder.itemView.rv_sub_meeting.context, LinearLayout.VERTICAL, false)
+                adapter = AdapterSubMeeting(context,
+                        data.get(position).dataSubMeeting as MutableList<DataSubMeetingItemItem>
+                )
+            }catch (e: TypeCastException){
+
+            }catch (e : NullPointerException){
+
+            }
         }
         datas?.let { data ->
             holder.bindView(data,itemListiner)

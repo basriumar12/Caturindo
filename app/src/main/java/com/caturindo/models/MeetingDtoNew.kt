@@ -9,7 +9,7 @@ data class MeetingDtoNew(
         val date: String? = null,
 
         @field:SerializedName("data_sub_meeting")
-        val dataSubMeeting: List<DataSubMeetingItemItem>? = null,
+        val dataSubMeeting: List<DataSubMeetingItemItem?>? = null,
 
         @field:SerializedName("sub_meting")
         val subMeting: String? = null,
@@ -27,10 +27,12 @@ data class MeetingDtoNew(
         val idBooking: String? = null,
 
         @field:SerializedName("file")
-        val file: String? = null,
+        val file: List<String>? = null,
 
         @field:SerializedName("location")
         val location: String? = null,
+        @field:SerializedName("nama_group")
+        val nama_group: String? = null,
 
         @field:SerializedName("id")
         val id: String? = null,
@@ -48,8 +50,9 @@ data class MeetingDtoNew(
         val countMembers: Int? = 0,
 
         @field:SerializedName("id_file")
-        val idFile: String? = null
+        val idFile: List<String>? = null
 ) : Serializable
+
 
 data class DataSubMeetingItemItem(
 
@@ -64,6 +67,8 @@ data class DataSubMeetingItemItem(
 
         @field:SerializedName("description")
         val description: String? = null,
+        @field:SerializedName("nama_group")
+        val nama_group: String? = null,
 
         @field:SerializedName("created_at")
         val createdAt: String? = null,
@@ -102,9 +107,9 @@ data class DataSubMeetingItemItem(
         val statusMeeting: String? = null,
 
         @field:SerializedName("id_file")
-        val idFile: String? = null,
+        val idFile: List<String>? = null,
         @field:SerializedName("file")
-        val file: String? = null,
+        val file: List<String>? = null,
         @field:SerializedName("count_members")
         val countMembers: Int? = 0
 ) : Serializable

@@ -35,6 +35,12 @@ class Prefuser {
     fun getCarruntDate(): String? = Hawk.get("DATE_CURRENT", null)
 
 
+    //set currentdate
+    fun setSaveSessionMenu(validate: String?) = Hawk.put("SAVE_MENU", validate)
+
+    fun getSaveSessionMenu(): String? = Hawk.get("SAVE_MENU", null)
+
+
     fun setIdPerentMeeting(validate: String?) = Hawk.put("ID_MEETING", validate)
 
     fun getIdParentMeeting(): String? = Hawk.get("ID_MEETING", null)
@@ -92,8 +98,8 @@ class ModelBooking(
 )
 
 class ModelMeeting(
-        val idFile: String? =null,
+        val idFile: List<String>? =null,
         val title: String? =null,
         val desc: String? =null,
-        val url : String? = null
+        val url : List<String>? = null
 )

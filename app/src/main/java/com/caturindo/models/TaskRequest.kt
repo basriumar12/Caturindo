@@ -23,5 +23,8 @@ data class TaskRequest(
 	val time: String? = null,
 
 	@field:SerializedName("id_file")
-	val idFile: String? = null
+	val idFile: String? = null,
+
+	@field:SerializedName("id_group")
+	val id_group: String? = null
 )

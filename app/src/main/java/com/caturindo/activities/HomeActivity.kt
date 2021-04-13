@@ -150,6 +150,7 @@ class HomeActivity : AppCompatActivity(), HomeItemAdapter.ItemListener {
             1 -> {
                 val intent = Intent(self, MeetingActivity::class.java)
                 startActivity(intent)
+                Prefuser().setSaveSessionMenu("N")
             }
             2 -> {
                 val intentTeam = Intent(self, TeamActivity::class.java)

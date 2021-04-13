@@ -14,4 +14,12 @@
     <dimen name="size_100dp">100dp</dimen>
     <dimen name="size_12sp">12sp</dimen>
     <dimen name="size_8dp">8dp</dimen>
+    <dimen name="_6dp">6dp</dimen>
+    <dimen name="_150dp">150dp</dimen>
+    <dimen name="space_x15">150dp</dimen>
+    <dimen name="space">8dp</dimen>
+    <dimen name="space_x2">16dp</dimen>
+    <dimen name="space_x16">170dp</dimen>
+    <dimen name="space_x4">32dp</dimen>
+    <dimen name="space_x3">24dp</dimen>
 </resources>

@@ -60,6 +60,7 @@ class TaskFragment : BaseFragment(), AdapterTask.OnListener, TaskContract.View {
         if (currentDate.isNullOrEmpty()){
             currentDate = ""
         }
+        Prefuser().setPropertyBooking(null)
         Prefuser().setCarruntDate(currentDate)
         presenter = TaskPresenter(this)
         getFcm()
@@ -180,7 +181,7 @@ class TaskFragment : BaseFragment(), AdapterTask.OnListener, TaskContract.View {
 
     override fun dataEmpty() {
         rvTask?.visibility = View.GONE
-        showLongErrorMessage("Data task kosong")
+       // showLongErrorMessage("Data task kosong")
         paren_data_empty.visibility = View.VISIBLE
 
     }

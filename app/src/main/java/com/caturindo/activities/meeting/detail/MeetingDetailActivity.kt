@@ -53,6 +53,7 @@ class MeetingDetailActivity : BaseActivity(), CommentMeetingContract.View, Adapt
             tv_task_time.text = it.time
             tv_task_date.text = it.date
             tv_location.text = it.location
+            tv_grup.text = it.nama_group
 
             tv_member.setOnClickListener {view ->
                 startActivity(Intent(this, AddTeamMeetingActivity::class.java)
@@ -73,8 +74,8 @@ class MeetingDetailActivity : BaseActivity(), CommentMeetingContract.View, Adapt
             }
 
             img_attachment.setOnClickListener {
-                startActivity(Intent(this, ImageActivity::class.java)
-                        .putExtra("IMAGE",data.file)
+                startActivity(Intent(this, ListFileActivity::class.java)
+                        .putStringArrayListExtra("IMAGE", data.file as java.util.ArrayList<String>?)
                 )
             }
 

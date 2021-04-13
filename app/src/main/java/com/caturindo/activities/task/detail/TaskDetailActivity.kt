@@ -12,12 +12,12 @@ import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.caturindo.BaseActivity
 import com.caturindo.R
+import com.caturindo.activities.meeting.detail.ListFileActivity
 import com.caturindo.activities.task.add_team.AddTeamTaskActivity
 import com.caturindo.activities.task.detail.model.AddCommentRequest
 import com.caturindo.activities.task.detail.model.CommentDto
 import com.caturindo.models.TaskDto
 import com.caturindo.preference.Prefuser
-import kotlinx.android.synthetic.main.activity_meeting_detail.*
 import kotlinx.android.synthetic.main.activity_task_detail.*
 import kotlinx.android.synthetic.main.activity_task_detail.btn_submit
 import kotlinx.android.synthetic.main.activity_task_detail.et_comment
@@ -61,6 +61,7 @@ class TaskDetailActivity : BaseActivity(), CommentTaskContract.View, AdapterComm
             tv_task_date.text = it.time +" - "+it.date
             mTitle?.text = "${it.nameTask} - ${it.id}"
             et_task_description?.text = it.description
+            tv_grup.text = it.nama_group
             presenter.getComment(it.id.toString())
 
             if (!it.member.isNullOrEmpty()){
@@ -75,8 +76,8 @@ class TaskDetailActivity : BaseActivity(), CommentTaskContract.View, AdapterComm
         img_add_person.visibility = View.GONE
 
         img_attachment.setOnClickListener {
-            startActivity(Intent(this, ImageActivity::class.java)
-                    .putExtra("IMAGE",data.file)
+            startActivity(Intent(this, ListFileActivity::class.java)
+                    .putStringArrayListExtra("IMAGE", data.file as java.util.ArrayList<String>?)
             )
         }
 

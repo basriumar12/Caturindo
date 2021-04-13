@@ -34,10 +34,37 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/size_16dp"
-            android:drawableStart="@drawable/ic_baseline_add_photo_alternate_24"
+            android:drawableStart="@drawable/ic_baseline_photo_camera_24"
+            android:drawablePadding="@dimen/size_16dp"
+            android:padding="@dimen/size_10dp"
+            android:text="Ambil dari camera"
+            android:textAllCaps="false"
+
+            />
+
+        <TextView
+            android:id="@+id/btn_gallery"
+            android:textColor="@color/black"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/size_16dp"
+            android:drawableStart="@drawable/ic_baseline_insert_photo_24"
             android:drawablePadding="@dimen/size_16dp"
             android:padding="@dimen/size_10dp"
             android:text="Ambil dari galery"
+            android:textAllCaps="false"
+
+            />
+        <TextView
+            android:id="@+id/btn_pdf"
+            android:textColor="@color/black"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/size_16dp"
+            android:drawableStart="@drawable/ic_baseline_attach_file_24"
+            android:drawablePadding="@dimen/size_16dp"
+            android:padding="@dimen/size_10dp"
+            android:text="PDF File"
             android:textAllCaps="false"
 
             />

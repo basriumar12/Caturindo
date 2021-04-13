@@ -30,8 +30,19 @@ public class MeetingActivity extends AppCompatActivity implements BottomNavigati
         bottomNavigationView = findViewById(R.id.bottomNavigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
 
-
         loadFragment(new TaskFragment());
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        String saveMenu = new Prefuser().getSaveSessionMenu();
+
+        if (saveMenu.equals("Y")){
+            loadFragment(new MeetingFragment());
+        }
     }
 
     private boolean loadFragment(Fragment fragment) {

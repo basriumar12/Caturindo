@@ -83,38 +83,6 @@
                     android:textSize="14sp"
                     tools:ignore="UnusedAttribute" />
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <TextView
-                        android:id="@+id/tv_attachment_label"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="16dp"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginBottom="2dp"
-                        android:background="@drawable/rounded_edit_test"
-                        android:elevation="5dp"
-                        android:hint="Add Attachment"
-                        android:paddingHorizontal="8dp"
-                        android:paddingVertical="8dp"
-                        android:textColor="@color/grey_dark"
-                        android:textColorHint="@color/grey_hard"
-                        android:textStyle="bold"
-                        tools:ignore="UnusedAttribute" />
-
-                    <ImageView
-                        android:visibility="gone"
-                        android:layout_centerInParent="true"
-                        android:id="@+id/img_upload"
-                        android:layout_width="@dimen/size_75dp"
-                        android:layout_height="@dimen/size_75dp"
-                        android:layout_below="@id/tv_attachment_label"
-                        android:layout_margin="@dimen/size_10dp"
-                        android:layout_marginLeft="@dimen/size_10dp" />
-
-                </RelativeLayout>
 
                 <TextView
                     android:id="@+id/et_date"
@@ -147,6 +115,64 @@
                     android:textColorHint="@color/grey_hard"
                     android:textSize="14sp"
                     tools:ignore="UnusedAttribute" />
+
+                <TextView
+                    android:visibility="visible"
+                    android:id="@+id/et_grup"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/rounded_edit_test"
+                    android:elevation="5dp"
+                    android:hint="Pilih Grup"
+                    android:paddingHorizontal="8dp"
+                    android:paddingVertical="8dp"
+                    android:textColor="@color/grey_dark"
+                    android:textColorHint="@color/grey_hard"
+                    android:textSize="14sp"
+                    tools:ignore="UnusedAttribute" />
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/tv_attachment_label"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="16dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="2dp"
+                        android:background="@drawable/rounded_edit_test"
+                        android:elevation="5dp"
+                        android:hint="Add Attachment"
+                        android:paddingHorizontal="8dp"
+                        android:paddingVertical="8dp"
+                        android:textColor="@color/grey_dark"
+                        android:textColorHint="@color/grey_hard"
+                        android:textStyle="bold"
+                        tools:ignore="UnusedAttribute" />
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_image"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+
+                        android:layout_below="@id/tv_attachment_label"
+                        android:layout_marginHorizontal="16dp" />
+
+
+                    <ImageView
+                        android:visibility="gone"
+                        android:layout_centerInParent="true"
+                        android:id="@+id/img_upload"
+                        android:layout_width="@dimen/size_75dp"
+                        android:layout_height="@dimen/size_75dp"
+                        android:layout_below="@id/tv_attachment_label"
+                        android:layout_margin="@dimen/size_10dp"
+                        android:layout_marginLeft="@dimen/size_10dp" />
+
+                </RelativeLayout>
+
 
                 <TextView
                     android:visibility="gone"

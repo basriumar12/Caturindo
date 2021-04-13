@@ -28,6 +28,8 @@ data class TaskDto(
         val id: String? = null,
         @field:SerializedName("time")
         val time: String? = null,
+        @field:SerializedName("nama_group")
+        val nama_group: String? = null,
         @field:SerializedName("file")
-        val file: String? = null
+        val file: List<String>? = null
 ) : Serializable

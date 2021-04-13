@@ -7,8 +7,8 @@ data class MeetingDto(
 	@field:SerializedName("date")
 	val date: String? = null,
 
-	@field:SerializedName("file")
-	val file: String? = null,
+//	@field:SerializedName("file")
+//	val file: String? = null,
 
 	@field:SerializedName("description")
 	val description: String? = null,
@@ -26,8 +26,9 @@ data class MeetingDto(
 	val tag: String? = null,
 
 	@field:SerializedName("title")
-	val title: String? = null,
-
-	@field:SerializedName("id_file")
-	val idFile: String? = null
+	val title: String? = null
+//	,
+//
+//	@field:SerializedName("id_file")
+//	val idFile: String? = null
 )

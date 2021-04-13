@@ -45,6 +45,34 @@
             android:layout_toRightOf="@id/iv_task_date"
             />
     </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="16dp">
+
+            <ImageView
+                android:id="@+id/iv_grup"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_centerVertical="true"
+                app:srcCompat="@drawable/ic_baseline_group_24"
+                app:tint="@color/grey_medium" />
+
+            <TextView
+                android:id="@+id/tv_grup"
+                android:layout_width="wrap_content"
+
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_toEndOf="@id/iv_grup"
+                android:layout_toRightOf="@id/iv_grup"
+                android:textColor="@color/grey_dark" />
+
+        </RelativeLayout>
     <RelativeLayout
         android:visibility="gone"
         android:layout_width="match_parent"
