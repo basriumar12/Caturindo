@@ -64,6 +64,7 @@ public class MeetingActivity extends AppCompatActivity implements BottomNavigati
         switch (menuItem.getItemId()) {
             case R.id.nav_task:
                 fragment = new TaskFragment();
+                new Prefuser().setSaveSessionMenu("N");
                 break;
             case R.id.nav_meeting:
                 fragment = new MeetingFragment();
@@ -72,11 +73,13 @@ public class MeetingActivity extends AppCompatActivity implements BottomNavigati
 
                new Prefuser().setvalidateOnclickRoom("0");
                 fragment = new RoomFragment();
+                new Prefuser().setSaveSessionMenu("N");
                 break;
             case R.id.nav_transport:
 
                 new Prefuser().setvalidateOnclickRoom("0");
                 fragment = new TransportFragment();
+                new Prefuser().setSaveSessionMenu("N");
                 break;
         }
 
