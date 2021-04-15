@@ -181,7 +181,7 @@ class CreateMeetingPresenter(private val view: CreatingMeetingContract.View) : C
                         view.hideProgress()
                         if (response.isSuccessful) {
                             if (response.body()?.status == true) {
-                                view.succesCreate("Berhasil membuat meeting")
+                                view?.succesCreate("Berhasil membuat meeting")
                             } else {
                                 view.failCreate("Gagal, " + response.body()?.message.toString())
                             }

@@ -71,9 +71,9 @@ class MeetingCurrentFragment : BaseFragment(), MeetingContract.View, AdapterMeet
 
     override fun onSuccessGet(data: MutableList<MeetingDtoNew>) {
         if (data.isNullOrEmpty()){
-            paren_data_empty.visibility = View.VISIBLE
+            paren_data_empty?.visibility = View.VISIBLE
         }else{
-            paren_data_empty.visibility = View.GONE
+            paren_data_empty?.visibility = View.GONE
             rvMeeting?.visibility = View.VISIBLE
 
         }
@@ -83,7 +83,7 @@ class MeetingCurrentFragment : BaseFragment(), MeetingContract.View, AdapterMeet
         rvMeeting?.adapter = adapterMeeting
         adapterMeeting?.notifyDataSetChanged()
 
-        search_text.setOnQueryTextListener(object :
+        search_text?.setOnQueryTextListener(object :
                 androidx.appcompat.widget.SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 return false
@@ -103,7 +103,7 @@ class MeetingCurrentFragment : BaseFragment(), MeetingContract.View, AdapterMeet
         
     }
     override fun dataEmpty() {
-        paren_data_empty.visibility = View.VISIBLE
+        paren_data_empty?.visibility = View.VISIBLE
         rvMeeting?.visibility = View.GONE
 
     }

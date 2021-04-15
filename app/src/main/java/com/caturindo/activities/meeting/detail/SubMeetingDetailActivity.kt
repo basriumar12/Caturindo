@@ -74,9 +74,9 @@ class SubMeetingDetailActivity : BaseActivity(), SubCommentMeetingContract.View,
             }
 
             img_attachment.setOnClickListener {view ->
-                startActivity(Intent(this, ImageActivity::class.java)
-                        .putExtra("IMAGE",it.file?.get(0))
-                )
+//                startActivity(Intent(this, ImageActivity::class.java)
+//                        .putExtra("IMAGE",it.file?.get(0))
+//                )
             }
 
             btn_submit.setOnClickListener {

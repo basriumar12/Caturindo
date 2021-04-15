@@ -8,7 +8,7 @@ data class MeetingDtoNew(
         @field:SerializedName("date")
         val date: String? = null,
 
-        @field:SerializedName("data_sub_meeting")
+        @field:SerializedName("data_s_meeting")
         val dataSubMeeting: List<DataSubMeetingItemItem?>? = null,
 
         @field:SerializedName("sub_meting")

@@ -20,10 +20,12 @@ import com.caturindo.BaseActivity
 import com.caturindo.R
 import com.caturindo.activities.SelectLocationActivity
 import com.caturindo.activities.grup.model.ResponseGroupDto
+import com.caturindo.activities.meeting.MeetingActivity
 import com.caturindo.activities.meeting.create.model.UploadDto
 import com.caturindo.activities.team.AdapterGroupForCreate
 import com.caturindo.activities.team.add.AddTeamMeetingActivity
 import com.caturindo.constant.Constant
+import com.caturindo.fragments.meeting.MeetingFragment
 import com.caturindo.models.BaseResponse
 import com.caturindo.models.BookingRequest
 import com.caturindo.models.MeetingRequest
@@ -463,7 +465,7 @@ class CreateMeetingActivity : BaseActivity(), CreatingMeetingContract.View, Adap
         showSuccessMessage(msg)
 
         finish()
-
+        //MeetingActivity().loadFragment(MeetingFragment())
     }
 
     fun getGrup() {

@@ -147,12 +147,12 @@ class TaskFragment : BaseFragment(), AdapterTask.OnListener, TaskContract.View {
             val adapter = rootView?.context?.let { AdapterTask(it, data, this) }
             if (!data.isNullOrEmpty()) {
                 rvTask?.visibility = View.VISIBLE
-                paren_data_empty.visibility = View.GONE
+                paren_data_empty?.visibility = View.GONE
                 rvTask?.setAdapter(adapter)
                 val manager = LinearLayoutManager(rootView?.context, LinearLayoutManager.VERTICAL, false)
                 rvTask?.setLayoutManager(manager)
 
-                search_text.setOnQueryTextListener(object :
+                search_text?.setOnQueryTextListener(object :
                         androidx.appcompat.widget.SearchView.OnQueryTextListener {
                     override fun onQueryTextSubmit(query: String?): Boolean {
                         return false
@@ -182,7 +182,7 @@ class TaskFragment : BaseFragment(), AdapterTask.OnListener, TaskContract.View {
     override fun dataEmpty() {
         rvTask?.visibility = View.GONE
        // showLongErrorMessage("Data task kosong")
-        paren_data_empty.visibility = View.VISIBLE
+        paren_data_empty?.visibility = View.VISIBLE
 
     }
 }

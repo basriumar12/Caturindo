@@ -69,18 +69,18 @@ class MeetingPastFragment : BaseFragment(), MeetingContract.View, AdapterPastMee
 
     override fun onSuccessGet(data: MutableList<MeetingDtoNew>) {
         if (data.isNullOrEmpty()){
-            paren_data_empty.visibility = View.VISIBLE
+            paren_data_empty?.visibility = View.VISIBLE
             rvMeeting?.visibility = View.GONE
         }else{
             rvMeeting?.visibility = View.VISIBLE
-            paren_data_empty.visibility = View.GONE
+            paren_data_empty?.visibility = View.GONE
         }
 
         val adapterMeeting = rootView?.context?.let { AdapterPastMeeting(it,data,this) }
         rvMeeting?.layoutManager = LinearLayoutManager(rootView?.context)
         rvMeeting?.adapter = adapterMeeting
         adapterMeeting?.notifyDataSetChanged()
-        search_text.setOnQueryTextListener(object :
+        search_text?.setOnQueryTextListener(object :
                 androidx.appcompat.widget.SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 return false
@@ -101,7 +101,7 @@ class MeetingPastFragment : BaseFragment(), MeetingContract.View, AdapterPastMee
     }
 
     override fun dataEmpty() {
-        paren_data_empty.visibility = View.VISIBLE
+        paren_data_empty?.visibility = View.VISIBLE
         rvMeeting?.visibility = View.GONE
 
     }
