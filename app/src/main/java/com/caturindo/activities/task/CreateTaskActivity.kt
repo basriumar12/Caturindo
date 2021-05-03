@@ -365,6 +365,8 @@ class CreateTaskActivity : BaseActivity(), CreatingTaskContract.View, AdapterGro
         }
 
         idGrup = Prefuser().getIdGrup().toString()
+
+        et_grup.text =  Prefuser().getNameGrup().toString()
     }
 
     private fun initPersmission() {
@@ -507,6 +509,7 @@ class CreateTaskActivity : BaseActivity(), CreatingTaskContract.View, AdapterGro
         et_grup.text = data.namaTeam
         idGrup = data.id.toString()
         Prefuser().setIdGrup(data.id.toString())
+        Prefuser().setNameGrup(data.namaTeam.toString())
         dialog.dismiss()
     }
 

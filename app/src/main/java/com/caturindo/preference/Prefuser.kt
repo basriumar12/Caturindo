@@ -50,6 +50,10 @@ class Prefuser {
 
     fun getIdGrup(): String? = Hawk.get("ID_GRUP", null)
 
+   fun setNameGrup(validate: String?) = Hawk.put("NAME_GRUP", validate)
+
+    fun getNameGrup(): String? = Hawk.get("NAME_GRUP", null)
+
 
 
 

@@ -246,7 +246,9 @@ class CreateMeetingActivity : BaseActivity(), CreatingMeetingContract.View, Adap
 
         }
 
-       idGrup = Prefuser().getUser().toString()
+        et_grup.text = Prefuser().getNameGrup().toString()
+
+        idGrup = Prefuser().getUser().toString()
     }
 
     private fun chooseFile() {
@@ -567,6 +569,7 @@ class CreateMeetingActivity : BaseActivity(), CreatingMeetingContract.View, Adap
         et_grup.text = data.namaTeam
         idGrup = data.id.toString()
         Prefuser().setIdGrup(data.id.toString())
+        Prefuser().setNameGrup(data.namaTeam.toString())
         dialog.dismiss()
     }
 }

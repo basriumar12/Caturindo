@@ -148,22 +148,6 @@
                     android:textSize="14sp"
                     tools:ignore="UnusedAttribute" />
 
-                <TextView
-                    android:id="@+id/et_grup"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="16dp"
-                    android:layout_marginTop="8dp"
-                    android:background="@drawable/rounded_edit_test"
-                    android:elevation="5dp"
-                    android:hint="Pilih Grup"
-                    android:paddingHorizontal="8dp"
-                    android:paddingVertical="8dp"
-                    android:textColor="@color/grey_dark"
-                    android:textColorHint="@color/grey_hard"
-                    android:textSize="14sp"
-                    android:visibility="visible"
-                    tools:ignore="UnusedAttribute" />
 
 
                 <RelativeLayout
@@ -206,6 +190,24 @@
                         android:visibility="gone" />
 
                 </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/et_grup"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/rounded_edit_test"
+                    android:elevation="5dp"
+                    android:hint="Pilih Grup"
+                    android:paddingHorizontal="8dp"
+                    android:paddingVertical="8dp"
+                    android:textColor="@color/grey_dark"
+                    android:textColorHint="@color/grey_hard"
+                    android:textSize="14sp"
+                    android:visibility="visible"
+                    tools:ignore="UnusedAttribute" />
+
 
 
                 <LinearLayout
