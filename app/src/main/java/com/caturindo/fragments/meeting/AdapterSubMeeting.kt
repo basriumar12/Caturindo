@@ -25,7 +25,7 @@ class AdapterSubMeeting(val context: Context, val data: MutableList<DataSubMeeti
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         var v: View =
-                LayoutInflater.from(parent.context).inflate(R.layout.item_meeting_outdoor, parent, false)
+                LayoutInflater.from(parent.context).inflate(R.layout.item_meeting_outdoor_sub, parent, false)
 
         return ViewHolder(v)
     }

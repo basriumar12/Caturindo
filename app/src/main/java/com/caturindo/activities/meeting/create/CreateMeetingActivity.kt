@@ -3,6 +3,8 @@ package com.caturindo.activities.meeting.create
 import android.Manifest
 import android.app.Activity
 import android.content.Intent
+import android.graphics.Bitmap
+import android.media.Image
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
@@ -34,6 +36,8 @@ import com.caturindo.preference.Prefuser
 import com.caturindo.utils.ApiInterface
 import com.caturindo.utils.ServiceGenerator
 import com.caturindo.utils.SwipeToDeleteCallback
+import com.esafirm.imagepicker.features.ImagePicker
+import com.esafirm.rximagepicker.ImagePickerObservable
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.jaiselrahman.filepicker.activity.FilePickerActivity
 import com.jaiselrahman.filepicker.config.Configurations
@@ -41,10 +45,16 @@ import com.karumi.dexter.Dexter
 import com.karumi.dexter.MultiplePermissionsReport
 import com.karumi.dexter.PermissionToken
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener
+import id.zelory.compressor.Compressor
+import id.zelory.compressor.constraint.format
+import id.zelory.compressor.constraint.quality
+import id.zelory.compressor.constraint.size
 import kotlinx.android.synthetic.main.activity_create_meeting.*
 import kotlinx.android.synthetic.main.custom_toolbar.*
 import kotlinx.android.synthetic.main.view_choose_take_photo.view.*
 import kotlinx.android.synthetic.main.view_grup.view.*
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -186,7 +196,7 @@ class CreateMeetingActivity : BaseActivity(), CreatingMeetingContract.View, Adap
                         et_time.text.toString(),
                         "",//et_tag.text.toString(),
                         et_meeting_title.text.toString(),
-                        idFile.toString().replace("[", "").replace("]",""),
+                        idFile.toString().replace("[", "").replace("]", ""),
                         idGrup
                 )
                 presenter.postCreate(bodyMeeting, idMeetingParent)
@@ -199,6 +209,8 @@ class CreateMeetingActivity : BaseActivity(), CreatingMeetingContract.View, Adap
 
     override fun onResume() {
         super.onResume()
+
+        Log.e("TAG","data image $urlImage")
         if (!Prefuser().getAddTeam().isNullOrEmpty()) {
             Prefuser().getAddTeam().let {
 
@@ -226,11 +238,15 @@ class CreateMeetingActivity : BaseActivity(), CreatingMeetingContract.View, Adap
             et_meeting_desctiption.setText(Prefuser().getPropertyMeeting()?.desc.toString())
             et_meeting_title.setText(Prefuser().getPropertyMeeting()?.title.toString())
             idFile = Prefuser().getPropertyMeeting()?.idFile as ArrayList<String>
+//            urlImage = Prefuser().getPropertyMeeting()?.url as ArrayList<String>
+//            adapterImageUpload.notifyDataSetChanged()
             Glide.with(this@CreateMeetingActivity).load(Prefuser().getPropertyMeeting()?.url.toString()).into(img_upload)
             img_upload.visibility = View.VISIBLE
 
 
         }
+
+       idGrup = Prefuser().getUser().toString()
     }
 
     private fun chooseFile() {
@@ -249,7 +265,10 @@ class CreateMeetingActivity : BaseActivity(), CreatingMeetingContract.View, Adap
 
             dialog.dismiss()
             if (EasyPermissions.hasPermissions(this, android.Manifest.permission.CAMERA)) {
-                easyImage.openCameraForImage(this)
+                //easyImage.openCameraForImage(this)
+
+                ImagePicker.create(this) // Activity or Fragment
+                        .start();
                 Prefuser().setPropertyMeeting(ModelMeeting(
                         idFile,
                         et_meeting_title.text.toString(),
@@ -391,21 +410,30 @@ class CreateMeetingActivity : BaseActivity(), CreatingMeetingContract.View, Adap
         easyImage.handleActivityResult(requestCode, resultCode, data, this,
                 object : DefaultCallback() {
                     override fun onMediaFilesPicked(imageFiles: Array<MediaFile>, source: MediaSource) {
+                        Log.e("TAG","data image ${imageFiles.get(0).file.toString()}")
 
+                        val file = File(imageFiles.get(0).file.toString())
+                        var requestFile: RequestBody = RequestBody.create(MediaType.parse("image/*"), File(file.path))
+                        var body: MultipartBody.Part = MultipartBody.Part.createFormData("file", file.name, requestFile)
+
+                        requestFile = RequestBody.create(MediaType.parse("image/*"), File(file.path))
+                        body = MultipartBody.Part.createFormData("file", file.name, requestFile)
                         if (imageFiles.get(0).file.length() >= 12219894) {
                             showLongErrorMessage("Size foto ini lebih dari 12 MB, Pilih foto yang lain yang kurang dari 12MB")
+                        } else if (imageFiles.isNullOrEmpty()) {
+                            showLongErrorMessage("Gagal mengambil foto dari camera")
                         } else {
-                            val file = File(imageFiles.get(0).file.toString())
-                            var requestFile: RequestBody = RequestBody.create(MediaType.parse("image/*"), File(file.path))
-                            var body: MultipartBody.Part = MultipartBody.Part.createFormData("file", file.name, requestFile)
 
-                            requestFile = RequestBody.create(MediaType.parse("image/*"), File(file.path))
-                            body = MultipartBody.Part.createFormData("file", file.name, requestFile)
 
                             presenter.uploadFile(body)
 
                         }
 
+                    }
+
+                    override fun onImagePickerError(error: Throwable, source: MediaSource) {
+                        super.onImagePickerError(error, source)
+                        Log.e("TAG","data image error ${error.message}")
                     }
                 })
 
@@ -425,6 +453,25 @@ class CreateMeetingActivity : BaseActivity(), CreatingMeetingContract.View, Adap
                 }
             }
 
+        if (ImagePicker.shouldHandle(requestCode, resultCode, data)) {
+            // Get a list of picked images
+            var images = ImagePicker.getImages(data)
+            // or get a single image only
+            var image = ImagePicker.getFirstImageOrNull(data)
+
+            val file = File(image.path.toString())
+            var requestFile: RequestBody = RequestBody.create(MediaType.parse("image/*"), File(file.path))
+            var body: MultipartBody.Part = MultipartBody.Part.createFormData("file", file.name, requestFile)
+
+            requestFile = RequestBody.create(MediaType.parse("image/*"), File(file.path))
+            body = MultipartBody.Part.createFormData("file", file.name, requestFile)
+
+                    presenter.uploadFile(body)
+
+
+
+
+        }
 
     }
 
@@ -519,6 +566,7 @@ class CreateMeetingActivity : BaseActivity(), CreatingMeetingContract.View, Adap
     override fun onClickGrup(data: ResponseGroupDto) {
         et_grup.text = data.namaTeam
         idGrup = data.id.toString()
+        Prefuser().setIdGrup(data.id.toString())
         dialog.dismiss()
     }
 }

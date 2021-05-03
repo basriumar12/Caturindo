@@ -27,7 +27,8 @@ class TaskPresenter(private val view: TaskContract.View) : TaskContract.Presente
 
         api.task.enqueue(object : Callback<BaseResponse<List<TaskDto>>>{
             override fun onFailure(call: Call<BaseResponse<List<TaskDto>>>, t: Throwable) {
-                view.onErrorGetData("Gagal request data")
+
+                view.onErrorGetData("Gagal request data, ada kesalahan / tidak cocok response data dari server")
                 view.hideProgress()
             }
 
@@ -58,7 +59,7 @@ class TaskPresenter(private val view: TaskContract.View) : TaskContract.Presente
 
         api.getAllTask(body).enqueue(object : Callback<BaseResponse<List<TaskDto>>>{
             override fun onFailure(call: Call<BaseResponse<List<TaskDto>>>, t: Throwable) {
-                view.onErrorGetData("Gagal request data, ada kesalahan di server")
+                view.onErrorGetData("Gagal request data, ada kesalahan / tidak cocok response data dari server")
                 view.hideProgress()
             }
 

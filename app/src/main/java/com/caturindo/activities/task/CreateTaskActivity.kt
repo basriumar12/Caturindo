@@ -363,6 +363,8 @@ class CreateTaskActivity : BaseActivity(), CreatingTaskContract.View, AdapterGro
                 et_tag.text = name.toString()
             }
         }
+
+        idGrup = Prefuser().getIdGrup().toString()
     }
 
     private fun initPersmission() {
@@ -418,9 +420,14 @@ class CreateTaskActivity : BaseActivity(), CreatingTaskContract.View, AdapterGro
                 object : DefaultCallback() {
                     override fun onMediaFilesPicked(imageFiles: Array<MediaFile>, source: MediaSource) {
 
+
                         if (imageFiles.get(0).file.length() >= 2219894) {
                             showLongErrorMessage("Size foto ini lebih dari 2 MB, Pilih foto yang lain yang kurang dari 2MB")
-                        } else {
+                        }
+                        else if (imageFiles.isNullOrEmpty()) {
+                            showLongErrorMessage("Gagal mengambil foto dari camera")
+                        }
+                        else {
                             val file = File(imageFiles.get(0).file.toString())
                             var requestFile: RequestBody = RequestBody.create(MediaType.parse("image/*"), File(file.path))
                             var body: MultipartBody.Part = MultipartBody.Part.createFormData("file", file.name, requestFile)
@@ -499,6 +506,7 @@ class CreateTaskActivity : BaseActivity(), CreatingTaskContract.View, AdapterGro
     override fun onClickGrup(data: ResponseGroupDto) {
         et_grup.text = data.namaTeam
         idGrup = data.id.toString()
+        Prefuser().setIdGrup(data.id.toString())
         dialog.dismiss()
     }
 

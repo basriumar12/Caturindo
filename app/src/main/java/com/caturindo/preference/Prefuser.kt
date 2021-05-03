@@ -46,6 +46,11 @@ class Prefuser {
     fun getIdParentMeeting(): String? = Hawk.get("ID_MEETING", null)
 
 
+    fun setIdGrup(validate: String?) = Hawk.put("ID_GRUP", validate)
+
+    fun getIdGrup(): String? = Hawk.get("ID_GRUP", null)
+
+
 
 
     fun setBooking(data : BookingRequest) = Hawk.put(BookingRequest::class.java.simpleName,data)

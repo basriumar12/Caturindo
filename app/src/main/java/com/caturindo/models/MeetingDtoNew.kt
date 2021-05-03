@@ -9,7 +9,7 @@ data class MeetingDtoNew(
         val date: String? = null,
 
         @field:SerializedName("data_s_meeting")
-        val dataSubMeeting: List<DataSubMeetingItemItem?>? = null,
+        val dataSubMeeting: List<DataSubMeetingItemItem>? = null,
 
         @field:SerializedName("sub_meting")
         val subMeting: String? = null,

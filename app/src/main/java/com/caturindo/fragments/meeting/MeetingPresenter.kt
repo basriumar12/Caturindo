@@ -29,7 +29,7 @@ class MeetingPresenter(private val view: MeetingContract.View) : MeetingContract
             override fun onFailure(call: Call<BaseResponse<List<MeetingDtoNew>>>, t: Throwable) {
                 Log.e("TAG","gagal meeting req ${t.message}")
                 view.hideProgress()
-                view.onErrorGetData("Gagal request data")
+                view.onErrorGetData("Gagal request data, ada kesalahan / tidak cocok response data dari server")
             }
 
             override fun onResponse(call: Call<BaseResponse<List<MeetingDtoNew>>>, response: Response<BaseResponse<List<MeetingDtoNew>>>) {
@@ -55,9 +55,10 @@ class MeetingPresenter(private val view: MeetingContract.View) : MeetingContract
         view.showProgress()
         api.getMeetingAll(body).enqueue(object : Callback<BaseResponse<List<MeetingDtoNew>>>{
             override fun onFailure(call: Call<BaseResponse<List<MeetingDtoNew>>>, t: Throwable) {
-                Log.e("TAG","gagal meeting req ${t.message}")
+                Log.e("TAG","gagal meeting req ${t.message} ${t.localizedMessage} ${t.stackTrace}")
                 view.hideProgress()
-                view.onErrorGetData("Gagal request data")
+
+                view.onErrorGetData("Gagal request data, ada kesalahan / tidak cocok response data dari server")
             }
 
             override fun onResponse(call: Call<BaseResponse<List<MeetingDtoNew>>>, response: Response<BaseResponse<List<MeetingDtoNew>>>) {

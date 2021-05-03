@@ -61,9 +61,9 @@ class CreateMeetingPresenter(private val view: CreatingMeetingContract.View) : C
                     override fun onResponse(call: Call<BaseResponse<UploadDto>>, response: Response<BaseResponse<UploadDto>>) {
                         view.hideProgress()
                         if (response.isSuccessful) {
-                            if (response.body()?.status?.equals(true)!!) {
+                            if (response.body()?.status == true) {
                                 val data = response.body()?.data
-                                data?.let { view.successUpload("Berhasil Upload", it) }
+                                data?.let { view.successUpload("${response.body()?.message.toString()}", it) }
                             }
                         } else {
                             view.failUpload("Gagal, ${response.body()?.message.toString()}")
