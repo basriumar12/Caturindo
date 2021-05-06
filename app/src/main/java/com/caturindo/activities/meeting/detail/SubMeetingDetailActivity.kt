@@ -2,6 +2,7 @@ package com.caturindo.activities.meeting.detail
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -54,7 +55,9 @@ class SubMeetingDetailActivity : BaseActivity(), SubCommentMeetingContract.View,
             tv_task_time.text = it.time
             tv_task_date.text = it.date
             tv_location.text = it.location
+            tv_grup.text = it.nama_group
 
+            Log.e("TAG","data meeting $data")
             tv_member.setOnClickListener {view ->
                 startActivity(Intent(this, AddTeamMeetingActivity::class.java)
                         .putExtra("ID",it.id)
