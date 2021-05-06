@@ -148,11 +148,17 @@
 
     </androidx.cardview.widget.CardView >
 
+    <androidx.appcompat.widget.LinearLayoutCompat
+
+        android:layout_below="@+id/cvMeeting"
+        android:layout_marginStart="@dimen/_6dp"
+        android:layout_marginEnd="@dimen/_6dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_sub_meeting"
-        android:layout_marginStart="@dimen/size_16dp"
-        android:layout_marginEnd="@dimen/size_16dp"
-        android:layout_below="@+id/cvMeeting"
+
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
+    </androidx.appcompat.widget.LinearLayoutCompat>
 </RelativeLayout>

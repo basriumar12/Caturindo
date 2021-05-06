@@ -50,6 +50,18 @@ import id.zelory.compressor.constraint.format
 import id.zelory.compressor.constraint.quality
 import id.zelory.compressor.constraint.size
 import kotlinx.android.synthetic.main.activity_create_meeting.*
+import kotlinx.android.synthetic.main.activity_create_meeting.btn_cancel
+import kotlinx.android.synthetic.main.activity_create_meeting.btn_save
+import kotlinx.android.synthetic.main.activity_create_meeting.et_date
+import kotlinx.android.synthetic.main.activity_create_meeting.et_grup
+import kotlinx.android.synthetic.main.activity_create_meeting.et_meeting_title
+import kotlinx.android.synthetic.main.activity_create_meeting.et_tag
+import kotlinx.android.synthetic.main.activity_create_meeting.et_time
+import kotlinx.android.synthetic.main.activity_create_meeting.img_upload
+import kotlinx.android.synthetic.main.activity_create_meeting.progress_circular
+import kotlinx.android.synthetic.main.activity_create_meeting.rv_image
+import kotlinx.android.synthetic.main.activity_create_meeting.tv_attachment_label
+import kotlinx.android.synthetic.main.activity_create_task.*
 import kotlinx.android.synthetic.main.custom_toolbar.*
 import kotlinx.android.synthetic.main.view_choose_take_photo.view.*
 import kotlinx.android.synthetic.main.view_grup.view.*
@@ -169,6 +181,8 @@ class CreateMeetingActivity : BaseActivity(), CreatingMeetingContract.View, Adap
                 et_meeting_desctiption.setError("Tidak bisa kosong")
             } else if (idGrup.isNullOrEmpty()) {
                 showLongErrorMessage("Belum memilih grup")
+            }else if (et_grup.text.toString().isNullOrEmpty()) {
+                showLongErrorMessage("Belum memilih grup")
             } else {
                 val dateTime = Prefuser().getDateBooking()
                 val propertyBooking = Prefuser().getPropertyBooking()
@@ -246,7 +260,13 @@ class CreateMeetingActivity : BaseActivity(), CreatingMeetingContract.View, Adap
 
         }
 
-        et_grup.text = Prefuser().getNameGrup().toString()
+        Prefuser().getNameGrup().toString().let {
+            if (!it.isNullOrEmpty()){
+                et_grup.text = it.toString()
+            }else{
+                et_grup.text = ""
+            }
+        }
 
         idGrup = Prefuser().getUser().toString()
     }

@@ -101,7 +101,7 @@ class CreateMeetingPresenter(private val view: CreatingMeetingContract.View) : C
                                 if (Prefuser().getvalidateMeeting().equals("1")) {
                                     createMeeting(meetingRequest, response.body()?.data?.get(0)?.id.toString())
                                 } else {
-                                    createSubMeeting(meetingRequest, response.body()?.data?.get(0)?.id.toString(), idParentMeeting)
+                                    createSubMeeting(meetingRequest, response.body()?.data?.get(0)?.id.toString(), idParentMeeting, meetingRequest.id_group.toString())
                                 }
                             } else {
                                 view.failCreate(response.body()?.message.toString())
@@ -117,7 +117,7 @@ class CreateMeetingPresenter(private val view: CreatingMeetingContract.View) : C
         }
     }
 
-    private fun createSubMeeting(meetingRequest: MeetingRequest, idBooking: String, idParentMeeting: String) {
+    private fun createSubMeeting(meetingRequest: MeetingRequest, idBooking: String, idParentMeeting: String, idGrup : String) {
         view.showProgress()
         val idBookingData = idBooking
         val meetingSubRequest = MeetingSubRequest(
@@ -130,7 +130,8 @@ class CreateMeetingPresenter(private val view: CreatingMeetingContract.View) : C
                 meetingRequest.time,
                 meetingRequest.tag,
                 meetingRequest.title,
-                meetingRequest.idFile.toString()
+                meetingRequest.idFile.toString(),
+                idGrup
         )
         Log.e("TAG","submeeting req ${Gson().toJson(meetingSubRequest)}")
         GlobalScope.launch {

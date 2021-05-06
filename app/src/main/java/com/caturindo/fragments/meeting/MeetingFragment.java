@@ -61,7 +61,7 @@ public class MeetingFragment extends Fragment {
                 new Prefuser().setDateBooking(null);
                 new Prefuser().setPropertyBooking(null);
                 new Prefuser().setPropertyMeeting(null);
-                new Prefuser().setNameGrup(null);
+                new Prefuser().setNameGrup("");
                 new Prefuser().setIdGrup(null);
                 new Prefuser().setSaveSessionMenu("Y");
                 Intent intent = new Intent(getContext(), SelectMeetingActivity.class);

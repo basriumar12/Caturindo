@@ -32,5 +32,7 @@ data class MeetingSubRequest(
 	val title: String? = null,
 
 	@field:SerializedName("id_file")
-	val idFile: String? = null
+	val idFile: String? = null,
+	@field:SerializedName("id_group")
+	val id_group: String? = null
 )
