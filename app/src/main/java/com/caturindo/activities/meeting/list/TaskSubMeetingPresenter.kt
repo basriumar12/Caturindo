@@ -26,7 +26,7 @@ class TaskSubMeetingPresenter(private val view: TaskSubMeetingContract.View) : T
         view.showProgress()
         api.getSubMeeting(status, Prefuser().getUser()?.id.toString()).enqueue(object : Callback<BaseResponse<List<MeetingSubDtoNew>>> {
             override fun onFailure(call: Call<BaseResponse<List<MeetingSubDtoNew>>>, t: Throwable) {
-                Log.e("TAG", "gagal meeting req ${t.message}")
+
                 view.hideProgress()
                 view.onErrorGetData("Gagal request data, ada kesalahan dari server")
             }

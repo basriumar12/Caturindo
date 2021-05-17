@@ -230,10 +230,10 @@ public interface ApiInterface {
 
 
     @POST("meeting/create")
-    Call<BaseResponse<MeetingDto>> postMeeting(@Body MeetingRequest meetingRequest);
+    Call<BaseResponseOther> postMeeting(@Body MeetingRequest meetingRequest);
 
     @POST("submeeting/create_sub_meeting")
-    Call<BaseResponse<MeetingSubDtoNew>> postMeetingSub(@Body MeetingSubRequest meetingRequest);
+    Call<BaseResponseOther> postMeetingSub(@Body MeetingSubRequest meetingRequest);
 
     @POST("booking/create")
     Call<BaseResponse<ArrayList<BookingDto>>> postBooking(@Body BookingRequest bookingRequest);
@@ -243,7 +243,7 @@ public interface ApiInterface {
     Call<BaseResponse<List<String>>> postResetPass(@Body ResetPassRequest resetPassRequest);
 
     @POST("task/add_task")
-    Call<BaseResponse<TaskDto>> postTask(@Body TaskRequest taskRequest);
+    Call<BaseResponseOther> postTask(@Body TaskRequest taskRequest);
 
 
     @POST("task/add_comment")

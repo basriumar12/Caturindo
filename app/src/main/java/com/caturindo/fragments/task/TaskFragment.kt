@@ -176,7 +176,7 @@ class TaskFragment : BaseFragment(), AdapterTask.OnListener, TaskContract.View {
     }
 
     override fun onErrorGetData(msg: String?) {
-        showLongErrorMessage(msg)
+      //  showLongErrorMessage(msg)
     }
 
     override fun dataEmpty() {

@@ -19,10 +19,8 @@ import com.caturindo.activities.meeting.MeetingActivity
 import com.caturindo.activities.team.TeamActivity
 import com.caturindo.adapters.HomeItemAdapter
 import com.caturindo.constant.Constant
-import com.caturindo.models.BaseResponse
 import com.caturindo.models.BaseResponseOther
 import com.caturindo.models.HomeItemModel
-import com.caturindo.models.VersionDto
 import com.caturindo.preference.Prefuser
 import com.caturindo.utils.ApiInterface
 import com.caturindo.utils.AppConstant
@@ -151,6 +149,8 @@ class HomeActivity : AppCompatActivity(), HomeItemAdapter.ItemListener {
                 val intent = Intent(self, MeetingActivity::class.java)
                 startActivity(intent)
                 Prefuser().setSaveSessionMenu("N")
+                Prefuser().setNameGrup("")
+                Prefuser().setIdGrup(null)
             }
             2 -> {
                 val intentTeam = Intent(self, TeamActivity::class.java)

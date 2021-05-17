@@ -39,13 +39,17 @@ class MeetingPresenter(private val view: MeetingContract.View) : MeetingContract
                     if (response.body()?.status==true) {
                         var data = response.body()?.data
                         view.onSuccessGet(data as MutableList<MeetingDtoNew>)
+                    }else{
+
+                        view.onErrorGetData("${response?.body()?.message.toString()}")
                     }
                     if (response.body()?.data.isNullOrEmpty()){
                         view.dataEmpty()
                     }
 
                 } else {
-                    view.onErrorGetData("Gagal, ${response.message()}")
+
+                    view.onErrorGetData("${response?.body()?.message.toString()}")
                 }
             }
         })
@@ -68,13 +72,17 @@ class MeetingPresenter(private val view: MeetingContract.View) : MeetingContract
                     if (response.body()?.status==true) {
                         var data = response.body()?.data
                         view.onSuccessGet(data as MutableList<MeetingDtoNew>)
+                    }else{
+
+                        view.onErrorGetData("${response?.body()?.message.toString()}")
                     }
                     if (response.body()?.data.isNullOrEmpty()){
                         view.dataEmpty()
                     }
 
                 } else {
-                    view.onErrorGetData("Gagal, ${response.message()}")
+
+                    view.onErrorGetData("${response?.body()?.message.toString()}")
                 }
             }
         })

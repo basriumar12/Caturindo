@@ -77,7 +77,7 @@ class CreateMeetingPresenter(private val view: CreatingMeetingContract.View) : C
     }
 
 
-    override fun postCreate(meetingRequest: MeetingRequest, idParentMeeting: String) {
+    override fun postCreate(meetingRequest: MeetingRequest, idParentMeeting: String,idGrup : String) {
         view.showProgress()
         Log.e("TAG","meeting req ${Gson().toJson(meetingRequest)}")
         GlobalScope.launch {
@@ -92,6 +92,7 @@ class CreateMeetingPresenter(private val view: CreatingMeetingContract.View) : C
                     }
 
                     override fun onResponse(call: Call<BaseResponse<ArrayList<BookingDto>>>, response: Response<BaseResponse<ArrayList<BookingDto>>>) {
+                        view.hideProgress()
 
 
                         if (response.isSuccessful) {
@@ -101,7 +102,7 @@ class CreateMeetingPresenter(private val view: CreatingMeetingContract.View) : C
                                 if (Prefuser().getvalidateMeeting().equals("1")) {
                                     createMeeting(meetingRequest, response.body()?.data?.get(0)?.id.toString())
                                 } else {
-                                    createSubMeeting(meetingRequest, response.body()?.data?.get(0)?.id.toString(), idParentMeeting, meetingRequest.id_group.toString())
+                                    createSubMeeting(meetingRequest, response.body()?.data?.get(0)?.id.toString(), idParentMeeting, idGrup)
                                 }
                             } else {
                                 view.failCreate(response.body()?.message.toString())
@@ -133,18 +134,17 @@ class CreateMeetingPresenter(private val view: CreatingMeetingContract.View) : C
                 meetingRequest.idFile.toString(),
                 idGrup
         )
-        Log.e("TAG","submeeting req ${Gson().toJson(meetingSubRequest)}")
         GlobalScope.launch {
             withContext(Dispatchers.Main) {
 
-                api.postMeetingSub(meetingSubRequest).enqueue(object : retrofit2.Callback<BaseResponse<MeetingSubDtoNew>>{
-                    override fun onFailure(call: Call<BaseResponse<MeetingSubDtoNew>>, t: Throwable) {
+                api.postMeetingSub(meetingSubRequest).enqueue(object : retrofit2.Callback<BaseResponseOther>{
+                    override fun onFailure(call: Call<BaseResponseOther>, t: Throwable) {
                         Log.e("TAG", "gagal create booking ${t.message}")
                         view.hideProgress()
                         view.failCreate("Gagal mengisi data, ada kesalahan jaringan atau akses ke server")
                     }
 
-                    override fun onResponse(call: Call<BaseResponse<MeetingSubDtoNew>>, response: Response<BaseResponse<MeetingSubDtoNew>>) {
+                    override fun onResponse(call: Call<BaseResponseOther>, response: Response<BaseResponseOther>) {
                         view.hideProgress()
                         if (response.isSuccessful) {
                             if (response.body()?.status == true) {
@@ -169,15 +169,15 @@ class CreateMeetingPresenter(private val view: CreatingMeetingContract.View) : C
         GlobalScope.launch {
             withContext(Dispatchers.Main) {
 
-                api.postMeeting(meetingRequest).enqueue(object : retrofit2.Callback<BaseResponse<MeetingDto>> {
-                    override fun onFailure(call: Call<BaseResponse<MeetingDto>>, t: Throwable) {
+                api.postMeeting(meetingRequest).enqueue(object : retrofit2.Callback<BaseResponseOther> {
+                    override fun onFailure(call: Call<BaseResponseOther>, t: Throwable) {
                         Log.e("TAG", "gagal create booking ${t.message}")
                         view.hideProgress()
                         view.failCreate("Gagal mengisi data, ada kesalahan jaringan atau akses ke server")
 
                     }
 
-                    override fun onResponse(call: Call<BaseResponse<MeetingDto>>, response: Response<BaseResponse<MeetingDto>>) {
+                    override fun onResponse(call: Call<BaseResponseOther>, response: Response<BaseResponseOther>) {
 
                         view.hideProgress()
                         if (response.isSuccessful) {

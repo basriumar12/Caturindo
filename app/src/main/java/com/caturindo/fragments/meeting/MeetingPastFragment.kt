@@ -96,7 +96,7 @@ class MeetingPastFragment : BaseFragment(), MeetingContract.View, AdapterPastMee
     }
 
     override fun onErrorGetData(msg: String?) {
-        showLongErrorMessage(msg)
+       // showLongErrorMessage(msg)
 
     }
 

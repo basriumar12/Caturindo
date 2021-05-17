@@ -99,7 +99,7 @@ class MeetingCurrentFragment : BaseFragment(), MeetingContract.View, AdapterMeet
     }
 
     override fun onErrorGetData(msg: String?) {
-        showLongErrorMessage(msg)
+        //showLongErrorMessage(msg)
         
     }
     override fun dataEmpty() {

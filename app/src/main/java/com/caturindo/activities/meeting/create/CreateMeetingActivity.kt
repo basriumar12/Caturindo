@@ -213,7 +213,7 @@ class CreateMeetingActivity : BaseActivity(), CreatingMeetingContract.View, Adap
                         idFile.toString().replace("[", "").replace("]", ""),
                         idGrup
                 )
-                presenter.postCreate(bodyMeeting, idMeetingParent)
+                presenter.postCreate(bodyMeeting, idMeetingParent,idGrup)
 
 
             }

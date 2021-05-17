@@ -59,7 +59,9 @@ data class MeetingSubDtoNew(
 	val statusMeeting: String? = null,
 
 	@field:SerializedName("id_file")
-	val idFile: String? = null,
+	val idFile: List<String>? = null,
+	@field:SerializedName("file")
+	val file: List<String>? = null,
 
 	@field:SerializedName("code_room")
 	val codeRoom: String? = null

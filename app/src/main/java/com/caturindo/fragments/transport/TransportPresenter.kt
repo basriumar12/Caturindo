@@ -34,7 +34,7 @@ class TransportPresenter(private val view: TransportContract.View) : TransportCo
                 api.getTransport(starTime, endTime, date).enqueue(object : Callback<BaseResponse<List<TransportDto>>> {
                     override fun onFailure(call: Call<BaseResponse<List<TransportDto>>>, t: Throwable) {
                         view.hideProgress()
-                        view.onErrorGetData("Gagal request Data")
+                        view.onErrorGetData("Gagal, ada kesalahan akses ke server")
                     }
 
                     override fun onResponse(call: Call<BaseResponse<List<TransportDto>>>, response: Response<BaseResponse<List<TransportDto>>>) {
@@ -44,10 +44,12 @@ class TransportPresenter(private val view: TransportContract.View) : TransportCo
                                 var data = response.body()?.data
                                 view.onSuccessGet(data as MutableList<TransportDto>)
                             } else {
-                                view.onErrorGetData("Gagal, ${response.message()}")
+
+                                view.onErrorGetData("${response?.body()?.message.toString()}")
                             }
                         } else {
-                            view.onErrorGetData("Gagal, ${response.message()}")
+
+                            view.onErrorGetData("${response?.body()?.message.toString()}")
                         }
                     }
                 })
@@ -63,7 +65,7 @@ class TransportPresenter(private val view: TransportContract.View) : TransportCo
                 api.allTransport.enqueue(object : Callback<BaseResponse<List<TransportDto>>> {
                     override fun onFailure(call: Call<BaseResponse<List<TransportDto>>>, t: Throwable) {
                         view.hideProgress()
-                        view.onErrorGetData("Gagal request Data")
+                        view.onErrorGetData("Gagal, ada kesalahan akses ke server")
                     }
 
                     override fun onResponse(call: Call<BaseResponse<List<TransportDto>>>, response: Response<BaseResponse<List<TransportDto>>>) {
@@ -73,10 +75,12 @@ class TransportPresenter(private val view: TransportContract.View) : TransportCo
                                 var data = response.body()?.data
                                 view.onSuccessGet(data as MutableList<TransportDto>)
                             } else {
-                                view.onErrorGetData("Gagal, ${response.message()}")
+
+                                view.onErrorGetData("${response?.body()?.message.toString()}")
                             }
                         } else {
-                            view.onErrorGetData("Gagal, ${response.message()}")
+
+                            view.onErrorGetData("${response?.body()?.message.toString()}")
                         }
                     }
                 })

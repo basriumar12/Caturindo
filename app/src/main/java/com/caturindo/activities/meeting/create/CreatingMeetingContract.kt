@@ -21,6 +21,6 @@ interface CreatingMeetingContract {
 
     interface Presenter {
         fun uploadFile(file : MultipartBody.Part)
-        fun postCreate(meetingRequest: MeetingRequest, idParentMeeting : String)
+        fun postCreate(meetingRequest: MeetingRequest, idParentMeeting : String, idGrup : String)
     }
 }

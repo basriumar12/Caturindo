@@ -85,15 +85,16 @@ class CreateTaskPresenter(private val view: CreatingTaskContract.View) : Creatin
         GlobalScope.launch {
             withContext(Dispatchers.Main) {
                 
-                api.postTask(taskRequest).enqueue(object : retrofit2.Callback<BaseResponse<TaskDto>> {
-                    override fun onFailure(call: Call<BaseResponse<TaskDto>>, t: Throwable) {
+                api.postTask(taskRequest).enqueue(object : retrofit2.Callback<BaseResponseOther> {
+                    override fun onFailure(call: Call<BaseResponseOther>, t: Throwable) {
                      Log.e("TAG","gagal create booking ${t.message}")
                         view.hideProgress()
                         view.failCreate("Gagal create data, ada kesalahan jaringan atau akses ke server")
 
                     }
 
-                    override fun onResponse(call: Call<BaseResponse<TaskDto>>, response: Response<BaseResponse<TaskDto>>) {
+                    override fun onResponse(call: Call<BaseResponseOther>, response: Response<BaseResponseOther>) {
+                        view.hideProgress()
 
 
                         if (response.isSuccessful){
