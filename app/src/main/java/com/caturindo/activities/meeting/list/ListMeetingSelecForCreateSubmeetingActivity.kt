@@ -48,7 +48,7 @@ class ListMeetingSelecForCreateSubmeetingActivity : BaseActivity(), TaskMeetingC
         Prefuser().setCarruntDate(currentDate)
         presenter = TaskMeetingPresenter(this)
         presenter.getMeetingAll(MeetingNewRequest(
-                "", Prefuser().getUser()?.id.toString(),"1",Prefuser().getCarruntDate()
+                "", Prefuser().getUser()?.id.toString(),"1",""
         ))
 
     }

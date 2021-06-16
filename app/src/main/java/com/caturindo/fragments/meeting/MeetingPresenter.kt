@@ -41,7 +41,7 @@ class MeetingPresenter(private val view: MeetingContract.View) : MeetingContract
                         view.onSuccessGet(data as MutableList<MeetingDtoNew>)
                     }else{
 
-                        view.onErrorGetData("${response?.body()?.message.toString()}")
+                        //view.onErrorGetData("${response?.body()?.message.toString()}")
                     }
                     if (response.body()?.data.isNullOrEmpty()){
                         view.dataEmpty()
